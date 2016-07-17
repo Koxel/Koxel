@@ -1,0 +1,160 @@
+fileFormatVersion: 2
+guid: db96252b1d35588488748d1840b0fd65
+timeCreated: 1468784297
+licenseType: Free
+ModelImporter:
+  serializedVersion: 19
+  fileIDToRecycleName:
+    100000: BridgeEW
+    100002: BridgeNeSw
+    100004: BridgeNwSe
+    100006: ManyTrees
+    100008: PathCentre
+    100010: PathEast
+    100012: PathNorthEast
+    100014: PathNorthWest
+    100016: PathSouthEast
+    100018: PathSouthWest
+    100020: PathWest
+    100022: Pebbles
+    100024: SmallHouse
+    100026: //RootNode
+    100028: Tower
+    100030: Trees
+    100032: Trunk
+    100034: Well
+    400000: BridgeEW
+    400002: BridgeNeSw
+    400004: BridgeNwSe
+    400006: ManyTrees
+    400008: PathCentre
+    400010: PathEast
+    400012: PathNorthEast
+    400014: PathNorthWest
+    400016: PathSouthEast
+    400018: PathSouthWest
+    400020: PathWest
+    400022: Pebbles
+    400024: SmallHouse
+    400026: //RootNode
+    400028: Tower
+    400030: Trees
+    400032: Trunk
+    400034: Well
+    2300000: BridgeEW
+    2300002: BridgeNeSw
+    2300004: BridgeNwSe
+    2300006: ManyTrees
+    2300008: PathCentre
+    2300010: PathEast
+    2300012: PathNorthEast
+    2300014: PathNorthWest
+    2300016: PathSouthEast
+    2300018: PathSouthWest
+    2300020: PathWest
+    2300022: Pebbles
+    2300024: SmallHouse
+    2300026: Tower
+    2300028: Trees
+    2300030: Trunk
+    2300032: Well
+    3300000: BridgeEW
+    3300002: BridgeNeSw
+    3300004: BridgeNwSe
+    3300006: ManyTrees
+    3300008: PathCentre
+    3300010: PathEast
+    3300012: PathNorthEast
+    3300014: PathNorthWest
+    3300016: PathSouthEast
+    3300018: PathSouthWest
+    3300020: PathWest
+    3300022: Pebbles
+    3300024: SmallHouse
+    3300026: Tower
+    3300028: Trees
+    3300030: Trunk
+    3300032: Well
+    4300000: Tower
+    4300002: SmallHouse
+    4300004: BridgeNwSe
+    4300006: BridgeNeSw
+    4300008: BridgeEW
+    4300010: PathNorthWest
+    4300012: PathWest
+    4300014: PathSouthWest
+    4300016: PathSouthEast
+    4300018: PathEast
+    4300020: PathNorthEast
+    4300022: PathCentre
+    4300024: Well
+    4300026: Trunk
+    4300028: Trees
+    4300030: ManyTrees
+    4300032: Pebbles
+    7400000: Default Take
+    9500000: //RootNode
+  materials:
+    importMaterials: 1
+    materialName: 0
+    materialSearch: 1
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    resampleRotations: 1
+    optimizeGameObjects: 0
+    motionNodeName: 
+    animationImportErrors: 
+    animationImportWarnings: 
+    animationRetargetingWarnings: 
+    animationDoRetargetingWarnings: 0
+    animationCompression: 1
+    animationRotationError: 0.5
+    animationPositionError: 0.5
+    animationScaleError: 0.5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    clipAnimations: []
+    isReadable: 1
+  meshes:
+    lODScreenPercentages: []
+    globalScale: 1
+    meshCompression: 0
+    addColliders: 0
+    importBlendShapes: 1
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    optimizeMeshForGPU: 1
+    keepQuads: 0
+    weldVertices: 1
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVPackMargin: 4
+    useFileScale: 1
+  tangentSpace:
+    normalSmoothAngle: 60
+    normalImportMode: 0
+    tangentImportMode: 3
+  importAnimation: 1
+  copyAvatar: 0
+  humanDescription:
+    human: []
+    skeleton: []
+    armTwist: 0.5
+    foreArmTwist: 0.5
+    upperLegTwist: 0.5
+    legTwist: 0.5
+    armStretch: 0.05
+    legStretch: 0.05
+    feetSpacing: 0
+    rootMotionBoneName: 
+    hasTranslationDoF: 0
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  animationType: 2
+  humanoidOversampling: 1
+  additionalBone: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
