@@ -6,10 +6,44 @@ ModelImporter:
   serializedVersion: 19
   fileIDToRecycleName:
     100000: //RootNode
+    100002: CharSpace
+    100004: Fern
+    100006: Grass
+    100008: Grass_001
+    100010: Grass_002
+    100012: RoundBush
+    100014: TallBush
     400000: //RootNode
+    400002: CharSpace
+    400004: Fern
+    400006: Grass
+    400008: Grass_001
+    400010: Grass_002
+    400012: RoundBush
+    400014: TallBush
     2300000: //RootNode
+    2300002: CharSpace
+    2300004: Fern
+    2300006: Grass
+    2300008: Grass_001
+    2300010: Grass_002
+    2300012: RoundBush
+    2300014: TallBush
     3300000: //RootNode
+    3300002: CharSpace
+    3300004: Fern
+    3300006: Grass
+    3300008: Grass_001
+    3300010: Grass_002
+    3300012: RoundBush
+    3300014: TallBush
     4300000: CharSpace
+    4300002: Grass_002
+    4300004: Grass_001
+    4300006: Grass
+    4300008: Fern
+    4300010: RoundBush
+    4300012: TallBush
     7400000: Default Take
     9500000: //RootNode
   materials:

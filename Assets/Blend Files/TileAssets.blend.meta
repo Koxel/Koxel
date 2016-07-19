@@ -23,6 +23,10 @@ ModelImporter:
     100030: Trees
     100032: Trunk
     100034: Well
+    100036: Fiery_Altar
+    100038: Fiery_Pillars
+    100040: Fiery_Portal
+    100042: TreeTrump
     400000: BridgeEW
     400002: BridgeNeSw
     400004: BridgeNwSe
@@ -41,6 +45,10 @@ ModelImporter:
     400030: Trees
     400032: Trunk
     400034: Well
+    400036: Fiery_Altar
+    400038: Fiery_Pillars
+    400040: Fiery_Portal
+    400042: TreeTrump
     2300000: BridgeEW
     2300002: BridgeNeSw
     2300004: BridgeNwSe
@@ -58,6 +66,10 @@ ModelImporter:
     2300028: Trees
     2300030: Trunk
     2300032: Well
+    2300034: Fiery_Altar
+    2300036: Fiery_Pillars
+    2300038: Fiery_Portal
+    2300040: TreeTrump
     3300000: BridgeEW
     3300002: BridgeNeSw
     3300004: BridgeNwSe
@@ -75,6 +87,10 @@ ModelImporter:
     3300028: Trees
     3300030: Trunk
     3300032: Well
+    3300034: Fiery_Altar
+    3300036: Fiery_Pillars
+    3300038: Fiery_Portal
+    3300040: TreeTrump
     4300000: Tower
     4300002: SmallHouse
     4300004: BridgeNwSe
@@ -92,6 +108,10 @@ ModelImporter:
     4300028: Trees
     4300030: ManyTrees
     4300032: Pebbles
+    4300034: Fiery_Altar
+    4300036: Fiery_Pillars
+    4300038: Fiery_Portal
+    4300040: TreeTrump
     7400000: Default Take
     9500000: //RootNode
   materials:

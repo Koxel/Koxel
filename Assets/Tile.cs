@@ -3,12 +3,12 @@ using System.Collections;
 
 public class Tile : MonoBehaviour {
 
-	public string type;
-	public Vector3 playerLocation = new Vector3(0, 0, 0);
+	public string biome;
+	public string region;
 
 	// Use this for initialization
 	void Start () {
-		playerLocation = transform.position;
+		
 	}
 	
 	// Update is called once per frame
