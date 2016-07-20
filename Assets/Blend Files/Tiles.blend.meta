@@ -16,6 +16,7 @@ ModelImporter:
     100016: //RootNode
     100018: WaterTile
     100020: AllTiles
+    100022: HoverTile
     400000: DesertTile
     400002: ForestTile
     400004: HillTile
@@ -27,6 +28,7 @@ ModelImporter:
     400016: //RootNode
     400018: WaterTile
     400020: AllTiles
+    400022: HoverTile
     2300000: DesertTile
     2300002: ForestTile
     2300004: HillTile
@@ -36,6 +38,7 @@ ModelImporter:
     2300012: Road
     2300014: SnowTile
     2300016: WaterTile
+    2300018: HoverTile
     3300000: DesertTile
     3300002: ForestTile
     3300004: HillTile
@@ -45,6 +48,7 @@ ModelImporter:
     3300012: Road
     3300014: SnowTile
     3300016: WaterTile
+    3300018: HoverTile
     4300000: SnowTile
     4300002: MountTainTile
     4300004: HillTile
@@ -54,6 +58,7 @@ ModelImporter:
     4300012: WaterTile
     4300014: DesertTile
     4300016: ForestTile
+    4300018: HoverTile
     7400000: Default Take
     9500000: //RootNode
   materials:
