@@ -17,6 +17,15 @@ ModelImporter:
     100018: WaterTile
     100020: AllTiles
     100022: HoverTile
+    100024: CaveTile
+    100026: DeepCaveTile
+    100028: DeepDesertTile
+    100030: DeepForestTile
+    100032: DeepHillsTile
+    100034: DeepMountainTile
+    100036: DeepOceanTile
+    100038: DeepSnowTile
+    100040: TileColl
     400000: DesertTile
     400002: ForestTile
     400004: HillTile
@@ -29,6 +38,15 @@ ModelImporter:
     400018: WaterTile
     400020: AllTiles
     400022: HoverTile
+    400024: CaveTile
+    400026: DeepCaveTile
+    400028: DeepDesertTile
+    400030: DeepForestTile
+    400032: DeepHillsTile
+    400034: DeepMountainTile
+    400036: DeepOceanTile
+    400038: DeepSnowTile
+    400040: TileColl
     2300000: DesertTile
     2300002: ForestTile
     2300004: HillTile
@@ -39,6 +57,15 @@ ModelImporter:
     2300014: SnowTile
     2300016: WaterTile
     2300018: HoverTile
+    2300020: CaveTile
+    2300022: DeepCaveTile
+    2300024: DeepDesertTile
+    2300026: DeepForestTile
+    2300028: DeepHillsTile
+    2300030: DeepMountainTile
+    2300032: DeepOceanTile
+    2300034: DeepSnowTile
+    2300036: TileColl
     3300000: DesertTile
     3300002: ForestTile
     3300004: HillTile
@@ -49,6 +76,15 @@ ModelImporter:
     3300014: SnowTile
     3300016: WaterTile
     3300018: HoverTile
+    3300020: CaveTile
+    3300022: DeepCaveTile
+    3300024: DeepDesertTile
+    3300026: DeepForestTile
+    3300028: DeepHillsTile
+    3300030: DeepMountainTile
+    3300032: DeepOceanTile
+    3300034: DeepSnowTile
+    3300036: TileColl
     4300000: SnowTile
     4300002: MountTainTile
     4300004: HillTile
@@ -59,6 +95,15 @@ ModelImporter:
     4300014: DesertTile
     4300016: ForestTile
     4300018: HoverTile
+    4300020: CaveTile
+    4300022: DeepCaveTile
+    4300024: DeepSnowTile
+    4300026: DeepMountainTile
+    4300028: DeepHillsTile
+    4300030: DeepOceanTile
+    4300032: DeepDesertTile
+    4300034: DeepForestTile
+    4300036: TileColl
     7400000: Default Take
     9500000: //RootNode
   materials:
