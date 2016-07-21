@@ -1,18 +1,84 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.IO;
+using System.Reflection;
+using System.Collections.Generic;
+using LitJson;
 
 public class Tile : MonoBehaviour {
+
+	private string jsonString;
+	public string[] randomEventsList;
+	//public string[] ScheduledEventsList;
+	private JsonData itemData;
+
+
 
 	public string biome;
 	public string region;
 
-	// Use this for initialization
+
+	/// <summary>
+	/// Start this instance.
+	/// </summary>
 	void Start () {
-		
+		// Only use if there are events
+		if (randomEventsList.Length > 0) {
+			ParseJSON ();
+		}
+
+		// Set the biome name if missing
+		if (biome == "")
+			biome = gameObject.name.Replace("Tile", "");
 	}
-	
-	// Update is called once per frame
-	void Update () {
-	
+
+	// Tile Tick is called from the Game manager, instead of Update()
+	public void TileTick (){
+		// Check if an event should run
+		// add a list of possible events (activate function with: gameObject.SendMessage (name, args);)
+	}
+
+	private void iParsedJSON (List<object> args){
+
+	}
+
+
+	// To parse JSON at beginning
+	private void ParseJSON () {
+		// Parse all given files
+		for (int fileNr = 0; fileNr != randomEventsList.Length; fileNr++) {  
+			// Create an object of the text
+			jsonString = File.ReadAllText (Application.dataPath + "/GameEvents/" + randomEventsList [fileNr] + ".json");
+			itemData = JsonMapper.ToObject (jsonString)["EventData"];
+
+			// Seperate the blocks
+			for (int dataNr = 0; dataNr != itemData.Count; dataNr++) { 
+				var name = (string) itemData [dataNr] ["Name"];
+
+				// Create an empty list to store the attributes (every new data block)
+				List<object> args = new List<object>();
+				// Add the name at first
+				args.Add (name);
+
+				// Scroll through all the atributes the event has
+				for (int attribute = 1; attribute != itemData [dataNr].Count; attribute++) {
+					// Add them to the list
+					args.Add (itemData [dataNr] [attribute]);
+				}
+
+				// Call the method with using the name and args
+				iParsedJSON(args);
+			}
+		}
+	}
+
+
+
+	// Event methods
+	public void SpawnObject (List<object> args){
+		var obj = args[1];
+		var chance = args [2];
+
+		Debug.Log ("Chance to spawn " + obj + " is " + chance);
 	}
 }

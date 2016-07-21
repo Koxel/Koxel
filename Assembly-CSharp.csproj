@@ -49,11 +49,15 @@
      <Compile Include="Assets\NewBehaviourScript.cs" />
      <Compile Include="Assets\Tile.cs" />
      <Compile Include="Assets\TileClickManager.cs" />
+     <Compile Include="Assets\TileTicker.cs" />
  <Reference Include="UnityEngine.UI">
  <HintPath>C:/Program Files/Unity/Editor/Data/UnityExtensions/Unity/GUISystem/UnityEngine.UI.dll</HintPath>
  </Reference>
  <Reference Include="UnityEngine.Networking">
  <HintPath>C:/Program Files/Unity/Editor/Data/UnityExtensions/Unity/Networking/UnityEngine.Networking.dll</HintPath>
+ </Reference>
+ <Reference Include="LitJson">
+ <HintPath>C:/Users/Ivo/Documents/Unity Projects/Koxel/Assets/LitJson.dll</HintPath>
  </Reference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

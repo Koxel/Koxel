@@ -1,0 +1,14 @@
+{
+    "EventData":[
+        {
+            "Name": "SpawnObject",
+            "Object": "Trees",
+            "Chance": 0.3
+        },
+        {
+            "Name": "SpawnObject",
+            "Object": "ManyTrees",
+            "Chance": 0.1
+        }
+    ]
+}

@@ -1,0 +1,14 @@
+{
+    "EventData":[
+        {
+            "Name": "SpawnObject",
+            "Object": "Bush",
+            "Chance": 0.5
+        },
+        {
+            "Name": "SpawnObject",
+            "Object": "BigBush",
+            "Chance": 0.3
+        }
+    ]
+}
