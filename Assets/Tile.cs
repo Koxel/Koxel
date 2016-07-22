@@ -10,19 +10,14 @@ public class Tile : MonoBehaviour {
 	private string jsonString;
 	public string[] randomEventsList;
 	//public string[] ScheduledEventsList;
-	private JsonData itemData;
-
-
 
 	public string biome;
 	public string region;
 
 
-	/// <summary>
-	/// Start this instance.
-	/// </summary>
+
 	void Start () {
-		// Only use if there are events
+		// Only if there are events given
 		if (randomEventsList.Length > 0) {
 			ParseJSON ();
 		}
@@ -36,6 +31,8 @@ public class Tile : MonoBehaviour {
 	public void TileTick (){
 		// Check if an event should run
 		// add a list of possible events (activate function with: gameObject.SendMessage (name, args);)
+
+		Debug.Log (name);
 	}
 
 	private void iParsedJSON (List<object> args){
@@ -49,7 +46,7 @@ public class Tile : MonoBehaviour {
 		for (int fileNr = 0; fileNr != randomEventsList.Length; fileNr++) {  
 			// Create an object of the text
 			jsonString = File.ReadAllText (Application.dataPath + "/GameEvents/" + randomEventsList [fileNr] + ".json");
-			itemData = JsonMapper.ToObject (jsonString)["EventData"];
+			JsonData itemData = JsonMapper.ToObject (jsonString)["EventData"];
 
 			// Seperate the blocks
 			for (int dataNr = 0; dataNr != itemData.Count; dataNr++) { 
@@ -57,11 +54,14 @@ public class Tile : MonoBehaviour {
 
 				// Create an empty list to store the attributes (every new data block)
 				List<object> args = new List<object>();
-				// Add the name at first
-				args.Add (name);
+				// Add name, biome(s) and player requirement
+				// (always required)
+				args.Add (itemData [dataNr] ["Name"]);
+				args.Add (itemData [dataNr] ["Biome"]);
+				args.Add (itemData [dataNr] ["Player"]);
 
 				// Scroll through all the atributes the event has
-				for (int attribute = 1; attribute != itemData [dataNr].Count; attribute++) {
+				for (int attribute = args.Count+1; attribute != itemData [dataNr].Count; attribute++) {
 					// Add them to the list
 					args.Add (itemData [dataNr] [attribute]);
 				}
