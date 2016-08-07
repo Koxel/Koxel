@@ -1,0 +1,12 @@
+{
+    "EventData":[
+        {
+            "Name": "SpawnItem",
+            "Object": "Branch",
+			"MaxAmount":"50",
+			"MinAmount":"10",
+			"Chance":"0.9", //Chance of item(s) actually being given
+			"Description":"a few branches."
+        }
+    ]
+}

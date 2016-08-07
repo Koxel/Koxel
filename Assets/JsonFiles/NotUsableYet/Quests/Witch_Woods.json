@@ -1,0 +1,67 @@
+{
+  "QuestData":{
+
+    "Steps":3,//how many parts this quest has
+    "Type":"TownQuest",
+    "Level":3,
+
+    "Fullreward":{
+      "Money":40,
+      "Experience":70,
+      "Item":null
+    },
+    "PartReward":{
+      "Money":30,
+      "Experience":40,
+      "Item":"Bottle"
+    },
+
+    "Step1":{
+      "Coordinates":["CurrentLocation"],
+      "Biome":["Town"],
+
+      "OnReach":["SpawnText","You look like you could help us. @there is a witch spoiling out crops in the woods nearby, could you help us?"],//The first is a function call the second depends on the function called and @ = enter
+
+    },
+
+    "Step2":{
+      "Coordinates":["NearbyBiome"],//Selects a nearby biome tile of the type stated below to start the quest at
+      "Biome":["Forest","DeepForest"],
+
+      "OnReach":["SpawnChoise",{
+        "Desc":"You found the witch at the location described though she insist she's not the one causing trouble",
+        "GoodAnswer":["Belief her.",["SpawnText","Thank you kind traveler, please tell them I am dead however... @Wouldnt want them to think I'm still a thread."]],
+        "BadAnswer":["Attack!",["SpawnEnemy",1,"Witch"]],
+        "IgnoreAnswer": null //grey out this button
+        }],
+
+
+    },
+
+    "Step3":{
+      "Coordinates":"QuestStart",//Goes to the coordinates where the quest was started
+      "Biome":"Town",
+
+      "OnReach":["SpawnDepend",{//makes the player choose one of three buttons
+        "Desc":"Ah you're back, did you kill the witch for us?",
+
+        "IfLastStepGoodAnswer":["SpawnChoise",{//do this if the last step's answer was good
+          "Desc":null,
+          "GoodAnswer":["It was a tough battle but I managed to finish her off.","FullReward"], //these are displayed on the 3 buttons in the conversation UI
+          "BadAnswer":["She wasent a thread so I didnt kill her","NoReward"],
+          "IgnoreAnswer":["She wont bother you again.","FullReward"]
+        }],
+
+        "IfLastStepBadAnswer":["SpawnChoise",{
+          "Desc":null,
+          "GoodAnswer":["It was a tricky fight but she's gone now","FullReward"],
+          "BadAnswer":["She was no biggy, weak as a stick","PartReward"],
+          "IgnoreAnswer":["Dont worry about the reward, she had plenty of loot around","NoReward"],
+
+        "IfLastStepIgnoreAnswer":null
+        }]
+        }]
+    }
+  }
+
+}

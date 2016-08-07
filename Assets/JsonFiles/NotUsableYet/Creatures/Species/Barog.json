@@ -1,0 +1,28 @@
+{
+  "SpecieData":{
+    "HealthBase":70,//If you select this species these will be your default stats at level 1
+    "ManaBase":30,
+    "StaminaBase":50,
+
+    "PhysicalDefenseBase":60,
+    "MagicDefenceBase":60,
+
+    "PhysicalAttackBase":30,
+    "MagicAttackBase":30,
+
+    "EffectStrenght":"Water",
+    "EffectWeakness":"Fire",
+
+    "Desc":"Barog's are natural tanks.",
+    "BackGround":"The Barog are a lizzard like species that seem like they just crawled out of the water.@
+                  They are slow but very durable and always seem to be dripping water.",
+    "Looks":{
+      "Eyes":"Lizzard like",
+      "Nose":"None",
+      "Feet":"Webbed",
+      "Hands":"Webbed",
+      "Tail":"Spined",
+    }
+  }
+
+}

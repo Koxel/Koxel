@@ -1,0 +1,11 @@
+{
+    "EventData":[
+        {
+            "Name": "SpawnTreasure",
+            "Rarity": "2",
+			"MaxAmount":"20",
+			"MinAmount":"12",
+			"Chance":"0.1"
+        }
+    ]
+}
