@@ -7,6 +7,7 @@ using LitJson;
 
 public class Tile : MonoBehaviour {
 
+	public string jsonFolders = "/JSON files/Events/";
 	private string jsonString;
 	public string[] randomEventsList;
 	//public string[] ScheduledEventsList;
@@ -45,7 +46,7 @@ public class Tile : MonoBehaviour {
 		// Parse all given files
 		for (int fileNr = 0; fileNr != randomEventsList.Length; fileNr++) {  
 			// Create an object of the text
-			jsonString = File.ReadAllText (Application.dataPath + "/GameEvents/" + randomEventsList [fileNr] + ".json");
+			jsonString = File.ReadAllText (Application.dataPath + jsonFolders + randomEventsList [fileNr] + ".json");
 			JsonData itemData = JsonMapper.ToObject (jsonString)["EventData"];
 
 			// Seperate the blocks
