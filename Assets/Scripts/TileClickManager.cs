@@ -6,6 +6,6 @@ public class TileClickManager : MonoBehaviour {
 	public MoveManager manager;
 
 	void OnMouseDown(){
-		manager.moveTo (transform.position);
+		manager.moveTo (transform);
 	}
 }

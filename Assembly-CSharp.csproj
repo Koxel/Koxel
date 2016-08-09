@@ -45,11 +45,12 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-     <Compile Include="Assets\MoveManager.cs" />
-     <Compile Include="Assets\NewBehaviourScript.cs" />
-     <Compile Include="Assets\Tile.cs" />
-     <Compile Include="Assets\TileClickManager.cs" />
-     <Compile Include="Assets\TileTicker.cs" />
+     <Compile Include="Assets\Scripts\MoveManager.cs" />
+     <Compile Include="Assets\Scripts\NewBehaviourScript.cs" />
+     <Compile Include="Assets\Scripts\Tile.cs" />
+     <Compile Include="Assets\Scripts\TileClickManager.cs" />
+     <Compile Include="Assets\Scripts\TileTicker.cs" />
+     <Compile Include="Assets\getdistance.cs" />
  <Reference Include="UnityEngine.UI">
  <HintPath>C:/Program Files/Unity/Editor/Data/UnityExtensions/Unity/GUISystem/UnityEngine.UI.dll</HintPath>
  </Reference>

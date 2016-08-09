@@ -16,7 +16,6 @@ public class Tile : MonoBehaviour {
 	public string region;
 
 
-
 	void Start () {
 		// Only if there are events given
 		if (randomEventsList.Length > 0) {
@@ -73,13 +72,18 @@ public class Tile : MonoBehaviour {
 		}
 	}
 
+	public List<Transform> FindConnectedTiles() {
+		Transform parent = transform.parent;
+		List<Transform> connectedTiles = new List<Transform>();
 
-
-	// Event methods
-	public void SpawnObject (List<object> args){
-		var obj = args[1];
-		var chance = args [2];
-
-		Debug.Log ("Chance to spawn " + obj + " is " + chance);
+		foreach (Transform tile in parent.transform){
+			//Debug.Log (tile.name + Vector3.Distance (transform.position, tile.position));
+			if (tile != transform){
+				if (Vector3.Distance (transform.position, tile.position) < 2f) { 
+					connectedTiles.Add (tile);
+				}
+			}
+		}
+		return connectedTiles;
 	}
 }
