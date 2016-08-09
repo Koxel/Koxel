@@ -4,7 +4,7 @@ using System.Collections.Generic;
 
 public class MoveManager : MonoBehaviour {
 
-	public bool selectingTile;
+	public bool selectingTile = true;
 	public GameObject player;
 	private float fract = 0.1f;
 	private bool shouldMove = false;
