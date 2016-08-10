@@ -4,7 +4,7 @@ using System.Collections.Generic;
 
 public class MoveManager : MonoBehaviour {
 
-	public bool selectingTile = true;
+	private bool selectingTile = true;
 	public GameObject player;
 	private float fract = 0.1f;
 	private bool shouldMove = false;
@@ -20,20 +20,22 @@ public class MoveManager : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {		
 		if (shouldMove){
-			//Debug.Log (TilePath [pathItem]);
-			player.transform.position = Vector3.MoveTowards (player.transform.position, TilePath[pathItem].position, fract);
+			player.transform.position = Vector3.MoveTowards (player.transform.position, MoveGoal.position, fract);
 
-			if (Vector3.Distance (player.transform.position, TilePath [pathItem].position) == 0) {
-				gameObject.GetComponent<TileTicker> ().TileTick ();
+			if (Vector3.Distance (player.transform.position, TilePath [pathItem].position) == 0)
+				NextTile ();
+		}
+	}
 
-				if (pathItem != 0)
-					pathItem = pathItem - 1;
-				else
-					shouldMove = false;
-				
-			}
-				
-				
+	public void NextTile(){
+		gameObject.GetComponent<TileTicker> ().TileTick (player.transform.position);
+
+		if (pathItem != 0){
+			pathItem = pathItem - 1;
+			MoveGoal = TilePath [pathItem];
+		} else {
+			shouldMove = false;
+			selectingTile = true;
 		}
 	}
 
@@ -41,8 +43,9 @@ public class MoveManager : MonoBehaviour {
 		if (selectingTile) {
 			TilePath = CalculatePath (goal);
 			pathItem = TilePath.Count-1;
+			MoveGoal = TilePath [pathItem];
 			shouldMove = true;
-
+			selectingTile = false;
 		}
 	}
 
@@ -75,11 +78,5 @@ public class MoveManager : MonoBehaviour {
 		}
 
 		return tMin;
-	}
-
-	void NextTile() {
-		if (shouldMove) {
-
-		}
 	}
 }

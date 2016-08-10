@@ -50,7 +50,7 @@ public class Tile : MonoBehaviour {
 
 			// Seperate the blocks
 			for (int dataNr = 0; dataNr != itemData.Count; dataNr++) { 
-				var name = (string) itemData [dataNr] ["Name"];
+				//var name = (string) itemData [dataNr] ["Name"];
 
 				// Create an empty list to store the attributes (every new data block)
 				List<object> args = new List<object>();
