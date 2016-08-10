@@ -290,7 +290,78 @@
       "PhysicalAttackBase":30,
       "MagicAttackBase":10,
     }},
-  "Shield":{},
+  "Shield":{
+    "AttackType":"Stamina",
+    "Skils":{
+    "Defend":{
+      "Desc":"You ready your shield.",
+      "SkillType":"Effect",
+      "Weapon":"Shield",
+      "NeedEffect":null,
+      "Functions":null,
+      "Health":0,
+      "Mana":0,
+      "Stamina":8,
+      "DamageMult":null,
+      "Affect":"self",
+      "Effect":["self",["Resistant",2,4]],
+      "Level":1
+    },
+    "ShieldBash":{
+      "Desc":"You hit the enemy with your shield.",
+      "SkillType":"Attack",
+      "Weapon":"Shield",
+      "NeedEffect":["self",["Resistant",1]],
+      "Functions":null,
+      "Health":0,
+      "Mana":0,
+      "Stamina":20,
+      "DamageMult":3,
+      "Affect":"Target",
+      "Effect":["Target",["Stunned",1,2]],
+      "Level":3
+    },
+    "BoomeShield":{
+      "Desc":"You throw your shield at the enemy.",
+      "SkillType":"Attack",
+      "Weapon":"Shield",
+      "NeedEffect":null,
+      "Functions":null,
+      "Health":5,
+      "Mana":10,
+      "Stamina":50,
+      "DamageMult":4,
+      "Affect":"Target",
+      "Effect":["Target",["Stunned",1,2]],//Unarms the enemy (less damage)
+      "Level":6
+    },
+    "ShieldOversize":{
+      "Desc":"You use size magic to make a massive shield.",
+      "SkillType":"Effect",
+      "Weapon":"Mace",
+      "NeedEffect":null,
+      "Functions":null,
+      "Health":20,
+      "Mana":50,
+      "Stamina":80,
+      "DamageMult":0,
+      "Affect":"Team",
+      "Effect":["Team",["Resistant",4,6]],
+      "Level":15
+    }},
+
+    "Stats":{
+
+      "HealthBase":5,
+      "ManaBase":5,
+      "StaminaBase":20,
+
+      "PhysicalDefenseBase":30,
+      "MagicDefenceBase":5,
+
+      "PhysicalAttackBase":15,
+      "MagicAttackBase":10,
+    }},
   "HeavyWeapon":{},
   "LightWeapon":{},
   "HeavyMagic":{},
