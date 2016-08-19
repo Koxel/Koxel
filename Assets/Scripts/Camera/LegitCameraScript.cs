@@ -18,18 +18,16 @@ public class LegitCameraScript : MonoBehaviour {
 
     // Update is called once per frame
     void Update () {
-        if (Input.GetMouseButton(0))
+
+        if (Input.GetAxis("Mouse ScrollWheel") > 0 && i < max)
         {
-            if (Input.GetAxis("Mouse Y") > 0 && i < max)
-            {
-                transform.Translate(Vector3.forward * movespeed);
-                i++;
-            }
-            if (Input.GetAxis("Mouse Y") < 0 && i > max * -1)
-            {
-                transform.Translate(Vector3.back * movespeed);
-                i--;
-            }
+            transform.Translate(Vector3.forward * movespeed);
+            i++;
+        }
+        if (Input.GetAxis("Mouse ScrollWheel") < 0 && i > max * -1)
+        {
+            transform.Translate(Vector3.back * movespeed);
+            i--;
         }
     }
 }
