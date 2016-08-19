@@ -7,13 +7,13 @@ public class TileClickManager : MonoBehaviour {
 	public MoveManager manager;
 
 	void OnMouseDown(){
-        // Start coroutine waiting for 0.3 sec
+        // Start coroutine waiting for 0.1 sec
         StartCoroutine(countclick());
 	}
 
     private IEnumerator countclick()
     {
-        yield return new WaitForSeconds(0.3f);
+        yield return new WaitForSeconds(0.1f);
         // If mouse is NOT still down: count as a legit click!
         if (!Input.GetMouseButton(0))
         {
