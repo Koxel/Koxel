@@ -17649,6 +17649,8 @@ Note: calling this function will implicitly call Application.SetStackTraceLogTyp
       </summary>
     </member>
     <member name="T:UnityEditor.PlayerSettings.WiiU">
+<<<<<<< HEAD
+=======
       <summary>
         <para>Wii U specific player settings.</para>
       </summary>
@@ -17684,6 +17686,246 @@ Note: calling this function will implicitly call Application.SetStackTraceLogTyp
       </summary>
     </member>
     <member name="P:UnityEditor.PlayerSettings.WiiU.controllerCount">
+      <summary>
+        <para>Max number of supported Wii controllers.</para>
+      </summary>
+    </member>
+    <member name="P:UnityEditor.PlayerSettings.WiiU.gamePadMSAA">
+      <summary>
+        <para>GamePad's MSAA quality.</para>
+      </summary>
+    </member>
+    <member name="P:UnityEditor.PlayerSettings.WiiU.gamePadStartupScreen">
+      <summary>
+        <para>Image displayed on GamePad during startup.</para>
+      </summary>
+    </member>
+    <member name="P:UnityEditor.PlayerSettings.WiiU.groupID">
+      <summary>
+        <para>Group ID.</para>
+      </summary>
+    </member>
+    <member name="P:UnityEditor.PlayerSettings.WiiU.joinGameId">
+      <summary>
+        <para>Join-in game ID (game server ID) provided by Nintendo.</para>
+      </summary>
+    </member>
+    <member name="P:UnityEditor.PlayerSettings.WiiU.joinGameModeMask">
+      <summary>
+        <para>Join-in game mode mask.</para>
+      </summary>
+    </member>
+    <member name="P:UnityEditor.PlayerSettings.WiiU.loaderThreadStackSize">
+      <summary>
+        <para>Stack size for the loader thread in kilobytes.</para>
+      </summary>
+    </member>
+    <member name="P:UnityEditor.PlayerSettings.WiiU.mainThreadStackSize">
+      <summary>
+        <para>Stack size for the main thread in kilobytes.</para>
+      </summary>
+    </member>
+    <member name="P:UnityEditor.PlayerSettings.WiiU.olvAccessKey">
+      <summary>
+        <para>OLV access key provided by Nintendo.</para>
+      </summary>
+    </member>
+    <member name="P:UnityEditor.PlayerSettings.WiiU.profilerLibraryPath">
+      <summary>
+        <para>Path to CPU profiler library that should be passed to linker.</para>
+      </summary>
+    </member>
+    <member name="P:UnityEditor.PlayerSettings.WiiU.supportsBalanceBoard">
+      <summary>
+        <para>Is Balance Board is supported?</para>
+      </summary>
+    </member>
+    <member name="P:UnityEditor.PlayerSettings.WiiU.supportsClassicController">
+      <summary>
+        <para>Is Classic Controller supported?</para>
+      </summary>
+    </member>
+    <member name="P:UnityEditor.PlayerSettings.WiiU.supportsMotionPlus">
+      <summary>
+        <para>Is Motion Plus extension controller supported?</para>
+      </summary>
+    </member>
+    <member name="P:UnityEditor.PlayerSettings.WiiU.supportsNunchuk">
+      <summary>
+        <para>Is Nunchuk extension supported?</para>
+      </summary>
+    </member>
+    <member name="P:UnityEditor.PlayerSettings.WiiU.supportsProController">
+      <summary>
+        <para>Is Pro Controller supported?</para>
+      </summary>
+    </member>
+    <member name="P:UnityEditor.PlayerSettings.WiiU.systemHeapSize">
+      <summary>
+        <para>System heap size in kilobytes.</para>
+      </summary>
+    </member>
+    <member name="P:UnityEditor.PlayerSettings.WiiU.tinCode">
+      <summary>
+        <para>TIN (Title Identification Number) provided by Nintendo.</para>
+      </summary>
+    </member>
+    <member name="P:UnityEditor.PlayerSettings.WiiU.titleID">
+      <summary>
+        <para>Title ID.</para>
+      </summary>
+    </member>
+    <member name="P:UnityEditor.PlayerSettings.WiiU.tvResolution">
+      <summary>
+        <para>TV resolution.</para>
+      </summary>
+    </member>
+    <member name="P:UnityEditor.PlayerSettings.WiiU.tvStartupScreen">
+      <summary>
+        <para>Image displayed on TV during startup.</para>
+      </summary>
+    </member>
+    <member name="T:UnityEditor.PlayerSettings.WSA">
+      <summary>
+        <para>Windows Store Apps specific player settings.</para>
+      </summary>
+    </member>
+    <member name="P:UnityEditor.PlayerSettings.WSA.compilationOverrides">
+      <summary>
+        <para>Specify how to compile C# files when building to Windows Store Apps.</para>
+      </summary>
+    </member>
+    <member name="P:UnityEditor.PlayerSettings.WSA.enableIndependentInputSource">
+      <summary>
+        <para>Enable/Disable independent input source feature.</para>
+      </summary>
+    </member>
+    <member name="P:UnityEditor.PlayerSettings.WSA.enableLowLatencyPresentationAPI">
+      <summary>
+        <para>Enable/Disable low latency presentation API.</para>
+      </summary>
+    </member>
+    <member name="T:UnityEditor.PlayerSettings.WSA.Declarations">
+      <summary>
+        <para>Windows Store Apps declarations.</para>
+      </summary>
+    </member>
+    <member name="P:UnityEditor.PlayerSettings.WSA.Declarations.fileTypeAssociations">
+      <summary>
+        <para>Set information for file type associations.
+
+For more information - https:msdn.microsoft.comlibrarywindowsappshh779671https:msdn.microsoft.comlibrarywindowsappshh779671.</para>
+      </summary>
+    </member>
+    <member name="P:UnityEditor.PlayerSettings.WSA.Declarations.protocolName">
+      <summary>
+        <para>
+          Registers this application to be a default handler for specified URI scheme name.
+
+          For example: if you specify myunitygame, your application can be run from other applications via the URI scheme myunitygame:. You can also test this using the Windows "Run" dialog box (invoked with Windows + R key).
+          
+          For more information https:msdn.microsoft.comlibrarywindowsappshh779670https:msdn.microsoft.comlibrarywindowsappshh779670.</para>
+      </summary>
+    </member>
+    <member name="M:UnityEditor.PlayerSettings.WSA.GetVisualAssetsImage(UnityEditor.PlayerSettings/WSAImageType,UnityEditor.PlayerSettings/WSAImageScale)">
+      <summary>
+        <para>Get path for image, that will be populated to the Visual Studio solution and the package manifest.</para>
+      </summary>
+      <param name="type"></param>
+      <param name="scale"></param>
+    </member>
+    <member name="M:UnityEditor.PlayerSettings.WSA.SetVisualAssetsImage(System.String,UnityEditor.PlayerSettings/WSAImageType,UnityEditor.PlayerSettings/WSAImageScale)">
+      <summary>
+        <para>Set path for image, that will be populated to the Visual Studio solution and the package manifest.</para>
+      </summary>
+      <param name="image"></param>
+      <param name="type"></param>
+      <param name="scale"></param>
+    </member>
+    <member name="T:UnityEditor.PlayerSettings.WSACompilationOverrides">
+>>>>>>> origin/master
+      <summary>
+        <para>Wii U specific player settings.</para>
+      </summary>
+    </member>
+    <member name="P:UnityEditor.PlayerSettings.WiiU.accountBossSize">
+      <summary>
+        <para>Account's size in kiB for BOSS.</para>
+      </summary>
+    </member>
+    <member name="P:UnityEditor.PlayerSettings.WiiU.accountSaveSize">
+      <summary>
+        <para>Account's size in kiB for SAVE.</para>
+      </summary>
+    </member>
+    <member name="P:UnityEditor.PlayerSettings.WiiU.addOnUniqueIDs">
+      <summary>
+        <para>Unique IDs of Add-ons.</para>
+      </summary>
+    </member>
+<<<<<<< HEAD
+    <member name="P:UnityEditor.PlayerSettings.WiiU.allowScreenCapture">
+=======
+    <member name="T:UnityEditor.PlayerSettings.WSAFileTypeAssociations">
+      <summary>
+        <para>Describes File Type Association declaration.</para>
+      </summary>
+    </member>
+    <member name="F:UnityEditor.PlayerSettings.WSAFileTypeAssociations.name">
+      <summary>
+        <para>Localizable string that will be displayed to the user as associated file handler.</para>
+      </summary>
+    </member>
+    <member name="F:UnityEditor.PlayerSettings.WSAFileTypeAssociations.supportedFileTypes">
+      <summary>
+        <para>Supported file types for this association.</para>
+      </summary>
+    </member>
+    <member name="T:UnityEditor.PlayerSettings.WSAImageScale">
+>>>>>>> origin/master
+      <summary>
+        <para>Allow screen capture during gameplay.</para>
+      </summary>
+    </member>
+    <member name="P:UnityEditor.PlayerSettings.WiiU.commonBossSize">
+      <summary>
+        <para>Common account's size in kiB for BOSS.</para>
+      </summary>
+    </member>
+<<<<<<< HEAD
+    <member name="P:UnityEditor.PlayerSettings.WiiU.commonSaveSize">
+=======
+    <member name="T:UnityEditor.PlayerSettings.WSASupportedFileType">
+      <summary>
+        <para>Describes supported file type for File Type Association declaration.</para>
+      </summary>
+    </member>
+    <member name="F:UnityEditor.PlayerSettings.WSASupportedFileType.contentType">
+      <summary>
+        <para>The 'Content Type' value for the file type's MIME content type. For example: 'image/jpeg'. Can also be left blank.</para>
+      </summary>
+    </member>
+    <member name="F:UnityEditor.PlayerSettings.WSASupportedFileType.fileType">
+      <summary>
+        <para>File type extension. For ex., .myUnityGame</para>
+      </summary>
+    </member>
+    <member name="T:UnityEditor.PlayerSettings.XboxOne">
+>>>>>>> origin/master
+      <summary>
+        <para>Common account's size in kiB for SAVE.</para>
+      </summary>
+    </member>
+<<<<<<< HEAD
+    <member name="P:UnityEditor.PlayerSettings.WiiU.controllerCount">
+=======
+    <member name="P:UnityEditor.PlayerSettings.XboxOne.monoLoggingLevel">
+      <summary>
+        <para>This option controls the mono trace log in XboxOne builds. This is a very verbose and expensive tool that can be used to help with debugging a potential mono issue.</para>
+      </summary>
+    </member>
+    <member name="M:UnityEditor.PlayerSettings.XboxOne.AddAllowedProductId(System.String)">
+>>>>>>> origin/master
       <summary>
         <para>Max number of supported Wii controllers.</para>
       </summary>
