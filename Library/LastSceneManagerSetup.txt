@@ -1,4 +1,4 @@
 sceneSetups:
-- path: Assets/Scenes/StartIsland.unity
+- path: Assets/Scenes/WorkingWorld.unity
   isLoaded: 1
   isActive: 1
