@@ -1,0 +1,170 @@
+fileFormatVersion: 2
+guid: 6404213c902278a46a714d774e496765
+timeCreated: 1478118277
+licenseType: Free
+ModelImporter:
+  serializedVersion: 19
+  fileIDToRecycleName:
+    100000: CaveTile
+    100002: DeepCaveTile
+    100004: DeepDesertTile
+    100006: DeepForestTile
+    100008: DeepHillsTile
+    100010: DeepMountainTile
+    100012: DeepOceanTile
+    100014: DeepSnowTile
+    100016: DesertTile
+    100018: ForestTile
+    100020: HillTile
+    100022: HoverTile
+    100024: MeadowsTile
+    100026: MountTainTile
+    100028: OceanTile
+    100030: Road
+    100032: SnowTile
+    100034: TileColl
+    100036: //RootNode
+    100038: WaterTile
+    400000: CaveTile
+    400002: DeepCaveTile
+    400004: DeepDesertTile
+    400006: DeepForestTile
+    400008: DeepHillsTile
+    400010: DeepMountainTile
+    400012: DeepOceanTile
+    400014: DeepSnowTile
+    400016: DesertTile
+    400018: ForestTile
+    400020: HillTile
+    400022: HoverTile
+    400024: MeadowsTile
+    400026: MountTainTile
+    400028: OceanTile
+    400030: Road
+    400032: SnowTile
+    400034: TileColl
+    400036: //RootNode
+    400038: WaterTile
+    2300000: CaveTile
+    2300002: DeepCaveTile
+    2300004: DeepDesertTile
+    2300006: DeepForestTile
+    2300008: DeepHillsTile
+    2300010: DeepMountainTile
+    2300012: DeepOceanTile
+    2300014: DeepSnowTile
+    2300016: DesertTile
+    2300018: ForestTile
+    2300020: HillTile
+    2300022: HoverTile
+    2300024: MeadowsTile
+    2300026: MountTainTile
+    2300028: OceanTile
+    2300030: Road
+    2300032: SnowTile
+    2300034: TileColl
+    2300036: WaterTile
+    3300000: CaveTile
+    3300002: DeepCaveTile
+    3300004: DeepDesertTile
+    3300006: DeepForestTile
+    3300008: DeepHillsTile
+    3300010: DeepMountainTile
+    3300012: DeepOceanTile
+    3300014: DeepSnowTile
+    3300016: DesertTile
+    3300018: ForestTile
+    3300020: HillTile
+    3300022: HoverTile
+    3300024: MeadowsTile
+    3300026: MountTainTile
+    3300028: OceanTile
+    3300030: Road
+    3300032: SnowTile
+    3300034: TileColl
+    3300036: WaterTile
+    4300000: CaveTile
+    4300002: DeepCaveTile
+    4300004: DeepSnowTile
+    4300006: DeepMountainTile
+    4300008: DeepHillsTile
+    4300010: DeepOceanTile
+    4300012: DeepDesertTile
+    4300014: DeepForestTile
+    4300016: TileColl
+    4300018: HoverTile
+    4300020: SnowTile
+    4300022: MountTainTile
+    4300024: HillTile
+    4300026: OceanTile
+    4300028: MeadowsTile
+    4300030: Road
+    4300032: WaterTile
+    4300034: DesertTile
+    4300036: ForestTile
+    7400000: Default Take
+    9500000: //RootNode
+  materials:
+    importMaterials: 1
+    materialName: 0
+    materialSearch: 1
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    resampleCurves: 1
+    optimizeGameObjects: 0
+    motionNodeName: 
+    animationImportErrors: 
+    animationImportWarnings: 
+    animationRetargetingWarnings: 
+    animationDoRetargetingWarnings: 0
+    animationCompression: 1
+    animationRotationError: 0.5
+    animationPositionError: 0.5
+    animationScaleError: 0.5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    clipAnimations: []
+    isReadable: 1
+  meshes:
+    lODScreenPercentages: []
+    globalScale: 1
+    meshCompression: 0
+    addColliders: 0
+    importBlendShapes: 1
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    optimizeMeshForGPU: 1
+    keepQuads: 0
+    weldVertices: 1
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVPackMargin: 4
+    useFileScale: 1
+  tangentSpace:
+    normalSmoothAngle: 60
+    normalImportMode: 0
+    tangentImportMode: 3
+  importAnimation: 1
+  copyAvatar: 0
+  humanDescription:
+    human: []
+    skeleton: []
+    armTwist: 0.5
+    foreArmTwist: 0.5
+    upperLegTwist: 0.5
+    legTwist: 0.5
+    armStretch: 0.05
+    legStretch: 0.05
+    feetSpacing: 0
+    rootMotionBoneName: 
+    hasTranslationDoF: 0
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  animationType: 2
+  humanoidOversampling: 1
+  additionalBone: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

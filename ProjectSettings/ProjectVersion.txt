@@ -1,10 +1,2 @@
-<<<<<<< HEAD
-<<<<<<< HEAD
 m_EditorVersion: 5.4.1f1
-=======
-m_EditorVersion: 5.4.0f3
->>>>>>> origin/master
-=======
-m_EditorVersion: 5.3.5f1
->>>>>>> parent of 2650e6b... Rewrite of Movement and WorldGen
 m_StandardAssetsVersion: 0
