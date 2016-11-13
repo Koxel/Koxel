@@ -27,12 +27,15 @@ ModelImporter:
     100038: DeepSnowTile
     100040: TileColl
 <<<<<<< HEAD
+<<<<<<< HEAD
     100042: Road_001
     100044: COLLIDER
     100046: CloudTile
 =======
     100042: CloudTile
 >>>>>>> origin/master
+=======
+>>>>>>> parent of 2650e6b... Rewrite of Movement and WorldGen
     400000: DesertTile
     400002: ForestTile
     400004: HillTile
@@ -55,12 +58,15 @@ ModelImporter:
     400038: DeepSnowTile
     400040: TileColl
 <<<<<<< HEAD
+<<<<<<< HEAD
     400042: Road_001
     400044: COLLIDER
     400046: CloudTile
 =======
     400042: CloudTile
 >>>>>>> origin/master
+=======
+>>>>>>> parent of 2650e6b... Rewrite of Movement and WorldGen
     2300000: DesertTile
     2300002: ForestTile
     2300004: HillTile
@@ -81,12 +87,15 @@ ModelImporter:
     2300034: DeepSnowTile
     2300036: TileColl
 <<<<<<< HEAD
+<<<<<<< HEAD
     2300038: Road_001
     2300040: COLLIDER
     2300042: CloudTile
 =======
     2300038: CloudTile
 >>>>>>> origin/master
+=======
+>>>>>>> parent of 2650e6b... Rewrite of Movement and WorldGen
     3300000: DesertTile
     3300002: ForestTile
     3300004: HillTile
@@ -107,12 +116,15 @@ ModelImporter:
     3300034: DeepSnowTile
     3300036: TileColl
 <<<<<<< HEAD
+<<<<<<< HEAD
     3300038: Road_001
     3300040: COLLIDER
     3300042: CloudTile
 =======
     3300038: CloudTile
 >>>>>>> origin/master
+=======
+>>>>>>> parent of 2650e6b... Rewrite of Movement and WorldGen
     4300000: SnowTile
     4300002: MountTainTile
     4300004: HillTile
@@ -133,12 +145,15 @@ ModelImporter:
     4300034: DeepForestTile
     4300036: TileColl
 <<<<<<< HEAD
+<<<<<<< HEAD
     4300038: Road_001
     4300040: COLLIDER
     4300042: CloudTile
 =======
     4300038: CloudTile
 >>>>>>> origin/master
+=======
+>>>>>>> parent of 2650e6b... Rewrite of Movement and WorldGen
     7400000: Default Take
     9500000: //RootNode
   materials:
@@ -148,7 +163,7 @@ ModelImporter:
   animations:
     legacyGenerateAnimations: 4
     bakeSimulation: 0
-    resampleCurves: 1
+    resampleRotations: 1
     optimizeGameObjects: 0
     motionNodeName: 
     animationImportErrors: 
