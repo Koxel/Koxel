@@ -49,4 +49,9 @@ Temporary Items
 *.blend2
 Temp
 ProjectSettings
+Libary
+.vs
 *.info
+*.userprefs
+*.sln
+*.csproj

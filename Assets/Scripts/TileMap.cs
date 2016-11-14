@@ -168,7 +168,6 @@ public class TileMap : MonoBehaviour {
                 // Up
                 if (y < mapHeight - 1)
                     graph[x, y].neighbours.Add(graph[x, y + 1]);
-                Debug.Log(graph[x, y].neighbours.Count);
             }
         }
 

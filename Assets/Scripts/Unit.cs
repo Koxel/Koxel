@@ -3,10 +3,12 @@ using System.Collections.Generic;
 
 public class Unit : MonoBehaviour {
 
+    public float speed;
 	public int tileX;
     public int tileY;
     public TileMap map;
 
+    private Vector3 goal;
     public List<Node> currentPath = null;
 
     void Update()
@@ -47,6 +49,14 @@ public class Unit : MonoBehaviour {
                 currNode++;
             }
         }
+
+        if(goal != new Vector3())
+        {
+            float step = 5f * Time.deltaTime;
+            transform.position = Vector3.MoveTowards(transform.position, goal, step);
+            if (transform.position == goal)
+                goal = new Vector3();
+        }
     }
 
     public void MoveNextTile()
@@ -58,7 +68,7 @@ public class Unit : MonoBehaviour {
 
         //transform.position = new Vector3(currentPath[0].x * map.GetComponent<TileMap>().hexOffsetX, 0f, currentPath[0].y * map.GetComponent<TileMap>().hexOffsetY);
 
-        if (currentPath[0].y % 2 == 0 || currentPath[0].y == 0)
+        /*if (currentPath[0].y % 2 == 0 || currentPath[0].y == 0)
             transform.position = new Vector3(currentPath[0].x * map.GetComponent<TileMap>().hexOffsetX,
                                 0f,
                                 currentPath[0].y * map.GetComponent<TileMap>().hexOffsetY);
@@ -69,6 +79,17 @@ public class Unit : MonoBehaviour {
                                 0f,
                                 currentPath[0].y * map.GetComponent<TileMap>().hexOffsetY
                                 );
+                                */
+
+        if (currentPath[0].y % 2 == 0 || currentPath[0].y == 0)
+            goal = new Vector3(currentPath[0].x * map.GetComponent<TileMap>().hexOffsetX,
+                                0f,
+                                currentPath[0].y * map.GetComponent<TileMap>().hexOffsetY);
+
+        else if (currentPath[0].y % 2 == 1)
+            goal = new Vector3(currentPath[0].x * map.GetComponent<TileMap>().hexOffsetX + map.GetComponent<TileMap>().hexOddRowOffsetX,
+                                0f,
+                                currentPath[0].y * map.GetComponent<TileMap>().hexOffsetY);
 
         tileX = currentPath[0].x;
         tileY = currentPath[0].y;

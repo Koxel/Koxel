@@ -12,9 +12,9 @@ public class ClickManager : MonoBehaviour {
             Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
             RaycastHit hitInfo;
 
-            if (Physics.Raycast(ray, out hitInfo))
+            if (Physics.Raycast(ray, out hitInfo) && UnityEngine.EventSystems.EventSystem.current.IsPointerOverGameObject() == false)
             {
-                Debug.Log("hit: " + hitInfo.collider.gameObject.GetComponentInParent<Hex>().x + ", " + hitInfo.collider.GetComponentInParent<Hex>().y);
+                //Debug.Log("hit: " + hitInfo.collider.gameObject.GetComponentInParent<Hex>().x + ", " + hitInfo.collider.GetComponentInParent<Hex>().y);
 
                 map.GetComponent<TileMap>().CalculatePath(hitInfo.collider.gameObject.GetComponentInParent<Hex>().x, hitInfo.collider.GetComponentInParent<Hex>().y);
             }
