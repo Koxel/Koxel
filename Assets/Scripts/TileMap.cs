@@ -62,16 +62,16 @@ public class TileMap : MonoBehaviour {
         }
 
         // Some Lake
-        tiles[4, 4] = 2;
-        tiles[5, 4] = 2;
-        tiles[6, 4] = 2;
-        tiles[7, 4] = 2;
-        tiles[8, 4] = 2;
+        tiles[4, 4] = 1;
+        tiles[5, 4] = 1;
+        tiles[6, 4] = 1;
+        tiles[7, 4] = 1;
+        tiles[8, 4] = 1;
 
-        tiles[4, 5] = 2;
-        tiles[4, 6] = 2;
-        tiles[8, 5] = 2;
-        tiles[4, 6] = 2;
+        tiles[4, 5] = 1;
+        tiles[4, 6] = 1;
+        tiles[8, 5] = 1;
+        tiles[4, 6] = 1;
     }
 
     void GenerateMap() {
@@ -259,5 +259,10 @@ public class TileMap : MonoBehaviour {
         }
         // now its target -> source so reverse
         player.GetComponent<Unit>().currentPath.Reverse();
+    }
+
+    public void MoveNextTilePlayer()
+    {
+        player.GetComponent<Unit>().MoveNextTile();
     }
 }
