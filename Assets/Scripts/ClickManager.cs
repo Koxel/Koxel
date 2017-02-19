@@ -24,8 +24,6 @@ public class ClickManager : MonoBehaviour
                 Debug.Log("hit: " + hitInfo.collider.transform.parent.name);
 
                 GetComponent<Map>().PathTo(hitInfo.collider.transform.parent.GetComponent<TileBehaviour>());
-
-                //Destroy(hitInfo.collider.transform.parent.gameObject);
             }
         }
     }
