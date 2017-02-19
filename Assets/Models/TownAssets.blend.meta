@@ -1,0 +1,129 @@
+fileFormatVersion: 2
+guid: a4d3dfda7226af94d8a2c48bfa4c1886
+timeCreated: 1486801996
+licenseType: Free
+ModelImporter:
+  serializedVersion: 19
+  fileIDToRecycleName:
+    100000: BasicHouse
+    100002: Fence_D1
+    100004: Fence_D2
+    100006: Fence_D3
+    100008: FenceGate_D1
+    100010: FenceGate_D2
+    100012: FenceGate_D3
+    100014: Pen
+    100016: TileColl
+    100018: //RootNode
+    100020: Well_Open
+    400000: BasicHouse
+    400002: Fence_D1
+    400004: Fence_D2
+    400006: Fence_D3
+    400008: FenceGate_D1
+    400010: FenceGate_D2
+    400012: FenceGate_D3
+    400014: Pen
+    400016: TileColl
+    400018: //RootNode
+    400020: Well_Open
+    2300000: BasicHouse
+    2300002: Fence_D1
+    2300004: Fence_D2
+    2300006: Fence_D3
+    2300008: FenceGate_D1
+    2300010: FenceGate_D2
+    2300012: FenceGate_D3
+    2300014: Pen
+    2300016: TileColl
+    2300018: Well_Open
+    3300000: BasicHouse
+    3300002: Fence_D1
+    3300004: Fence_D2
+    3300006: Fence_D3
+    3300008: FenceGate_D1
+    3300010: FenceGate_D2
+    3300012: FenceGate_D3
+    3300014: Pen
+    3300016: TileColl
+    3300018: Well_Open
+    4300000: BasicHouse
+    4300002: Pen
+    4300004: FenceGate_D2
+    4300006: FenceGate_D1
+    4300008: FenceGate_D3
+    4300010: Fence_D3
+    4300012: Fence_D1
+    4300014: Fence_D2
+    4300016: Well_Open
+    4300018: TileColl
+    7400000: Default Take
+    9500000: //RootNode
+  materials:
+    importMaterials: 1
+    materialName: 0
+    materialSearch: 1
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    resampleCurves: 1
+    optimizeGameObjects: 0
+    motionNodeName: 
+    animationImportErrors: 
+    animationImportWarnings: 
+    animationRetargetingWarnings: 
+    animationDoRetargetingWarnings: 0
+    animationCompression: 1
+    animationRotationError: 0.5
+    animationPositionError: 0.5
+    animationScaleError: 0.5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    clipAnimations: []
+    isReadable: 1
+  meshes:
+    lODScreenPercentages: []
+    globalScale: 1
+    meshCompression: 0
+    addColliders: 0
+    importBlendShapes: 1
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    optimizeMeshForGPU: 1
+    keepQuads: 0
+    weldVertices: 1
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVPackMargin: 4
+    useFileScale: 1
+  tangentSpace:
+    normalSmoothAngle: 60
+    normalImportMode: 0
+    tangentImportMode: 3
+  importAnimation: 1
+  copyAvatar: 0
+  humanDescription:
+    serializedVersion: 2
+    human: []
+    skeleton: []
+    armTwist: 0.5
+    foreArmTwist: 0.5
+    upperLegTwist: 0.5
+    legTwist: 0.5
+    armStretch: 0.05
+    legStretch: 0.05
+    feetSpacing: 0
+    rootMotionBoneName: 
+    rootMotionBoneRotation: {x: 0, y: 0, z: 0, w: 1}
+    hasTranslationDoF: 0
+    hasExtraRoot: 0
+    skeletonHasParents: 1
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  animationType: 2
+  humanoidOversampling: 1
+  additionalBone: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

@@ -1,0 +1,179 @@
+fileFormatVersion: 2
+guid: 197e84ac9e4afec44894930754734eaa
+timeCreated: 1486801971
+licenseType: Free
+ModelImporter:
+  serializedVersion: 19
+  fileIDToRecycleName:
+    100000: BridgeEW
+    100002: BridgeNeSw
+    100004: BridgeNwSe
+    100006: Fiery_Altar
+    100008: Fiery_Pillars
+    100010: Fiery_Portal
+    100012: ManyTrees
+    100014: PathCentre
+    100016: PathEast
+    100018: PathNorthEast
+    100020: PathNorthWest
+    100022: PathSouthEast
+    100024: PathSouthWest
+    100026: PathWest
+    100028: Pebbles
+    100030: SmallHouse
+    100032: //RootNode
+    100034: Tower
+    100036: Trees
+    100038: TreeTrump
+    100040: Well
+    400000: BridgeEW
+    400002: BridgeNeSw
+    400004: BridgeNwSe
+    400006: Fiery_Altar
+    400008: Fiery_Pillars
+    400010: Fiery_Portal
+    400012: ManyTrees
+    400014: PathCentre
+    400016: PathEast
+    400018: PathNorthEast
+    400020: PathNorthWest
+    400022: PathSouthEast
+    400024: PathSouthWest
+    400026: PathWest
+    400028: Pebbles
+    400030: SmallHouse
+    400032: //RootNode
+    400034: Tower
+    400036: Trees
+    400038: TreeTrump
+    400040: Well
+    2300000: BridgeEW
+    2300002: BridgeNeSw
+    2300004: BridgeNwSe
+    2300006: Fiery_Altar
+    2300008: Fiery_Pillars
+    2300010: Fiery_Portal
+    2300012: ManyTrees
+    2300014: PathCentre
+    2300016: PathEast
+    2300018: PathNorthEast
+    2300020: PathNorthWest
+    2300022: PathSouthEast
+    2300024: PathSouthWest
+    2300026: PathWest
+    2300028: Pebbles
+    2300030: SmallHouse
+    2300032: Tower
+    2300034: Trees
+    2300036: TreeTrump
+    2300038: Well
+    3300000: BridgeEW
+    3300002: BridgeNeSw
+    3300004: BridgeNwSe
+    3300006: Fiery_Altar
+    3300008: Fiery_Pillars
+    3300010: Fiery_Portal
+    3300012: ManyTrees
+    3300014: PathCentre
+    3300016: PathEast
+    3300018: PathNorthEast
+    3300020: PathNorthWest
+    3300022: PathSouthEast
+    3300024: PathSouthWest
+    3300026: PathWest
+    3300028: Pebbles
+    3300030: SmallHouse
+    3300032: Tower
+    3300034: Trees
+    3300036: TreeTrump
+    3300038: Well
+    4300000: Fiery_Altar
+    4300002: Fiery_Pillars
+    4300004: Fiery_Portal
+    4300006: Tower
+    4300008: SmallHouse
+    4300010: BridgeNwSe
+    4300012: BridgeNeSw
+    4300014: BridgeEW
+    4300016: PathNorthWest
+    4300018: PathWest
+    4300020: PathSouthWest
+    4300022: PathSouthEast
+    4300024: PathEast
+    4300026: PathNorthEast
+    4300028: PathCentre
+    4300030: Well
+    4300032: TreeTrump
+    4300034: Trees
+    4300036: ManyTrees
+    4300038: Pebbles
+    7400000: Default Take
+    9500000: //RootNode
+  materials:
+    importMaterials: 1
+    materialName: 0
+    materialSearch: 1
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    resampleCurves: 1
+    optimizeGameObjects: 0
+    motionNodeName: 
+    animationImportErrors: 
+    animationImportWarnings: 
+    animationRetargetingWarnings: 
+    animationDoRetargetingWarnings: 0
+    animationCompression: 1
+    animationRotationError: 0.5
+    animationPositionError: 0.5
+    animationScaleError: 0.5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    clipAnimations: []
+    isReadable: 1
+  meshes:
+    lODScreenPercentages: []
+    globalScale: 1
+    meshCompression: 0
+    addColliders: 0
+    importBlendShapes: 1
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    optimizeMeshForGPU: 1
+    keepQuads: 0
+    weldVertices: 1
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVPackMargin: 4
+    useFileScale: 1
+  tangentSpace:
+    normalSmoothAngle: 60
+    normalImportMode: 0
+    tangentImportMode: 3
+  importAnimation: 1
+  copyAvatar: 0
+  humanDescription:
+    serializedVersion: 2
+    human: []
+    skeleton: []
+    armTwist: 0.5
+    foreArmTwist: 0.5
+    upperLegTwist: 0.5
+    legTwist: 0.5
+    armStretch: 0.05
+    legStretch: 0.05
+    feetSpacing: 0
+    rootMotionBoneName: 
+    rootMotionBoneRotation: {x: 0, y: 0, z: 0, w: 1}
+    hasTranslationDoF: 0
+    hasExtraRoot: 0
+    skeletonHasParents: 1
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  animationType: 2
+  humanoidOversampling: 1
+  additionalBone: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
