@@ -5,17 +5,8 @@ using UnityEngine;
 public class TileBehaviour : MonoBehaviour {
 
     public Tile Tile;
-
-	// Use this for initialization
-	void Start () {
-		
-	}
-	
-	// Update is called once per frame
-	void Update () {
-		
-	}
-
+    public List<TileBehaviour> neighbours;
+    public int moveCost;
     public Vector3 coordinates { get; set; }
 
     public virtual bool IsWalkable()
@@ -25,6 +16,10 @@ public class TileBehaviour : MonoBehaviour {
     public virtual float MovementCost()
     {
         return 0;
+    }
+    public virtual List<TileBehaviour> Neighbours()
+    {
+        return neighbours;
     }
 }
 

@@ -1,27 +1,16 @@
 fileFormatVersion: 2
-guid: 8bc2f57f48a78744dbe9e9937cee55a6
-timeCreated: 1487688544
+guid: a806ef20f90481b46aa71874c99ea49a
+timeCreated: 1486802246
 licenseType: Free
 ModelImporter:
   serializedVersion: 19
   fileIDToRecycleName:
     100000: //RootNode
-    100002: Camera
-    100004: Lamp
-    100006: Tile
-    100008: Camera.001
-    100010: Lamp.001
     400000: //RootNode
-    400002: Camera
-    400004: Lamp
-    400006: Tile
-    400008: Camera.001
-    400010: Lamp.001
     2300000: //RootNode
-    2300002: Tile
     3300000: //RootNode
-    3300002: Tile
-    4300000: Tile
+    4300000: DeepForestTile
+    4300002: Tile
   materials:
     importMaterials: 1
     materialName: 0

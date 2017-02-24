@@ -21,9 +21,10 @@ public class ClickManager : MonoBehaviour
 
             if (Physics.Raycast(ray, out hitInfo))
             {
-                Debug.Log("hit: " + hitInfo.collider.transform.parent.name);
-
-                GetComponent<Map>().PathTo(hitInfo.collider.transform.parent.GetComponent<TileBehaviour>());
+                //Debug.Log("hit: " + hitInfo.collider.transform.parent.name);
+                //GetComponent<Map>().PathTo(hitInfo.collider.transform.parent.GetComponent<TileBehaviour>());
+                //GetComponent<Map>().PixelPath(hitInfo.collider.transform.parent.GetComponent<TileBehaviour>());
+                GetComponent<Map>().PixelPath(hitInfo.collider.transform.parent.GetComponent<TileBehaviour>());
             }
         }
     }
