@@ -1,0 +1,32 @@
+Desert={
+
+	"DefaultTile":"Sand",
+	"SkyColor":[0,0,0],
+	"ScreenColor":[0,0,0], (Change screen colors with hue,sat,val)
+	"WorldColor":[0,0,0], (change world colors with hue,sat,val)
+
+	"EntryRequirement":"NaN",
+	"ExitRequirement":"NaN",
+	"Multipliers:{ (multiply any stat with this while in the biome in %, negative allowed)
+		"Steps":0,
+		"XpGain":30,
+		"Damage":-50,
+	}
+
+	"tiles":[
+		["name",Rarity,Height,Range,],
+		["Sand",100(%),16,40]
+		],
+
+	"tileAssets":[
+		["name",rarity,height,range,[SpawnTiles]],
+		["Cactus",7,18,35,["Sand"]],
+		],
+
+	"quests":{
+		"Tags":[warm,dry],
+		"Types":[Item,Friend,Foe,Monster],
+		"LvlRange":[1(playerBased),3(up),6(down)],
+		"lvlChance":[]
+		}
+}

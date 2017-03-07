@@ -1,0 +1,33 @@
+monster:{
+	"Name":"LazyAss_Monster",
+	"personality":{
+		"Niceness":50,//Not usually used with monsters
+		"Agressiveness":50,//How quickly it attacks
+		"Cowardness":50,//How quickly it runs away
+		"Intoxication":50
+	},
+
+	"Stats":{
+		"statNoise":7,//Allows the leveled stats of a mob to go up/down with this number
+		"LevelStats":{//These stats increase with this amount each level
+			"health":7,
+			"stamina":5,
+			"mana":5,
+			"attack":3,
+			"magattack":3,
+			"defence":3,
+			"magdefence":3,
+
+			"Intelligence":5,
+			"Dexterity":5,
+			"Charisma":5,
+			"willpower":5,
+			"perception":5
+		}
+
+	},
+"SortAttack":{
+	"attackTypes":["melee"],//melee,magic,ranged,defensive or multiples. it only uses attacks of the type it knows how to
+	"specialAttacks":["NaN"]//specialAttacks are stored elsewhere
+		}
+	},

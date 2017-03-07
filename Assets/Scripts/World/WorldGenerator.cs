@@ -9,10 +9,10 @@ public class WorldGenerator : MonoBehaviour {
     public float detailScale = 25.0f;
     public float width = 3f;
     public float depth = 3f;
-    
+
     public float hexHeight = 2.00f;
     float hexWidth;
-    
+
     public GameObject Tile;
     public Dictionary<Vector2, TileBehaviour> mapDict;
     public bool customSeed;
@@ -71,21 +71,21 @@ public class WorldGenerator : MonoBehaviour {
 
         Vector3 pos = new Vector3();
         pos.y = 0f;
-        
+
         // Change this part for the chunk positioning!!!
         if (x % 2 == -1)
         {
-            pos.x = x * (0.75f * chunkWidth) + y * (0.5f * hexWidth);
-            pos.z = y * (chunkHeight) + (0.5f * chunkHeight) + 0.5f * hexHeight;
+            pos.x = x * (0.5939f * chunkWidth) + y * (0.5f * hexWidth);
+            pos.z = y * (chunkHeight) + (0.495f * chunkHeight) + 0.5f * hexHeight;
         }
         else if (x % 2 == 1)
         {
-            pos.x = x * (0.75f * chunkWidth) + y * (0.5f * hexWidth);
-            pos.z = y * (chunkHeight) - (0.5f * chunkHeight) - 0.5f * hexHeight;
+            pos.x = x * (0.5939f * chunkWidth) + y * (0.5f * hexWidth);
+            pos.z = y * (chunkHeight) - (0.495f * chunkHeight) - 0.5f * hexHeight;
         }
         else
         {
-            pos.x = x * (0.75f * chunkWidth) + y * (0.5f * hexWidth);
+            pos.x = x * (0.5939f * chunkWidth) + y * (0.5f * hexWidth);
             pos.z = y * (chunkHeight);
         }
 
