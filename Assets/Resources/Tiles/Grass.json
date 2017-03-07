@@ -1,6 +1,5 @@
 {
-  "name": "Cave Tile",
-  "type": "cave",
+  "name": "Grass Tile",
   "defaultRGB": [49, 159, 99, 255],
   "hoverRGB": [87, 253, 163, 255]
 }

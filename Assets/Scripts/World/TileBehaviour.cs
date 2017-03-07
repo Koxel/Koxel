@@ -5,6 +5,7 @@ using UnityEngine;
 public class TileBehaviour : MonoBehaviour {
 
     public Tile Tile;
+    public Biome biome;
     public List<TileBehaviour> neighbours;
     public int moveCost;
     public Vector3 coordinates { get; set; }

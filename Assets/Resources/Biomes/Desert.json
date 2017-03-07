@@ -1,0 +1,62 @@
+{
+  "biome_name": "Desert",
+  "default_tile": "Sand Tile",
+  "sky_color": [ 0, 0, 0, 255 ],
+  "world_color": [ 0, 0, 0, 255 ],
+  "entryReq": {
+    "quests": [
+
+    ],
+    "items": [
+      "Desert Cloak"
+    ],
+    "companions": [
+      "Camel"
+    ]
+  },
+  "exitReq": {
+    "quests": [
+
+    ],
+    "items": [
+
+    ],
+    "companions": [
+
+    ]
+  },
+  "multipliers": {
+    "steps": 0.50,
+    "xp_gain": 2.00,
+    "damage": 0.50
+  },
+  "extra_tiles": {
+    "stone": {
+      "tile_name": "Stone Tile",
+      "rarity": 10,
+      "min_height": 0,
+      "max_height": 10,
+      "min_patch_size": 3,
+      "max_patch_size": 5
+    },
+    "water": {
+      "tile_name": "Water Tile",
+      "rarity": 5,
+      "min_height": 0,
+      "max_height": 5,
+      "min_patch_size": 5,
+      "max_patch_size": 7
+    }
+  },
+  "tile_assets": {
+    "cactus": {
+      "asset_name": "Cactus",
+      "rarity": 10,
+      "min_height": 3,
+      "max_height": 5,
+      "spawn_tiles": [
+        "Sand Tile" 
+      ]
+    }
+  }
+}

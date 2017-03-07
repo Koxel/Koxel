@@ -32,7 +32,6 @@ public class JsonLoader : MonoBehaviour {
     {
         Debug.Log(jsonData["name"]);
         string tileName = jsonData["name"].ToString();
-        string tileType = jsonData["type"].ToString();
         Color tileDefaultColor = new Color((int)jsonData["defaultRGB"][0], (int)jsonData["defaultRGB"][1], (int)jsonData["defaultRGB"][2], (int)jsonData["defaultRGB"][3]);
         Color tileHoverColor = new Color((int)jsonData["hoverRGB"][0], (int)jsonData["hoverRGB"][1], (int)jsonData["hoverRGB"][2], (int)jsonData["hoverRGB"][3]);
 
@@ -40,7 +39,6 @@ public class JsonLoader : MonoBehaviour {
             new Tile
             {
                 name = tileName,
-                type = tileType,
                 defaultRGB = tileDefaultColor,
                 hoverRGB = tileHoverColor
             }

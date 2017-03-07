@@ -1,6 +1,5 @@
 {
-  "name": "Grass Tile",
-  "type": "grass",
+  "name": "Stone Tile",
   "defaultRGB": [49, 159, 99, 255],
   "hoverRGB": [87, 253, 163, 255]
 }
