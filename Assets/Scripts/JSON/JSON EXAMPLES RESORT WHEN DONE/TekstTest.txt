@@ -1,0 +1,3 @@
+{
+"lookAt":"You see an <object.name>"
+}

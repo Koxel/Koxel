@@ -1,0 +1,9 @@
+OrcSpecies:{
+	"name":"Orc",
+
+	//The following stats are 1-100 and used in interactions
+
+	"Friendlyness":25,
+	"Cowardice":3,
+	"Agressiveness"73,
+}
