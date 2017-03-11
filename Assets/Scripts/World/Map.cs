@@ -45,8 +45,8 @@ public class Map : MonoBehaviour {
 
     public float HexDistance(TileBehaviour a, TileBehaviour b)
     {
-        Vector3 cubeA = a.coordinates;
-        Vector3 cubeB = b.coordinates;
+        Vector3 cubeA = a.worldCoords;
+        Vector3 cubeB = b.worldCoords;
         return Mathf.Max(Mathf.Abs(cubeA.x - cubeB.x), Mathf.Abs(cubeA.y - cubeB.y), Mathf.Abs(cubeA.z - cubeB.z));
     }
 
@@ -74,7 +74,7 @@ public class Map : MonoBehaviour {
             if (current == goal)
                 break;
 
-            foreach (TileBehaviour next in current.Neighbours())
+            foreach (TileBehaviour next in current.neighbours)
             {
                 var new_cost = cost_so_far[current] + current.moveCost;
                 if (!cost_so_far.ContainsKey(next) || new_cost < cost_so_far[next])

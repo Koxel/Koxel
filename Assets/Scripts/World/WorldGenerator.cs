@@ -2,110 +2,84 @@
 using UnityEngine;
 
 public class WorldGenerator : MonoBehaviour {
-    public bool flat = false;
-    public int radius = 16;
+    // Generation settings
     public int chunkRadius = 7;
-    public int heightScale = 20;
-    public float detailScale = 25.0f;
-    public float width = 3f;
-    public float depth = 3f;
-    
-    public float hexHeight = 2.00f;
-    float hexWidth;
-    
-    public GameObject Tile;
-    public Dictionary<Vector2, TileBehaviour> mapDict;
+    public bool flat = false;
     public bool customSeed;
     public int seed;
+    public int heightScale = 20;
+    public float detailScale = 25.0f;
 
+    // Prefabs
+    public GameObject TilePrefab;
+
+    // Calculated distances
+    public float hexHeight = 2.00f;
+    private float hexWidth;
+    private float chunkWidth;
+    private float chunkHeight;
+    
+    // Maps
+    private Dictionary<Vector2, TileBehaviour> map;
+
+    // Will be called after JSON gets parsed
     public void Generate(List<Tile> tilesList)
     {
-        // Calc hex
+        // Calculate the distances
         hexWidth = Mathf.Sqrt(3) / 2 * hexHeight;
-
-        // Calc chunk
-        float chunkWidth = (chunkRadius * 2) + 1;
-        float chunkHeight = Mathf.Sqrt(3) / 2 * chunkWidth;
-        float act_chunkWidth = chunkWidth * hexHeight;
-        float act_chunkHeight = chunkHeight * hexWidth;
-
-        float Xoffset = hexHeight;
-        float Yoffset = hexWidth;
-        float XoddOffset = .5f * hexWidth;
+        chunkWidth = (chunkRadius * 2 + 1) * (1.25f * hexWidth);
+        chunkHeight = ((chunkRadius * 2 + 1) * (0.75f * hexHeight));
 
         // No custom seed? Calculate one!
         if (!customSeed) seed = Random.Range(1, 99999999);
-        mapDict = new Dictionary<Vector2, TileBehaviour>();
-
-        /*NewChunk(0, 0);
-        NewChunk(0, -1);
-        NewChunk(1, -1);
-        NewChunk(1, 0);
-        NewChunk(-1, 0);
-        NewChunk(-1, 1);
-        NewChunk(0, 1);*/
-        for (int i = -2; i < 2; i++)
+        map = new Dictionary<Vector2, TileBehaviour>();
+        
+        for (int i = 0; i < 3; i++)
         {
-            for (int j = -3; j < 3; j++)
+            for (int j = 0; j < 2; j++)
             {
                 NewChunk(i, j);
             }
         }
 
         // Setup the map stuff
-        Map map = GetComponent<Map>();
-        GameObject player = Instantiate(map.playerPrefab, mapDict[new Vector2(0, 0)].transform.position, Quaternion.identity);
+        Map tilemap = GetComponent<Map>();
+        GameObject player = Instantiate(tilemap.playerPrefab, map[new Vector2(0, 0)].transform.position, Quaternion.identity);
         player.name = "Player";
-        map.player = player;
-        map.tileMap = mapDict;
-        map.radius = radius;
-        map.currentTile = mapDict[new Vector2(0, 0)];
-        //Debug.Log("Finished Initial Generation");
+        tilemap.player = player;
+        tilemap.tileMap = map;
+        tilemap.currentTile = map[new Vector2(0, 0)];
+        Debug.Log("Finished Initial Generation");
     }
 
     void NewChunk(int x, int y)
     {
-        // Calc chunk
-        float chunkWidth = (chunkRadius * 2 + 1) * (1.25f * hexWidth);
-        float chunkHeight = ((chunkRadius * 2 + 1) * (0.75f * hexHeight));
-
-        Vector3 pos = new Vector3();
-        pos.y = 0f;
+        // Position the chunk to the correct realPos
+        Vector3 realPos = new Vector3();
         
-        // Change this part for the chunk positioning!!!
-        if (x % 2 == -1)
+        if (x % 2 == -1 || x % 2 == 1)
         {
-            pos.x = x * (0.75f * chunkWidth) + y * (0.5f * hexWidth);
-            pos.z = y * (chunkHeight) + (0.5f * chunkHeight) + 0.5f * hexHeight;
-        }
-        else if (x % 2 == 1)
-        {
-            pos.x = x * (0.75f * chunkWidth) + y * (0.5f * hexWidth);
-            pos.z = y * (chunkHeight) - (0.5f * chunkHeight) - 0.5f * hexHeight;
+            realPos.x = x * (0.5939f * chunkWidth) + y * (0.5f * hexWidth);
+            realPos.z = y * (chunkHeight) + (0.495f * chunkHeight) + 0.5f * hexHeight;
         }
         else
         {
-            pos.x = x * (0.75f * chunkWidth) + y * (0.5f * hexWidth);
-            pos.z = y * (chunkHeight);
+            realPos.x = x * (0.5939f * chunkWidth) + y * (0.5f * hexWidth);
+            realPos.z = y * (chunkHeight);
         }
 
+        // Create chunk object
         var chunkObj = new GameObject();
         chunkObj.name = "Chunk (" + x + ", " + y + ")";
-        chunkObj.transform.position = pos;
-        Chunk chunk = new Chunk();
-        chunk = CreateChunk(chunk, chunkObj, new Vector2(x, y));
+        chunkObj.transform.position = realPos;
+        Chunk chunk = chunkObj.AddComponent(typeof(Chunk)) as Chunk;
+        chunk.coords = new Vector2(x, y);
+        chunk = CreateChunk(chunk, chunkObj);
     }
 
-    public Chunk CreateChunk(Chunk chunk, GameObject chunkObj, Vector2 mapPos)
+    Chunk CreateChunk(Chunk chunk, GameObject chunkObj)
     {
-        float chunkWidth = (chunkRadius * 2) + 1;
-        float chunkHeight = Mathf.Sqrt(3) / 2 * chunkWidth;
-        float act_chunkWidth = chunkWidth * hexHeight;
-        float act_chunkHeight = chunkHeight * hexWidth;
-
         chunk.tiles = new List<TileBehaviour>();
-
-        Vector2 worldCoords = new Vector2(chunk.coords.x * act_chunkWidth, chunk.coords.y * act_chunkHeight);
 
         for (int q = -chunkRadius; q <= chunkRadius; q++)
         {
@@ -113,59 +87,84 @@ public class WorldGenerator : MonoBehaviour {
             int r2 = Mathf.Min(chunkRadius, -q + chunkRadius);
             for (int r = r1; r <= r2; r++)
             {
-                int height = (int)(Mathf.PerlinNoise((q + seed) / detailScale, (r + seed) / detailScale) * heightScale);
-                if (flat) height = 0;
-
-                Vector3 tilePos = new Vector3();
-                tilePos.y = height;
-
-                tilePos.x = q * hexWidth + r - (r * 0.133974f);
-                tilePos.z = r * (hexHeight - (.25f * hexHeight));
-
-                //tilePos = new Vector3(q * hexWidth + r - (r * 0.133974f), height, r * (hexHeight - (.25f * hexHeight)));
-
-                // Setup a new Tile
-                GameObject newTile = Instantiate(Tile, tilePos + chunkObj.transform.position, Quaternion.identity);
-                newTile.transform.parent = chunkObj.transform;
-                newTile.name = "Tile (" + q + ", " + r + ")";
-
-                // Save to the map
-                TileBehaviour tb = newTile.GetComponent<TileBehaviour>();
-                tb.coordinates = new Vector3(q, r, -q - r);
-                tb.moveCost = 1;
-                //mapDict.Add(new Vector2(q, r), tb);
-                chunk.tiles.Add(tb);
-
-                // Colours!
-                if (height > 8)
-                {
-                    newTile.transform.GetChild(0).GetComponent<Renderer>().material.color = new Color(49f / 255f, 159f / 255f, 99f / 255f, 255f / 255f);
-                    //tb.moveCost = 50;
-                }
+                TileBehaviour tile = CreateTile(q, r, GetTileHeight(q, r), chunkObj);
+                chunk.tiles.Add(tile);
             }
         }
 
-        // Set neighbours
-        foreach (TileBehaviour tile in chunk.tiles)
-        {   //  0, -1
-            if (mapDict.ContainsKey(new Vector2(tile.coordinates.x, tile.coordinates.y - 1)))
-                tile.neighbours.Add(mapDict[new Vector2(tile.coordinates.x, tile.coordinates.y - 1)]);
-            // +1, -1
-            if (mapDict.ContainsKey(new Vector2(tile.coordinates.x + 1, tile.coordinates.y - 1)))
-                tile.neighbours.Add(mapDict[new Vector2(tile.coordinates.x + 1, tile.coordinates.y - 1)]);
-            // -1,  0
-            if (mapDict.ContainsKey(new Vector2(tile.coordinates.x - 1, tile.coordinates.y)))
-                tile.neighbours.Add(mapDict[new Vector2(tile.coordinates.x - 1, tile.coordinates.y)]);
-            // +1,  0
-            if (mapDict.ContainsKey(new Vector2(tile.coordinates.x + 1, tile.coordinates.y)))
-                tile.neighbours.Add(mapDict[new Vector2(tile.coordinates.x + 1, tile.coordinates.y)]);
-            // -1, +1
-            if (mapDict.ContainsKey(new Vector2(tile.coordinates.x - 1, tile.coordinates.y + 1)))
-                tile.neighbours.Add(mapDict[new Vector2(tile.coordinates.x - 1, tile.coordinates.y + 1)]);
-            //  0, +1
-            if (mapDict.ContainsKey(new Vector2(tile.coordinates.x, tile.coordinates.y + 1)))
-                tile.neighbours.Add(mapDict[new Vector2(tile.coordinates.x, tile.coordinates.y + 1)]);
-        }
         return chunk;
+    }
+
+    TileBehaviour CreateTile(int x, int y, float height, GameObject chunk)
+    {
+        // Calculate the realPos
+        Vector3 realPos = new Vector3();
+        realPos.y = height;
+
+        realPos.x = x * hexWidth + y - (y * 0.133974f);
+        realPos.z = y * (hexHeight - (.25f * hexHeight));
+
+        // Setup a new Tile
+        GameObject newTile = Instantiate(TilePrefab, realPos + chunk.transform.position, Quaternion.identity);
+        newTile.transform.parent = chunk.transform;
+        
+
+        // Save to the map
+        TileBehaviour tile = newTile.GetComponent<TileBehaviour>();
+        tile.chunkCoords = new Vector3(x, y, -x -y);
+        int wX = (int) (chunk.GetComponent<Chunk>().coords.x * (chunkRadius * 2 + 1)) + x;
+        int wY = (int)(chunk.GetComponent<Chunk>().coords.y * (chunkRadius * 2 + 1)) + y;
+        int wZ = (int) -wX - wY;
+        //Debug.Log("x: " + chunk.GetComponent<Chunk>().coords.x + " + " + x + " = " + wX);
+        //Debug.Log("y: " + chunk.GetComponent<Chunk>().coords.y + " + " + y + " = " + wY);
+        tile.worldCoords = new Vector3(wX, wY, wZ);
+        
+        tile.moveCost = 1;
+
+        newTile.name = "Tile (" + tile.worldCoords.x + ", " + tile.worldCoords.y + ")";
+
+        return tile;
+    }
+
+    void SetTileNeighbours(List<TileBehaviour> newTiles)
+    {
+        // Set neighbours
+        foreach (TileBehaviour tile in newTiles)
+        {   //  0, -1
+            if (map.ContainsKey(new Vector2(tile.worldCoords.x, tile.worldCoords.y - 1)))
+                tile.neighbours.Add(map[new Vector2(tile.worldCoords.x, tile.worldCoords.y - 1)]);
+            // +1, -1
+            if (map.ContainsKey(new Vector2(tile.worldCoords.x + 1, tile.worldCoords.y - 1)))
+                tile.neighbours.Add(map[new Vector2(tile.worldCoords.x + 1, tile.worldCoords.y - 1)]);
+            // -1,  0
+            if (map.ContainsKey(new Vector2(tile.worldCoords.x - 1, tile.worldCoords.y)))
+                tile.neighbours.Add(map[new Vector2(tile.worldCoords.x - 1, tile.worldCoords.y)]);
+            // +1,  0
+            if (map.ContainsKey(new Vector2(tile.worldCoords.x + 1, tile.worldCoords.y)))
+                tile.neighbours.Add(map[new Vector2(tile.worldCoords.x + 1, tile.worldCoords.y)]);
+            // -1, +1
+            if (map.ContainsKey(new Vector2(tile.worldCoords.x - 1, tile.worldCoords.y + 1)))
+                tile.neighbours.Add(map[new Vector2(tile.worldCoords.x - 1, tile.worldCoords.y + 1)]);
+            //  0, +1
+            if (map.ContainsKey(new Vector2(tile.worldCoords.x, tile.worldCoords.y + 1)))
+                tile.neighbours.Add(map[new Vector2(tile.worldCoords.x, tile.worldCoords.y + 1)]);
+        }
+    }
+
+    void SetTileColour(TileBehaviour tile)
+    {
+        // Colours!
+        if (tile.chunkCoords.y > 8)
+        {
+            tile.transform.GetChild(0).GetComponent<Renderer>().material.color = new Color(49f / 255f, 159f / 255f, 99f / 255f, 255f / 255f);
+            //tb.moveCost = 50;
+        }
+    }
+
+    float GetTileHeight(int x, int y)
+    {
+        int height = (int)(Mathf.PerlinNoise((x + seed) / detailScale, (y + seed) / detailScale) * heightScale);
+        if (flat) height = 0;
+        return height;
     }
 }

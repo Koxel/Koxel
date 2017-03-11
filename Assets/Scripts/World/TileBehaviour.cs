@@ -5,22 +5,11 @@ using UnityEngine;
 public class TileBehaviour : MonoBehaviour {
 
     public Tile Tile;
-    public Biome biome;
+    public Chunk chunk;
     public List<TileBehaviour> neighbours;
     public int moveCost;
-    public Vector3 coordinates { get; set; }
-
-    public virtual bool IsWalkable()
-    {
-        return true;
-    }
-    public virtual float MovementCost()
-    {
-        return 0;
-    }
-    public virtual List<TileBehaviour> Neighbours()
-    {
-        return neighbours;
-    }
+    public Vector3 chunkCoords { get; set; }
+    public Vector3 worldCoords { get; set; }
+    public bool walkable;
 }
 

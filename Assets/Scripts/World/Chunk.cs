@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Chunk {
+public class Chunk : MonoBehaviour{
     public Biome biome;
     public List<Chunk> neighbours;
     public List<TileBehaviour> tiles;
