@@ -87,7 +87,7 @@ public class WorldGenerator : MonoBehaviour {
             int r2 = Mathf.Min(chunkRadius, -q + chunkRadius);
             for (int r = r1; r <= r2; r++)
             {
-                TileBehaviour tile = CreateTile(q, r, GetTileHeight(q, r), chunkObj);
+                TileBehaviour tile = CreateTile(q, r, chunkObj);
                 chunk.tiles.Add(tile);
             }
         }
@@ -95,32 +95,38 @@ public class WorldGenerator : MonoBehaviour {
         return chunk;
     }
 
-    TileBehaviour CreateTile(int x, int y, float height, GameObject chunk)
+    TileBehaviour CreateTile(int x, int y, GameObject chunk)
     {
         // Calculate the realPos
         Vector3 realPos = new Vector3();
-        realPos.y = height;
-
+        // Turn relative chunkCoords into worldCoords
+        //int wX = (int)(chunk.GetComponent<Chunk>().coords.x * (chunkRadius * 2 + 1)) + x;
+        //int wY = (int)(chunk.GetComponent<Chunk>().coords.y * (chunkRadius * 2 + 1)) + y;
+        
+        // 2D coords
         realPos.x = x * hexWidth + y - (y * 0.133974f);
         realPos.z = y * (hexHeight - (.25f * hexHeight));
+        realPos = realPos + chunk.transform.position;
+        int wX = (int) (realPos.x / hexWidth);
+        int wY = (int) (realPos.z / hexHeight - (.25f * hexHeight));
+        // FUCK
+        /*int wX = (int)(chunk.GetComponent<Chunk>().coords.x + x);
+        int wY = (int)(chunk.GetComponent<Chunk>().coords.y + y);*/
+        int wZ = -wX - wY;
 
-        // Setup a new Tile
-        GameObject newTile = Instantiate(TilePrefab, realPos + chunk.transform.position, Quaternion.identity);
-        newTile.transform.parent = chunk.transform;
+        // Do the height
+        realPos.y = GetTileHeight(wX, wY);
         
+        // Setup a new Tile
+        GameObject newTile = Instantiate(TilePrefab, realPos, Quaternion.identity);
+        newTile.transform.parent = chunk.transform;
 
         // Save to the map
         TileBehaviour tile = newTile.GetComponent<TileBehaviour>();
         tile.chunkCoords = new Vector3(x, y, -x -y);
-        int wX = (int) (chunk.GetComponent<Chunk>().coords.x * (chunkRadius * 2 + 1)) + x;
-        int wY = (int)(chunk.GetComponent<Chunk>().coords.y * (chunkRadius * 2 + 1)) + y;
-        int wZ = (int) -wX - wY;
-        //Debug.Log("x: " + chunk.GetComponent<Chunk>().coords.x + " + " + x + " = " + wX);
-        //Debug.Log("y: " + chunk.GetComponent<Chunk>().coords.y + " + " + y + " = " + wY);
-        tile.worldCoords = new Vector3(wX, wY, wZ);
         
+        tile.worldCoords = new Vector3(wX, wY, wZ);
         tile.moveCost = 1;
-
         newTile.name = "Tile (" + tile.worldCoords.x + ", " + tile.worldCoords.y + ")";
 
         return tile;
