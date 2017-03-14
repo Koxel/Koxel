@@ -31,7 +31,7 @@ public class WorldGenerator : MonoBehaviour {
         chunkHeight = ((chunkRadius * 2 + 1) * (0.75f * hexHeight));
 
         // No custom seed? Calculate one!
-        if (!customSeed) seed = Random.Range(1, 99999999);
+        if (!customSeed) seed = Random.Range(1, 3000000);
         map = new Dictionary<Vector2, TileBehaviour>();
         
         for (int i = 0; i < 3; i++)
@@ -99,21 +99,16 @@ public class WorldGenerator : MonoBehaviour {
     {
         // Calculate the realPos
         Vector3 realPos = new Vector3();
-        // Turn relative chunkCoords into worldCoords
-        //int wX = (int)(chunk.GetComponent<Chunk>().coords.x * (chunkRadius * 2 + 1)) + x;
-        //int wY = (int)(chunk.GetComponent<Chunk>().coords.y * (chunkRadius * 2 + 1)) + y;
-        
         // 2D coords
-        realPos.x = x * hexWidth + y - (y * 0.133974f);
+        realPos.x = x * hexWidth + 0.866026f * y;
         realPos.z = y * (hexHeight - (.25f * hexHeight));
         realPos = realPos + chunk.transform.position;
-        int wX = (int) (realPos.x / hexWidth);
-        int wY = (int) (realPos.z / hexHeight - (.25f * hexHeight));
-        // FUCK
-        /*int wX = (int)(chunk.GetComponent<Chunk>().coords.x + x);
-        int wY = (int)(chunk.GetComponent<Chunk>().coords.y + y);*/
+        // Turn relative chunkCoords into worldCoords
+        int wX = (int)(realPos.x / hexWidth);
+        int wY = (int)(realPos.z / hexHeight - (.25f * hexHeight));
+        
         int wZ = -wX - wY;
-
+        //Debug.Log("wX: " + wX + ", \nrealpos.x: " + realPos.x + ", \nhexWidth: " + hexWidth + ", \nrealPos.x / hexWidth: " + realPos.x / hexWidth + ", \nMathf.Round(realPos.x/hexWidth)" + Mathf.Round(realPos.x / hexWidth) + ", \n(int) Mathf.Round(realPos.x/hexWidth)" + (int)Mathf.Round(realPos.x / hexWidth));
         // Do the height
         realPos.y = GetTileHeight(wX, wY);
         
@@ -128,7 +123,9 @@ public class WorldGenerator : MonoBehaviour {
         tile.worldCoords = new Vector3(wX, wY, wZ);
         tile.moveCost = 1;
         newTile.name = "Tile (" + tile.worldCoords.x + ", " + tile.worldCoords.y + ")";
-
+       
+        // This gave errors
+        //map.Add(new Vector2(wX, wY), tile);
         return tile;
     }
 
@@ -172,5 +169,26 @@ public class WorldGenerator : MonoBehaviour {
         int height = (int)(Mathf.PerlinNoise((x + seed) / detailScale, (y + seed) / detailScale) * heightScale);
         if (flat) height = 0;
         return height;
+    }
+
+    int PixelRound(float nr)
+    {
+        bool negative = false;
+        if(nr < 0)
+        {
+            negative = true;
+            nr *= -1;
+        }
+        double decimals = nr - System.Math.Truncate(nr);
+        double remainder = 1f - (float)decimals;
+        int rounded;
+        if (decimals >= 0.49)
+            rounded = (int)(nr + remainder);
+        else
+            rounded = (int)(nr - decimals);
+        if (negative)
+            rounded *= -1;
+
+        return rounded;
     }
 }
