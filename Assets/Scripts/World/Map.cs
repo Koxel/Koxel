@@ -74,7 +74,7 @@ public class Map : MonoBehaviour {
             if (current == goal)
                 break;
 
-            foreach (TileBehaviour next in current.neighbours)
+            foreach (TileBehaviour next in GetNeighbours(current))
             {
                 var new_cost = cost_so_far[current] + current.moveCost;
                 if (!cost_so_far.ContainsKey(next) || new_cost < cost_so_far[next])
@@ -100,5 +100,39 @@ public class Map : MonoBehaviour {
         path.Add(start);
         path.Reverse();
         return path;
+    }
+    // TODO save neighbours to tile if there are 6, otherwise there are still some yet to be generated.
+    List<TileBehaviour> GetNeighbours(TileBehaviour tile)
+    {
+        // Check if it has all possible neighbours...
+        if (tile.neighbours.Count == 6)
+            return tile.neighbours;
+
+        // No, find as much as possible
+        List<TileBehaviour> neighbours = new List<TileBehaviour>();
+        //  0, -1
+        if (tileMap.ContainsKey(new Vector2(tile.worldCoords.x, tile.worldCoords.y - 1)))
+            neighbours.Add(tileMap[new Vector2(tile.worldCoords.x, tile.worldCoords.y - 1)]);
+        // +1, -1
+        if (tileMap.ContainsKey(new Vector2(tile.worldCoords.x + 1, tile.worldCoords.y - 1)))
+            neighbours.Add(tileMap[new Vector2(tile.worldCoords.x + 1, tile.worldCoords.y - 1)]);
+        // -1,  0
+        if (tileMap.ContainsKey(new Vector2(tile.worldCoords.x - 1, tile.worldCoords.y)))
+            neighbours.Add(tileMap[new Vector2(tile.worldCoords.x - 1, tile.worldCoords.y)]);
+        // +1,  0
+        if (tileMap.ContainsKey(new Vector2(tile.worldCoords.x + 1, tile.worldCoords.y)))
+            neighbours.Add(tileMap[new Vector2(tile.worldCoords.x + 1, tile.worldCoords.y)]);
+        // -1, +1
+        if (tileMap.ContainsKey(new Vector2(tile.worldCoords.x - 1, tile.worldCoords.y + 1)))
+            neighbours.Add(tileMap[new Vector2(tile.worldCoords.x - 1, tile.worldCoords.y + 1)]);
+        //  0, +1
+        if (tileMap.ContainsKey(new Vector2(tile.worldCoords.x, tile.worldCoords.y + 1)))
+            neighbours.Add(tileMap[new Vector2(tile.worldCoords.x, tile.worldCoords.y + 1)]);
+
+        // If we found all neighbours now, save them to the tile
+        if (neighbours.Count == 6)
+            tile.neighbours = neighbours;
+
+        return neighbours;
     }
 }

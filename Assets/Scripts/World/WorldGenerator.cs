@@ -57,10 +57,9 @@ public class WorldGenerator : MonoBehaviour {
     {
         // Position the chunk to the correct realPos
         Vector3 realPos = new Vector3();
-        
-        realPos.x = x * chunkRadius * hexWidth + y * (chunkRadius/2 * hexWidth);
+
         // Square chunk
-        //realPos.x = x * chunkRadius * hexWidth;
+        realPos.x = x * chunkRadius * hexWidth + y * (chunkRadius / 2 * hexWidth);
         realPos.z = y * chunkRadius * (0.75f * hexHeight);
 
         // Hexagonal Chunk
@@ -101,8 +100,7 @@ public class WorldGenerator : MonoBehaviour {
         }
 
         // Hexagon Chunk
-        /*
-        for (int q = -chunkRadius; q <= chunkRadius; q++)
+        /*for (int q = -chunkRadius; q <= chunkRadius; q++)
         {
             int r1 = Mathf.Max(-chunkRadius, -q - chunkRadius);
             int r2 = Mathf.Min(chunkRadius, -q + chunkRadius);
@@ -111,8 +109,7 @@ public class WorldGenerator : MonoBehaviour {
                 TileBehaviour tile = CreateTile(q, r, chunkObj);
                 chunk.tiles.Add(tile);
             }
-        }
-        */
+        }*/
         return chunk;
     }
 
@@ -130,10 +127,11 @@ public class WorldGenerator : MonoBehaviour {
         int wZ = -wX - wY;
         // Do the height
         realPos.y = GetTileHeight(wX, wY);
-        TextCoord(realPos, wX, wY);
+        
         // Setup a new Tile
         GameObject newTile = Instantiate(TilePrefab, realPos, Quaternion.identity);
         newTile.transform.parent = chunk.transform;
+        newTile.name = "Tile (" + wX + ", " + wY + ")";
 
         // Save to the map
         TileBehaviour tile = newTile.GetComponent<TileBehaviour>();
@@ -141,35 +139,10 @@ public class WorldGenerator : MonoBehaviour {
         
         tile.worldCoords = new Vector3(wX, wY, wZ);
         tile.moveCost = 1;
-        newTile.name = "Tile (" + wX + ", " + wY + ")";
-       
+        
+        if(textCoords) TextCoord(tile);
         map.Add(new Vector2(wX, wY), tile);
         return tile;
-    }
-
-    void SetTileNeighbours(List<TileBehaviour> newTiles)
-    {
-        // Set neighbours
-        foreach (TileBehaviour tile in newTiles)
-        {   //  0, -1
-            if (map.ContainsKey(new Vector2(tile.worldCoords.x, tile.worldCoords.y - 1)))
-                tile.neighbours.Add(map[new Vector2(tile.worldCoords.x, tile.worldCoords.y - 1)]);
-            // +1, -1
-            if (map.ContainsKey(new Vector2(tile.worldCoords.x + 1, tile.worldCoords.y - 1)))
-                tile.neighbours.Add(map[new Vector2(tile.worldCoords.x + 1, tile.worldCoords.y - 1)]);
-            // -1,  0
-            if (map.ContainsKey(new Vector2(tile.worldCoords.x - 1, tile.worldCoords.y)))
-                tile.neighbours.Add(map[new Vector2(tile.worldCoords.x - 1, tile.worldCoords.y)]);
-            // +1,  0
-            if (map.ContainsKey(new Vector2(tile.worldCoords.x + 1, tile.worldCoords.y)))
-                tile.neighbours.Add(map[new Vector2(tile.worldCoords.x + 1, tile.worldCoords.y)]);
-            // -1, +1
-            if (map.ContainsKey(new Vector2(tile.worldCoords.x - 1, tile.worldCoords.y + 1)))
-                tile.neighbours.Add(map[new Vector2(tile.worldCoords.x - 1, tile.worldCoords.y + 1)]);
-            //  0, +1
-            if (map.ContainsKey(new Vector2(tile.worldCoords.x, tile.worldCoords.y + 1)))
-                tile.neighbours.Add(map[new Vector2(tile.worldCoords.x, tile.worldCoords.y + 1)]);
-        }
     }
 
     void SetTileColour(TileBehaviour tile)
@@ -212,13 +185,10 @@ public class WorldGenerator : MonoBehaviour {
 
     public GameObject TextObj;
     public bool textCoords;
-    void TextCoord(Vector3 position, int x, int y)
+    void TextCoord(TileBehaviour tile)
     {
-        if (textCoords)
-        {
-            string coordtext = x + "," + y;
-            GameObject obj = Instantiate(TextObj, position, Quaternion.identity);
-            obj.transform.GetChild(0).GetComponent<TextMesh>().text = coordtext;
-        }
+        string coordtext = tile.worldCoords.x + "," + tile.worldCoords.y;
+        GameObject obj = Instantiate(TextObj, tile.transform.position, Quaternion.identity, tile.transform);
+        obj.transform.GetChild(0).GetComponent<TextMesh>().text = coordtext;
     }
 }
