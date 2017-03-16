@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class WorldGenerator : MonoBehaviour {
     // Generation settings
@@ -33,12 +34,12 @@ public class WorldGenerator : MonoBehaviour {
         // No custom seed? Calculate one!
         if (!customSeed) seed = Random.Range(1, 3000000);
         map = new Dictionary<Vector2, TileBehaviour>();
-        
-        for (int i = 0; i < 3; i++)
+
+        for (int r = 0; r < 4; r++)
         {
-            for (int j = 0; j < 2; j++)
+            for (int q = 0; q < 4; q++)
             {
-                NewChunk(i, j);
+                NewChunk(r, q);
             }
         }
 
@@ -57,7 +58,13 @@ public class WorldGenerator : MonoBehaviour {
         // Position the chunk to the correct realPos
         Vector3 realPos = new Vector3();
         
-        if (x % 2 == -1 || x % 2 == 1)
+        realPos.x = x * chunkRadius * hexWidth + y * (chunkRadius/2 * hexWidth);
+        // Square chunk
+        //realPos.x = x * chunkRadius * hexWidth;
+        realPos.z = y * chunkRadius * (0.75f * hexHeight);
+
+        // Hexagonal Chunk
+        /*if (x % 2 == -1 || x % 2 == 1)
         {
             realPos.x = x * (0.5939f * chunkWidth) + y * (0.5f * hexWidth);
             realPos.z = y * (chunkHeight) + (0.495f * chunkHeight) + 0.5f * hexHeight;
@@ -66,10 +73,11 @@ public class WorldGenerator : MonoBehaviour {
         {
             realPos.x = x * (0.5939f * chunkWidth) + y * (0.5f * hexWidth);
             realPos.z = y * (chunkHeight);
-        }
+        }*/
 
         // Create chunk object
         var chunkObj = new GameObject();
+        chunkObj.transform.parent = transform;
         chunkObj.name = "Chunk (" + x + ", " + y + ")";
         chunkObj.transform.position = realPos;
         Chunk chunk = chunkObj.AddComponent(typeof(Chunk)) as Chunk;
@@ -80,7 +88,20 @@ public class WorldGenerator : MonoBehaviour {
     Chunk CreateChunk(Chunk chunk, GameObject chunkObj)
     {
         chunk.tiles = new List<TileBehaviour>();
+        
+        // Square chunk
+        for (int r = -chunkRadius / 2; r < chunkRadius / 2; r++)
+        {
+            int r_offset = (int)Mathf.Floor(r / 2);
+            for (int q = -chunkRadius / 2 - r_offset; q < chunkRadius / 2 - r_offset; q++)
+            {
+                TileBehaviour tile = CreateTile(q, r, chunkObj, r_offset);
+                chunk.tiles.Add(tile);
+            }
+        }
 
+        // Hexagon Chunk
+        /*
         for (int q = -chunkRadius; q <= chunkRadius; q++)
         {
             int r1 = Mathf.Max(-chunkRadius, -q - chunkRadius);
@@ -91,11 +112,11 @@ public class WorldGenerator : MonoBehaviour {
                 chunk.tiles.Add(tile);
             }
         }
-
+        */
         return chunk;
     }
 
-    TileBehaviour CreateTile(int x, int y, GameObject chunk)
+    TileBehaviour CreateTile(int x, int y, GameObject chunk, int r_offset)
     {
         // Calculate the realPos
         Vector3 realPos = new Vector3();
@@ -104,14 +125,12 @@ public class WorldGenerator : MonoBehaviour {
         realPos.z = y * (hexHeight - (.25f * hexHeight));
         realPos = realPos + chunk.transform.position;
         // Turn relative chunkCoords into worldCoords
-        int wX = (int)(realPos.x / hexWidth);
-        int wY = (int)(realPos.z / hexHeight - (.25f * hexHeight));
-        
+        int wX = (int)(chunk.GetComponent<Chunk>().coords.x * (chunkRadius) + x);
+        int wY = (int)(chunk.GetComponent<Chunk>().coords.y * (chunkRadius) + y);
         int wZ = -wX - wY;
-        //Debug.Log("wX: " + wX + ", \nrealpos.x: " + realPos.x + ", \nhexWidth: " + hexWidth + ", \nrealPos.x / hexWidth: " + realPos.x / hexWidth + ", \nMathf.Round(realPos.x/hexWidth)" + Mathf.Round(realPos.x / hexWidth) + ", \n(int) Mathf.Round(realPos.x/hexWidth)" + (int)Mathf.Round(realPos.x / hexWidth));
         // Do the height
         realPos.y = GetTileHeight(wX, wY);
-        
+        TextCoord(realPos, wX, wY);
         // Setup a new Tile
         GameObject newTile = Instantiate(TilePrefab, realPos, Quaternion.identity);
         newTile.transform.parent = chunk.transform;
@@ -122,10 +141,9 @@ public class WorldGenerator : MonoBehaviour {
         
         tile.worldCoords = new Vector3(wX, wY, wZ);
         tile.moveCost = 1;
-        newTile.name = "Tile (" + tile.worldCoords.x + ", " + tile.worldCoords.y + ")";
+        newTile.name = "Tile (" + wX + ", " + wY + ")";
        
-        // This gave errors
-        //map.Add(new Vector2(wX, wY), tile);
+        map.Add(new Vector2(wX, wY), tile);
         return tile;
     }
 
@@ -190,5 +208,17 @@ public class WorldGenerator : MonoBehaviour {
             rounded *= -1;
 
         return rounded;
+    }
+
+    public GameObject TextObj;
+    public bool textCoords;
+    void TextCoord(Vector3 position, int x, int y)
+    {
+        if (textCoords)
+        {
+            string coordtext = x + "," + y;
+            GameObject obj = Instantiate(TextObj, position, Quaternion.identity);
+            obj.transform.GetChild(0).GetComponent<TextMesh>().text = coordtext;
+        }
     }
 }
