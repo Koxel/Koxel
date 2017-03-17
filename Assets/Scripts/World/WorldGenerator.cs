@@ -1,6 +1,5 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
 
 public class WorldGenerator : MonoBehaviour {
     // Generation settings
@@ -28,8 +27,6 @@ public class WorldGenerator : MonoBehaviour {
     {
         // Calculate the distances
         hexWidth = Mathf.Sqrt(3) / 2 * hexHeight;
-        chunkWidth = (chunkRadius * 2 + 1) * (1.25f * hexWidth);
-        chunkHeight = ((chunkRadius * 2 + 1) * (0.75f * hexHeight));
 
         // No custom seed? Calculate one!
         if (!customSeed) seed = Random.Range(1, 3000000);
@@ -47,9 +44,12 @@ public class WorldGenerator : MonoBehaviour {
         Map tilemap = GetComponent<Map>();
         GameObject player = Instantiate(tilemap.playerPrefab, map[new Vector2(0, 0)].transform.position, Quaternion.identity);
         player.name = "Player";
+        player.GetComponent<Controls>().map = tilemap;
         tilemap.player = player;
         tilemap.tileMap = map;
         tilemap.currentTile = map[new Vector2(0, 0)];
+        tilemap.playerCam.SetPlayer(player);
+        tilemap.playerCam.transform.position = player.transform.position + tilemap.playerCam.offset;
         Debug.Log("Finished Initial Generation");
     }
 
@@ -57,22 +57,8 @@ public class WorldGenerator : MonoBehaviour {
     {
         // Position the chunk to the correct realPos
         Vector3 realPos = new Vector3();
-
-        // Square chunk
         realPos.x = x * chunkRadius * hexWidth + y * (chunkRadius / 2 * hexWidth);
         realPos.z = y * chunkRadius * (0.75f * hexHeight);
-
-        // Hexagonal Chunk
-        /*if (x % 2 == -1 || x % 2 == 1)
-        {
-            realPos.x = x * (0.5939f * chunkWidth) + y * (0.5f * hexWidth);
-            realPos.z = y * (chunkHeight) + (0.495f * chunkHeight) + 0.5f * hexHeight;
-        }
-        else
-        {
-            realPos.x = x * (0.5939f * chunkWidth) + y * (0.5f * hexWidth);
-            realPos.z = y * (chunkHeight);
-        }*/
 
         // Create chunk object
         var chunkObj = new GameObject();
@@ -88,7 +74,6 @@ public class WorldGenerator : MonoBehaviour {
     {
         chunk.tiles = new List<TileBehaviour>();
         
-        // Square chunk
         for (int r = -chunkRadius / 2; r < chunkRadius / 2; r++)
         {
             int r_offset = (int)Mathf.Floor(r / 2);
@@ -98,18 +83,6 @@ public class WorldGenerator : MonoBehaviour {
                 chunk.tiles.Add(tile);
             }
         }
-
-        // Hexagon Chunk
-        /*for (int q = -chunkRadius; q <= chunkRadius; q++)
-        {
-            int r1 = Mathf.Max(-chunkRadius, -q - chunkRadius);
-            int r2 = Mathf.Min(chunkRadius, -q + chunkRadius);
-            for (int r = r1; r <= r2; r++)
-            {
-                TileBehaviour tile = CreateTile(q, r, chunkObj);
-                chunk.tiles.Add(tile);
-            }
-        }*/
         return chunk;
     }
 
@@ -136,10 +109,8 @@ public class WorldGenerator : MonoBehaviour {
         // Save to the map
         TileBehaviour tile = newTile.GetComponent<TileBehaviour>();
         tile.chunkCoords = new Vector3(x, y, -x -y);
-        
         tile.worldCoords = new Vector3(wX, wY, wZ);
         tile.moveCost = 1;
-        
         if(textCoords) TextCoord(tile);
         map.Add(new Vector2(wX, wY), tile);
         return tile;
@@ -147,11 +118,9 @@ public class WorldGenerator : MonoBehaviour {
 
     void SetTileColour(TileBehaviour tile)
     {
-        // Colours!
         if (tile.chunkCoords.y > 8)
         {
             tile.transform.GetChild(0).GetComponent<Renderer>().material.color = new Color(49f / 255f, 159f / 255f, 99f / 255f, 255f / 255f);
-            //tb.moveCost = 50;
         }
     }
 
@@ -160,27 +129,6 @@ public class WorldGenerator : MonoBehaviour {
         int height = (int)(Mathf.PerlinNoise((x + seed) / detailScale, (y + seed) / detailScale) * heightScale);
         if (flat) height = 0;
         return height;
-    }
-
-    int PixelRound(float nr)
-    {
-        bool negative = false;
-        if(nr < 0)
-        {
-            negative = true;
-            nr *= -1;
-        }
-        double decimals = nr - System.Math.Truncate(nr);
-        double remainder = 1f - (float)decimals;
-        int rounded;
-        if (decimals >= 0.49)
-            rounded = (int)(nr + remainder);
-        else
-            rounded = (int)(nr - decimals);
-        if (negative)
-            rounded *= -1;
-
-        return rounded;
     }
 
     public GameObject TextObj;

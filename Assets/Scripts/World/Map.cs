@@ -8,10 +8,11 @@ public class Map : MonoBehaviour {
     public Dictionary<Vector2, TileBehaviour> tileMap;
     public int radius;
     List<TileBehaviour> path;
-    public TileBehaviour currentTile;
-    int pathProgress = 0;
     public float playerSpeed = .5f;
-    
+    public TileBehaviour currentTile;
+    private int pathProgress = 0;
+    public PlayerCam playerCam;
+
     void Start () {
         path = new List<TileBehaviour>();
 	}
@@ -39,8 +40,11 @@ public class Map : MonoBehaviour {
 
     public void PixelPath(TileBehaviour goal)
     {
-        path = CreateAStarPath(currentTile, goal);
-        pathProgress = 0;
+        if (path.Count == 0)
+        {
+            path = CreateAStarPath(currentTile, goal);
+            pathProgress = 0;
+        }
     }
 
     public float HexDistance(TileBehaviour a, TileBehaviour b)
