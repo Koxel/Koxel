@@ -20,17 +20,16 @@ public class WorldGenerator : MonoBehaviour {
     private float chunkHeight;
     
     // Maps
-    private Dictionary<Vector2, TileBehaviour> map;
+    private Dictionary<Vector2, Tile> map;
 
     // Will be called after JSON gets parsed
-    public void Generate(List<Tile> tilesList)
+    public void Generate(List<TileType> tilesList, List<Biome> biomesList)
     {
-        // Calculate the distances
         hexWidth = Mathf.Sqrt(3) / 2 * hexHeight;
 
         // No custom seed? Calculate one!
         if (!customSeed) seed = Random.Range(1, 3000000);
-        map = new Dictionary<Vector2, TileBehaviour>();
+        map = new Dictionary<Vector2, Tile>();
 
         for (int r = 0; r < 4; r++)
         {
@@ -68,25 +67,26 @@ public class WorldGenerator : MonoBehaviour {
         Chunk chunk = chunkObj.AddComponent(typeof(Chunk)) as Chunk;
         chunk.coords = new Vector2(x, y);
         chunk = CreateChunk(chunk, chunkObj);
+
     }
 
     Chunk CreateChunk(Chunk chunk, GameObject chunkObj)
     {
-        chunk.tiles = new List<TileBehaviour>();
+        chunk.tiles = new List<Tile>();
         
         for (int r = -chunkRadius / 2; r < chunkRadius / 2; r++)
         {
             int r_offset = (int)Mathf.Floor(r / 2);
             for (int q = -chunkRadius / 2 - r_offset; q < chunkRadius / 2 - r_offset; q++)
             {
-                TileBehaviour tile = CreateTile(q, r, chunkObj, r_offset);
+                Tile tile = CreateTile(q, r, chunkObj, r_offset);
                 chunk.tiles.Add(tile);
             }
         }
         return chunk;
     }
 
-    TileBehaviour CreateTile(int x, int y, GameObject chunk, int r_offset)
+    Tile CreateTile(int x, int y, GameObject chunk, int r_offset)
     {
         // Calculate the realPos
         Vector3 realPos = new Vector3();
@@ -100,14 +100,14 @@ public class WorldGenerator : MonoBehaviour {
         int wZ = -wX - wY;
         // Do the height
         realPos.y = GetTileHeight(wX, wY);
-        
-        // Setup a new Tile
+
+        // Setup a new TileType
         GameObject newTile = Instantiate(TilePrefab, realPos, Quaternion.identity);
         newTile.transform.parent = chunk.transform;
         newTile.name = "Tile (" + wX + ", " + wY + ")";
 
         // Save to the map
-        TileBehaviour tile = newTile.GetComponent<TileBehaviour>();
+        Tile tile = newTile.GetComponent<Tile>();
         tile.chunkCoords = new Vector3(x, y, -x -y);
         tile.worldCoords = new Vector3(wX, wY, wZ);
         tile.moveCost = 1;
@@ -116,7 +116,7 @@ public class WorldGenerator : MonoBehaviour {
         return tile;
     }
 
-    void SetTileColour(TileBehaviour tile)
+    void SetTileColour(Tile tile)
     {
         if (tile.chunkCoords.y > 8)
         {
@@ -133,7 +133,7 @@ public class WorldGenerator : MonoBehaviour {
 
     public GameObject TextObj;
     public bool textCoords;
-    void TextCoord(TileBehaviour tile)
+    void TextCoord(Tile tile)
     {
         string coordtext = tile.worldCoords.x + "," + tile.worldCoords.y;
         GameObject obj = Instantiate(TextObj, tile.transform.position, Quaternion.identity, tile.transform);

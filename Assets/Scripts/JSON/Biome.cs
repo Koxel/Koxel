@@ -3,17 +3,22 @@ using UnityEngine;
 
 public class Biome {
     public string name;
-    public string defaultTile;
+    public TileType defaultTileType;
     public Color skyColor;
     public Color worldColor;
-    public Dictionary<string, double> multipliers;
+    public Dictionary<string, float> multipliers;
     public List<BiomeTile> extraTiles;
     public List<BiomeTileAsset> tileAssets;
+
+    public Biome(string name, TileType defaultTileType, Dictionary<string, float> multipliers)
+    {
+
+    }
 }
 
 public class BiomeTile
 {
-    public Tile tile;
+    public TileType tile;
     public double rarity;
     public int minHeight;
     public int maxHeight;
@@ -28,6 +33,6 @@ public class BiomeTileAsset
     public double rarity;
     public int minHeight;
     public int maxHeight;
-    public List<Tile> spawnTiles;
+    public List<TileType> spawnTiles;
 }
 

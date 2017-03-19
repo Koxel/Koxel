@@ -1,20 +1,22 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Priority_Queue;
 
 public class Map : MonoBehaviour {
     public GameObject playerPrefab;
     public GameObject player;
-    public Dictionary<Vector2, TileBehaviour> tileMap;
+    public Dictionary<Vector2, Tile> tileMap;
     public int radius;
-    List<TileBehaviour> path;
+    List<Tile> path;
     public float playerSpeed = .5f;
-    public TileBehaviour currentTile;
+    public Tile currentTile;
     private int pathProgress = 0;
     public PlayerCam playerCam;
+    public int maxMoveDist = 100;
 
     void Start () {
-        path = new List<TileBehaviour>();
+        path = new List<Tile>();
 	}
 	
 	void Update () {
@@ -35,10 +37,10 @@ public class Map : MonoBehaviour {
         if (pathProgress != path.Count-1)
             pathProgress = pathProgress + 1;
         else
-            path = new List<TileBehaviour>();
+            path = new List<Tile>();
     }
 
-    public void PixelPath(TileBehaviour goal)
+    public void PixelPath(Tile goal)
     {
         if (path.Count == 0)
         {
@@ -47,73 +49,74 @@ public class Map : MonoBehaviour {
         }
     }
 
-    public float HexDistance(TileBehaviour a, TileBehaviour b)
+    public float HexDistance(Tile a, Tile b)
     {
         Vector3 cubeA = a.worldCoords;
         Vector3 cubeB = b.worldCoords;
         return Mathf.Max(Mathf.Abs(cubeA.x - cubeB.x), Mathf.Abs(cubeA.y - cubeB.y), Mathf.Abs(cubeA.z - cubeB.z));
     }
 
-    public List<TileBehaviour> CreateAStarPath(TileBehaviour start, TileBehaviour goal)
+    // Fix by JohnyCilohokla (19-03-'17)
+    public List<Tile> CreateAStarPath(Tile start, Tile goal)
     {
-        PriorityQueue<TileBehaviour> frontier;
-        Dictionary<TileBehaviour, TileBehaviour> came_from;
-        Dictionary<TileBehaviour, double> cost_so_far;
-        List<TileBehaviour> path;
-        TileBehaviour current;
+        FastPriorityQueue<Node> frontier;
+        Dictionary<Tile, bool> visited = new Dictionary<Tile, bool>();
+        List<Tile> path;
+        Node current = new Node(start, 0);
 
-        frontier = new PriorityQueue<TileBehaviour>();
-        frontier.Enqueue(start, 0);
-
-        came_from = new Dictionary<TileBehaviour, TileBehaviour>();
-        cost_so_far = new Dictionary<TileBehaviour, double>();
+        frontier = new FastPriorityQueue<Node>(maxMoveDist);
+        frontier.Enqueue(current, 0);
         
-        came_from[start] = start;
-        cost_so_far[start] = 0;
+        visited[start] = true;
         
         while (frontier.Count > 0)
         {
             current = frontier.Dequeue();
 
-            if (current == goal)
+            if (current.tile == goal)
                 break;
 
-            foreach (TileBehaviour next in GetNeighbours(current))
+            foreach (Tile next in GetNeighbours(current.tile))
             {
-                var new_cost = cost_so_far[current] + current.moveCost;
-                if (!cost_so_far.ContainsKey(next) || new_cost < cost_so_far[next])
+                var new_cost = current.cost + current.tile.moveCost;
+                if (!visited.ContainsKey(next))
                 {
-                    cost_so_far[next] = new_cost;
+                    visited[next] = true;
 
                     var heuristic = HexDistance(goal, next);
-                    var priority = new_cost + heuristic;
-                    frontier.Enqueue(next, priority);
-                    came_from[next] = current;
+                    float priority = (float)new_cost + heuristic;
+                    frontier.Enqueue(new Node(next, new_cost, current), priority);
                 }
             }
         }
 
-        current = goal;
-        path = new List<TileBehaviour>();
-        path.Add(current);
-        while(current != start)
+        if (current.tile!=goal) // path not found
         {
-            current = came_from[current];
-            path.Add(current);
+            return new List<Tile>(); // empty path
+        }
+
+        // current = goal;
+        path = new List<Tile>();
+        path.Add(current.tile);
+        while(current.tile != start)
+        {
+            current = current.prev;
+            path.Add(current.tile);
         }
         path.Add(start);
         path.Reverse();
         return path;
     }
+
     // TODO save neighbours to tile if there are 6, otherwise there are still some yet to be generated.
-    List<TileBehaviour> GetNeighbours(TileBehaviour tile)
+    List<Tile> GetNeighbours(Tile tile)
     {
         // Check if it has all possible neighbours...
         if (tile.neighbours.Count == 6)
             return tile.neighbours;
 
         // No, find as much as possible
-        List<TileBehaviour> neighbours = new List<TileBehaviour>();
+        List<Tile> neighbours = new List<Tile>();
         //  0, -1
         if (tileMap.ContainsKey(new Vector2(tile.worldCoords.x, tile.worldCoords.y - 1)))
             neighbours.Add(tileMap[new Vector2(tile.worldCoords.x, tile.worldCoords.y - 1)]);

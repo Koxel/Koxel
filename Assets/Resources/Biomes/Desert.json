@@ -1,6 +1,6 @@
 {
-  "biome_name": "Desert",
-  "default_tile": "Sand Tile",
+  "name": "Desert",
+  "default_tile": "Grass Tile",
   "sky_color": [ 0, 0, 0, 255 ],
   "world_color": [ 0, 0, 0, 255 ],
   "entryReq": {

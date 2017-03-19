@@ -30,7 +30,7 @@ public class Controls : MonoBehaviour {
 
                 if (Physics.Raycast(ray, out hitInfo))
                 {
-                    map.PixelPath(hitInfo.collider.transform.parent.GetComponent<TileBehaviour>());
+                    map.PixelPath(hitInfo.collider.transform.parent.GetComponent<Tile>());
                 }
             }
         }
