@@ -1,0 +1,10 @@
+{
+	"name":"Mountain",
+	"Hname":"mountain.basic",
+	"defaultColor":[18, 18, 18, 100],
+	"hoverColor":[19, 19, 19, 100],
+
+	"stepType":["walk","fly"],//The travel methods used
+	"stepWeight":2,//takes one step
+
+}

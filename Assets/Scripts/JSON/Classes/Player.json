@@ -1,0 +1,51 @@
+player:{
+  //The following stats are the things the player should have but varies wildy on equipables
+
+  "maxHealth":50,
+  "maxStamina":50,
+  "maxMana":50,
+
+  "attackTypes":[],
+	"specialAttacks":[],
+
+  "personality":{//these are change depending on playstyle
+    "Niceness":50,//Not usually used with monsters
+    "Agressiveness":50,//How quickly it attacks
+    "Cowardness":50,//How quickly it runs away
+    "Intoxication":50//how drunk you are
+  },
+
+  "Stats":{
+      "health":7,
+      "stamina":5,
+      "mana":5,
+      "attack":3, //add to direct damage
+      "magattack":3,//add to magic damage (any attack that uses mana)
+      "defence":3,// subtract from direct damage
+      "magdefence":3,// subtract from magic damage
+
+      "Intelligence":5,
+      "Dexterity":5,
+      "Charisma":5,
+      "willpower":5,
+      "perception":5
+    },
+
+    "inventory":[],
+
+    "Fame":500, //1000 is famous 0 is infamous, influences what people think of you and if they help you
+    "Succes":50,// % of quests done vs completed
+
+    "QuestsDone":[],
+    "QuestsFailed":[],
+    "QuestsCompleted":[],
+    "QuestsTied":[],
+
+    "elementalAffinity":{
+      "fire":0,
+      "earth":0,
+      "water":0,
+      "wind":0,
+      "electric":0
+    },
+}

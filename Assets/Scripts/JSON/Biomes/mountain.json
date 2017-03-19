@@ -1,0 +1,25 @@
+{
+
+	"DefaultTile":"mountain.basic",
+	"SkyColor":[43, 77, 100],
+	"ScreenColor":[0,0,0], (Change screen colors with hue,sat,val)
+	"WorldColor":[0,0,0], (change world colors with hue,sat,val)
+
+	"EntryRequirement":"NaN",
+	"ExitRequirement":"NaN",
+	"Multipliers":{ //(multiply any stat with this while in the biome in %, negative allowed)
+    "steps":200
+	},
+
+	"tiles":[
+		["mountain.basic",100,1,1000]//Hname,rarity%,minheight,maxheight
+		],
+
+	"tileAssets":[],
+
+	"quests":{
+		"Tags":["dry"],
+		"Types":["Item","Friend","Foe","Monster","misc"],
+		"LvlRange":[true,3,6],//playerBased,up, down or //not playerBased,min,max
+		}
+}

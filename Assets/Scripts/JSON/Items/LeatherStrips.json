@@ -1,0 +1,17 @@
+LeatherStrips{
+  "name":"leather strips",
+  "desc":"Some leather strips",
+  "itemType":["resource"],
+
+  "Model":"/assets/models/ItemModels/LeatherStrips.obj",  //possibly replace all this with "prefab":"/assets/prefabs/LeatherStrips", if possible
+  "Color":"/assets/textures/ItemTextures/LeatherStrips.png",
+  "Icon":"/assets/Icons/LeatherStrips.png",
+
+  "EquipEffects":[],
+  "CarryEffects":[],
+  "Weight":1,
+
+  "sellValue":2,
+  "scrapValue":[],
+
+}

@@ -1,0 +1,22 @@
+KokoStaff{
+  "name":"Staff of the koko",
+  "desc":"A ledgendary black staff supposedly carried by one of the creators",
+  "itemType":["Weapon","Staff"],//Tells the engine that it is a weapon of the type staff
+
+  "Model":"/assets/models/ItemModels/KokoStaff.obj",  //possibly replace all this with "prefab":"/assets/prefabs/KokoStaff", if possible
+  "Color":"/assets/textures/ItemTextures/KokoStaff.png",
+  "Icon":"/assets/Icons/KokoStaff.png",
+
+  "EquipEffects":[
+    ["player.Stats.intelligence","+",15],
+    ["player.effects.healthRegen","=",0]//stops health regen
+  ],
+  "CarryEffects":[],//if anywhere in inventory
+  "Weight":5,
+
+  "sellValue":10000,
+  "scrapValue":[
+    ["blackMetal",25],
+    ["Crystal",5]],
+
+}

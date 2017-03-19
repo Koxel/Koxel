@@ -1,0 +1,10 @@
+{
+	"name":"Forest",
+	"Hname":"forest.basic",
+	"defaultColor":[10, 53, 0, 100],
+	"hoverColor":[0, 36, 0, 100],
+
+	"stepType":["walk","horse","fly"],//The travel methods used
+	"stepWeight":1,//takes one step
+
+}
