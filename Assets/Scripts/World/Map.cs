@@ -44,7 +44,7 @@ public class Map : MonoBehaviour {
             path = new List<Tile>();
             foreach(Tile tile in oPath)
             {
-                //tile.transform.GetChild(0).GetComponent<Renderer>().material.color = tile.tileType.defaultRGB;
+                tile.SetColor(tile.tileType.defaultColor);
             }
         }
     }
@@ -58,7 +58,7 @@ public class Map : MonoBehaviour {
             oPath = path;
             foreach (Tile tile in path)
             {
-                //tile.transform.GetChild(0).GetComponent<Renderer>().material.color = tile.tileType.hoverRGB;
+                tile.SetColor(tile.tileType.hoverColor);
             }
         }
     }

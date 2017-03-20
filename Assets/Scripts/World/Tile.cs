@@ -15,7 +15,7 @@ public class Tile : MonoBehaviour
     
     public void SetColor(Color color)
     {
-        transform.GetChild(0).GetComponent<Renderer>().material.color = color;
+        transform.GetChild(0).GetComponent<Renderer>().materials[1].color = color;
     }
 }
 

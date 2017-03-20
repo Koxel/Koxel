@@ -1,27 +1,17 @@
 fileFormatVersion: 2
-guid: 8bc2f57f48a78744dbe9e9937cee55a6
-timeCreated: 1487688544
+guid: 983b4aa0906798a4090350ee6749cc6d
+timeCreated: 1490037949
 licenseType: Free
 ModelImporter:
   serializedVersion: 19
   fileIDToRecycleName:
     100000: //RootNode
-    100002: Camera
-    100004: Lamp
-    100006: Tile
-    100008: Camera.001
-    100010: Lamp.001
     400000: //RootNode
-    400002: Camera
-    400004: Lamp
-    400006: Tile
-    400008: Camera.001
-    400010: Lamp.001
     2300000: //RootNode
-    2300002: Tile
     3300000: //RootNode
-    3300002: Tile
     4300000: Tile
+    7400000: Default Take
+    9500000: //RootNode
   materials:
     importMaterials: 1
     materialName: 0
@@ -84,7 +74,7 @@ ModelImporter:
     hasExtraRoot: 0
     skeletonHasParents: 1
   lastHumanDescriptionAvatarSource: {instanceID: 0}
-  animationType: 0
+  animationType: 2
   humanoidOversampling: 1
   additionalBone: 0
   userData: 
