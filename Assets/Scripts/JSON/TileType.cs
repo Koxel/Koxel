@@ -4,13 +4,16 @@ using UnityEngine;
 
 public class TileType {
     public string name;
-    public Color defaultRGB;
-    public Color hoverRGB;
+    public string Hname;
+    public Color defaultColor;
+    public Color hoverColor;
+    public float moveCost;
 
-    public TileType(string name, Color defaultRGB, Color hoverRGB)
+    public TileType(string name, Color defaultColor, Color hoverColor, float moveCost)
     {
         this.name = name;
-        this.defaultRGB = defaultRGB;
-        this.hoverRGB = hoverRGB;
+        this.defaultColor = defaultColor;
+        this.hoverColor = hoverColor;
+        this.moveCost = moveCost;
     }
 }

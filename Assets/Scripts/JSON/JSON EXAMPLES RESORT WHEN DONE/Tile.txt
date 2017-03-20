@@ -1,9 +1,0 @@
-Tile={
-	"name":"NaN",
-	"defaultColor":[0,0,0],
-	"hoverColor":[0,0,0],
-
-	"stepType":["walk","horse"],//The travel methods used
-	"stepWeight":1,//takes one step
-	
-}

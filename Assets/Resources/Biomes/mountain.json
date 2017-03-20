@@ -1,0 +1,27 @@
+{
+	"name":"Mountain",
+	"default_tile":"Mountain Tile",
+	"SkyColor":[0.430915, 0.779611, 1.000000],
+	"ScreenColor":[0,0,0],
+	"WorldColor":[0,0,0], 
+
+	"EntryRequirement":"NaN",
+	"ExitRequirement":"NaN",
+  "multipliers": {
+    "steps": 200,
+    "xp_gain": 100,
+    "damage": 100
+  },
+
+	"tiles":[
+		["mountain.basic",100,1,1000]
+		],
+
+	"tileAssets":[],
+
+	"quests":{
+		"Tags":["dry"],
+		"Types":["Item","Friend","Foe","Monster","misc"],
+		"LvlRange":[true,3,6]
+	}
+}

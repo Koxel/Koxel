@@ -1,0 +1,10 @@
+{
+	"name": "Deep Water",
+	"Hname": "water_deep",
+	"defaultColor": [0.051384, 0.167926, 0.476990, 1.000000],
+	"hoverColor": [0.028944, 0.089447, 0.246194, 1.000000],
+
+	"stepType": ["boat", "fly"],
+	"stepCost": 1.00
+
+}

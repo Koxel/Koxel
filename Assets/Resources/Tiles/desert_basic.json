@@ -1,0 +1,10 @@
+{
+	"name":"Desert Tile",
+	"Hname":"desert.basic",
+	"defaultRGB":[204, 183, 85, 255],
+	"hoverRGB":[132, 119, 55, 255],
+
+	"stepType":["walk","horse","fly"],
+	"moveCost":1
+
+}

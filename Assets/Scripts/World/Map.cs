@@ -14,10 +14,13 @@ public class Map : MonoBehaviour {
     private int pathProgress = 0;
     public PlayerCam playerCam;
     public int maxMoveDist = 100;
+    List<Tile> oPath;
 
     void Start () {
         path = new List<Tile>();
-	}
+        oPath = new List<Tile>();
+
+    }
 	
 	void Update () {
         // Move over the path
@@ -34,10 +37,16 @@ public class Map : MonoBehaviour {
     public void NextTile()
     {
         currentTile = path[pathProgress];
-        if (pathProgress != path.Count-1)
+        if (pathProgress != path.Count - 1)
             pathProgress = pathProgress + 1;
         else
+        {
             path = new List<Tile>();
+            foreach(Tile tile in oPath)
+            {
+                //tile.transform.GetChild(0).GetComponent<Renderer>().material.color = tile.tileType.defaultRGB;
+            }
+        }
     }
 
     public void PixelPath(Tile goal)
@@ -46,14 +55,19 @@ public class Map : MonoBehaviour {
         {
             path = CreateAStarPath(currentTile, goal);
             pathProgress = 0;
+            oPath = path;
+            foreach (Tile tile in path)
+            {
+                //tile.transform.GetChild(0).GetComponent<Renderer>().material.color = tile.tileType.hoverRGB;
+            }
         }
     }
 
-    public float HexDistance(Tile a, Tile b)
+    public float HexDistance(Tile tileA, Tile tileB)
     {
-        Vector3 cubeA = a.worldCoords;
-        Vector3 cubeB = b.worldCoords;
-        return Mathf.Max(Mathf.Abs(cubeA.x - cubeB.x), Mathf.Abs(cubeA.y - cubeB.y), Mathf.Abs(cubeA.z - cubeB.z));
+        Vector3 a = tileA.worldCoords;
+        Vector3 b = tileB.worldCoords;
+        return Mathf.Max(Mathf.Abs(a.x - b.x), Mathf.Abs(a.y - b.y), Mathf.Abs(a.z - b.z));
     }
 
     // Fix by JohnyCilohokla (19-03-'17)
@@ -135,6 +149,24 @@ public class Map : MonoBehaviour {
         //  0, +1
         if (tileMap.ContainsKey(new Vector2(tile.worldCoords.x, tile.worldCoords.y + 1)))
             neighbours.Add(tileMap[new Vector2(tile.worldCoords.x, tile.worldCoords.y + 1)]);
+        /*// +2, -1
+        if (tileMap.ContainsKey(new Vector2(tile.worldCoords.x + 2, tile.worldCoords.y - 1)))
+            neighbours.Add(tileMap[new Vector2(tile.worldCoords.x + 2, tile.worldCoords.y - 1)]);
+        //  +1, -2
+        if (tileMap.ContainsKey(new Vector2(tile.worldCoords.x + 1, tile.worldCoords.y - 2)))
+            neighbours.Add(tileMap[new Vector2(tile.worldCoords.x + 1, tile.worldCoords.y - 2)]);
+        //  -1, -1
+        if (tileMap.ContainsKey(new Vector2(tile.worldCoords.x - 1, tile.worldCoords.y - 1)))
+            neighbours.Add(tileMap[new Vector2(tile.worldCoords.x - 1, tile.worldCoords.y - 1)]);
+        //  -2, +1
+        if (tileMap.ContainsKey(new Vector2(tile.worldCoords.x - 2, tile.worldCoords.y + 1)))
+            neighbours.Add(tileMap[new Vector2(tile.worldCoords.x - 2, tile.worldCoords.y + 1)]);
+        //  -1, -2
+        if (tileMap.ContainsKey(new Vector2(tile.worldCoords.x - 1, tile.worldCoords.y + 2)))
+            neighbours.Add(tileMap[new Vector2(tile.worldCoords.x - 1, tile.worldCoords.y + 2)]);
+        //  +1, +1
+        if (tileMap.ContainsKey(new Vector2(tile.worldCoords.x + 1, tile.worldCoords.y + 1)))
+            neighbours.Add(tileMap[new Vector2(tile.worldCoords.x + 1, tile.worldCoords.y + 1)]);*/
 
         // If we found all neighbours now, save them to the tile
         if (neighbours.Count == 6)

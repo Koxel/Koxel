@@ -7,4 +7,5 @@ public class Chunk : MonoBehaviour{
     public List<Chunk> neighbours;
     public List<Tile> tiles;
     public Vector2 coords;
+    public string BiomeName;
 }

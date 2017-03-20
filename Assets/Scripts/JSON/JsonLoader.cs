@@ -6,7 +6,7 @@ using System.IO;
 
 public class JsonLoader : MonoBehaviour {
 
-    public Dictionary<string, TileType> Tiles = new Dictionary<string, TileType>();
+    /*public Dictionary<string, TileType> Tiles = new Dictionary<string, TileType>();
     public List<Biome> Biomes = new List<Biome>();
 
     // Use this for initialization
@@ -30,30 +30,31 @@ public class JsonLoader : MonoBehaviour {
         }
 
         // We're ready, start Generation
-        GetComponent<WorldGenerator>().Generate(null, null);
+        GetComponent<WorldGenerator>().Generate(null, Biomes);
     }
 
     void CreateTile(JsonData jsonData)
     {
-        Debug.Log(jsonData["name"]);
         string tileName = jsonData["name"].ToString();
-        Color tileDefaultColor = new Color((int)jsonData["defaultRGB"][0], (int)jsonData["defaultRGB"][1], (int)jsonData["defaultRGB"][2], (int)jsonData["defaultRGB"][3]);
-        Color tileHoverColor = new Color((int)jsonData["hoverRGB"][0], (int)jsonData["hoverRGB"][1], (int)jsonData["hoverRGB"][2], (int)jsonData["hoverRGB"][3]);
+        Color tileDefaultColor = new Color((int)jsonData["defaultRGB"][0] / 255, (int)jsonData["defaultRGB"][1] / 255, (int)jsonData["defaultRGB"][2] / 255, (int)jsonData["defaultRGB"][3] / 255);
+        Color tileHoverColor = new Color((int)jsonData["hoverRGB"][0] / 255, (int)jsonData["hoverRGB"][1] / 255, (int)jsonData["hoverRGB"][2] / 255, (int)jsonData["hoverRGB"][3] / 255);
+        Debug.Log(tileName + ": " + (int)jsonData["defaultRGB"][0]);
+        float moveCost = (int)jsonData["moveCost"];
 
-        Tiles.Add(tileName, new TileType(tileName, tileDefaultColor, tileHoverColor));
+        Tiles.Add(tileName, new TileType(tileName, tileDefaultColor, tileHoverColor, moveCost));
     }
 
     void CreateBiome(JsonData jsonData)
     {
         string biomeName = jsonData["name"].ToString();
-        Debug.Log("Needed tile: " + jsonData["default_tile"]);
         TileType tileType = Tiles[jsonData["default_tile"].ToString()];
         Dictionary<string, float> multipliers = new Dictionary<string, float>();
-        /*foreach(string key in jsonData["multipliers"].Keys)
+        foreach (string key in jsonData["multipliers"].Keys)
         {
-            multipliers.Add(key, (float)jsonData["multipliers"][key]);
+            float value = (int)jsonData["multipliers"][key];
+            multipliers.Add(key, value/100);
         }
-        */
+        
         Biomes.Add(new Biome(biomeName, tileType, multipliers));
-    }
+    }*/
 }

@@ -8,20 +8,24 @@ public class Tile : MonoBehaviour
     public TileType tileType;
     public Chunk chunk;
     public List<Tile> neighbours;
-    public int moveCost;
+    public float moveCost;
     public Vector3 chunkCoords;
     public Vector3 worldCoords;
     public bool walkable;
-    // public Node node;
+    
+    public void SetColor(Color color)
+    {
+        transform.GetChild(0).GetComponent<Renderer>().material.color = color;
+    }
 }
 
 public class Node : FastPriorityQueueNode
 {
     public Tile tile;
     public Node prev;
-    public int cost;
+    public float cost;
 
-    public Node(Tile tile, int cost, Node prev = null)
+    public Node(Tile tile, float cost, Node prev = null)
     {
         this.tile = tile;
         this.prev = prev;
