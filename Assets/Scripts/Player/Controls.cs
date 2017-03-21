@@ -54,8 +54,8 @@ public class Controls : MonoBehaviour {
 
     List<Tile> hoverList;
     List<Tile> prevHoverList;
-    Vector3 prevMouseLoc;
     Tile prevHitTile;
+
     void DrawMousePath()
     {
         Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
@@ -76,7 +76,20 @@ public class Controls : MonoBehaviour {
                     tile.SetColor(tile.tileType.hoverColor);
                 }
                 prevHoverList = hoverList;
-            prevHitTile = hitTile;
+                prevHitTile = hitTile;
+            }
+            
+        }
+        else
+        {
+            if (hoverList.Count > 0)
+            {
+                foreach (Tile tile in hoverList)
+                {
+                    tile.SetColor(tile.tileType.defaultColor);
+                    
+                }
+                hoverList.Clear();
             }
         }
     }
