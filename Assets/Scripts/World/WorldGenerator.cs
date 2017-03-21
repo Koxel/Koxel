@@ -126,14 +126,6 @@ public class WorldGenerator : MonoBehaviour {
         return tile;
     }
 
-    void SetTileColour(Tile tile)
-    {
-        if (tile.chunkCoords.y > 8)
-        {
-            tile.transform.GetChild(0).GetComponent<Renderer>().material.color = new Color(49f / 255f, 159f / 255f, 99f / 255f, 255f / 255f);
-        }
-    }
-
     float GetTileHeight(int x, int y)
     {
         int height = (int)(Mathf.PerlinNoise((x + seed) / detailScale, (y + seed) / detailScale) * heightScale);

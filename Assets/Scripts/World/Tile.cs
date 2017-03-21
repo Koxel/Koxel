@@ -15,8 +15,16 @@ public class Tile : MonoBehaviour
     
     public void SetColor(Color color)
     {
-        transform.GetChild(0).GetComponent<Renderer>().materials[1].color = color;
+        float random = Random.Range(-0.05f, 0.05f);
+        Color newColor = new Color(color.r + random, color.g + random, color.b + random, color.a);
+        transform.GetChild(0).GetComponent<Renderer>().materials[1].color = newColor;
     }
+
+    /*void Update()
+    {
+        WorldGenerator map = GameObject.Find("World").GetComponent<WorldGenerator>();
+        transform.position = new Vector3(transform.position.x, map.noise((int)worldCoords.x, (int)worldCoords.y), transform.position.z);
+    }*/
 }
 
 public class Node : FastPriorityQueueNode
