@@ -15,6 +15,7 @@ public class Map : MonoBehaviour {
     public PlayerCam playerCam;
     public int maxMoveDist = 100;
     List<Tile> oPath;
+    public bool moving = false;
 
     void Start () {
         path = new List<Tile>();
@@ -39,27 +40,29 @@ public class Map : MonoBehaviour {
         currentTile = path[pathProgress];
         if (pathProgress != path.Count - 1)
             pathProgress = pathProgress + 1;
-        else
+        else // We're there
         {
             path = new List<Tile>();
-            foreach(Tile tile in oPath)
+            /*foreach(Tile tile in oPath)
             {
                 tile.SetColor(tile.tileType.defaultColor);
-            }
+            }*/
+            moving = false;
         }
     }
 
-    public void PixelPath(Tile goal)
+    public void PathTo(Tile goal)
     {
         if (path.Count == 0)
         {
-            path = CreateAStarPath(currentTile, goal);
+            moving = true;
+            path = AStar(currentTile, goal);
             pathProgress = 0;
             oPath = path;
-            foreach (Tile tile in path)
+            /*foreach (Tile tile in path)
             {
                 tile.SetColor(tile.tileType.hoverColor);
-            }
+            }*/
         }
     }
 
@@ -71,7 +74,7 @@ public class Map : MonoBehaviour {
     }
 
     // Fix by JohnyCilohokla (19-03-'17)
-    public List<Tile> CreateAStarPath(Tile start, Tile goal)
+    public List<Tile> AStar(Tile start, Tile goal)
     {
         FastPriorityQueue<Node> frontier;
         Dictionary<Tile, bool> visited = new Dictionary<Tile, bool>();

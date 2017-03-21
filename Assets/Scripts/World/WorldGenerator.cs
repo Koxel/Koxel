@@ -92,9 +92,7 @@ public class WorldGenerator : MonoBehaviour {
 
     Tile CreateTile(int x, int y, GameObject chunk)
     {
-        // Calculate the realPos
         Vector3 realPos = new Vector3();
-        // 2D coords
         realPos.x = x * hexWidth + 0.866026f * y;
         realPos.z = y * (hexHeight - (.25f * hexHeight));
         realPos = realPos + chunk.transform.position;
@@ -106,8 +104,7 @@ public class WorldGenerator : MonoBehaviour {
         realPos.y = GetTileHeight(wX, wY);
 
         // Setup a new Tile
-        GameObject newTile = Instantiate(TilePrefab, realPos, Quaternion.identity);
-        newTile.transform.parent = chunk.transform;
+        GameObject newTile = Instantiate(TilePrefab, realPos, Quaternion.identity, chunk.transform);
         newTile.name = "Tile (" + wX + ", " + wY + ")";
 
         // Save to the map
