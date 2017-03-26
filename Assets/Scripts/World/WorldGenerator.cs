@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
 using System.Linq;
+using Simplex;
 
 public class WorldGenerator : MonoBehaviour {
     // Generation settings
@@ -32,9 +33,9 @@ public class WorldGenerator : MonoBehaviour {
         if (!customSeed) seed = Random.Range(1000000, 3000000);
         map = new Dictionary<Vector2, Tile>();
 
-        for (int r = 0; r < 4; r++)
+        for (int r = -2; r < 2; r++)
         {
-            for (int q = 0; q < 4; q++)
+            for (int q = -2; q < 2; q++)
             {
                 NewChunk(r, q, biomes.ElementAt(Random.Range(0, biomes.Count)).Value);
             }
@@ -44,7 +45,7 @@ public class WorldGenerator : MonoBehaviour {
         Map tilemap = GetComponent<Map>();
         GameObject player = Instantiate(tilemap.playerPrefab, map[new Vector2(0, 0)].transform.position, Quaternion.identity);
         player.name = "Player";
-        player.GetComponent<Controls>().map = tilemap;
+        Camera.main.GetComponent<Controls>().map = tilemap;
         tilemap.player = player;
         tilemap.tileMap = map;
         tilemap.currentTile = map[new Vector2(0, 0)];
@@ -102,7 +103,7 @@ public class WorldGenerator : MonoBehaviour {
         int wZ = -wX - wY;
         // Do the height
         realPos.y = GetTileHeight(wX, wY);
-
+       
         // Setup a new Tile
         GameObject newTile = Instantiate(TilePrefab, realPos, Quaternion.identity, chunk.transform);
         newTile.name = "Tile (" + wX + ", " + wY + ")";
@@ -122,11 +123,14 @@ public class WorldGenerator : MonoBehaviour {
         map.Add(new Vector2(wX, wY), tile);
         return tile;
     }
-
+    
     float GetTileHeight(int x, int y)
     {
-        int height = (int)(Mathf.PerlinNoise((x + seed) / detailScale, (y + seed) / detailScale) * heightScale);
+        x += seed;
+        y += seed;
+        float height = Mathf.PerlinNoise(x / 100.0F, y / 100.0F) * 0.5F + Mathf.PerlinNoise(x / 1000.0F, y / 1000.0F) * 0.3F + Mathf.PerlinNoise(x / 10000.0F, y / 10000.0F) * 0.2F;
         if (flat) height = 0;
+        height *= 100;
         return height;
     }
 
