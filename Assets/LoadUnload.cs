@@ -4,22 +4,27 @@ using UnityEngine;
 
 public class LoadUnload : MonoBehaviour {
 
-	// Use this for initialization
-	void Start () {
-	}
-	
-	// Update is called once per frame
-	void Update () {
-		
-	}
+    GameObject loader;
+    GameObject currentChunk;
+    float radius = 10f;
 
-    void OnBecameInvisible()
+    void Start()
     {
-        gameObject.SetActive(false);
+        loader = GameObject.Find("Spectator Camera");
     }
 
-    void OnBecameVisible()
+    void Update()
     {
-        gameObject.SetActive(true);
+        //GetCurrentChunk();
     }
+
+    void GetCurrentChunk()
+    {
+        Vector3 pos = loader.transform.position;
+
+        currentChunk = loader.GetComponent<Controls>().map.currentTile.transform.parent.gameObject;
+
+
+    }
+    //Distance between neighbours = ~27.71;
 }

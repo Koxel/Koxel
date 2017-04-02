@@ -9,14 +9,13 @@ public class Controls : MonoBehaviour {
     bool menuOpen = false;
     public GameObject player;
     bool followPlayer = true;
-    Vector3 playerOffset;
+    public Vector3 playerOffset;
 
     // Use this for initialization
     void Start () {
-        canvas = GameObject.Find("Canvas");
         hoverList = new List<Tile>();
         prevHoverList = new List<Tile>();
-        player = GameObject.Find("Player");
+        //player = GameObject.Find("Player");
         playerOffset = transform.position;
     }
 	
@@ -42,8 +41,6 @@ public class Controls : MonoBehaviour {
                 {
                     LClick();
                 }
-
-                
 
                 if (Input.GetAxis("Horizontal") != 0 || Input.GetAxis("Vertical") != 0)
                 {
@@ -83,7 +80,7 @@ public class Controls : MonoBehaviour {
 
         Vector3 position = this.transform.position;
         position.x = Mathf.Lerp(transform.position.x, player.transform.position.x + playerOffset.x, interpolation);
-        //position.y = Mathf.Lerp(transform.position.y, player.transform.position.y + playerOffset.y, interpolation);
+        position.y = Mathf.Lerp(transform.position.y, player.transform.position.y + playerOffset.y, interpolation);
         position.z = Mathf.Lerp(transform.position.z, player.transform.position.z + playerOffset.z, interpolation);
 
         transform.position = position;
@@ -109,12 +106,14 @@ public class Controls : MonoBehaviour {
 
                 foreach (Tile tile in hoverList)
                 {
-                    tile.SetColor(tile.tileType.hoverColor);
+                    //if(hoverList.Count < map.maxMoveDist)
+                        tile.SetColor(tile.tileType.hoverColor);
+                    //else
+                        //tile.SetColor(map.ErrorColor);
                 }
                 prevHoverList = hoverList;
                 prevHitTile = hitTile;
             }
-            
         }
         else
         {
@@ -123,7 +122,6 @@ public class Controls : MonoBehaviour {
                 foreach (Tile tile in hoverList)
                 {
                     tile.SetColor(tile.tileType.defaultColor);
-                    
                 }
                 hoverList.Clear();
             }

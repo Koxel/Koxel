@@ -11,7 +11,7 @@ public class PlayerCam : MonoBehaviour {
 
     void Start()
     {
-        map.playerCam = gameObject.GetComponent<PlayerCam>();
+        //map.playerCam = gameObject.GetComponent<PlayerCam>();
         offset = transform.position;
     }
     
