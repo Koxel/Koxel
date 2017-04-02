@@ -7,10 +7,10 @@ using System.IO;
 public class NiceJsonLoader : MonoBehaviour {
     public bool DEBUG = false;
     Dictionary<string, TileType> Tiles;
-    Dictionary<string, Biome> Biomes;
+    public Dictionary<string, Biome> Biomes;
 
     // Use this for initialization
-    void Start () {
+    public void Parse () {
         Tiles = new Dictionary<string, TileType>();
         DirectoryInfo tileDir = new DirectoryInfo(Application.dataPath + "/Mods/Koxel/Tiles");
         FileInfo[] tileInfo = tileDir.GetFiles("*.json");
@@ -46,7 +46,7 @@ public class NiceJsonLoader : MonoBehaviour {
         }
 
         // JSON DONE start generation
-        GetComponent<WorldGenerator>().Generate(Biomes);
+        //GetComponent<WorldGenerator>().Generate(Biomes);
     }
 
     void CreateTile(JsonObject json)

@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
 using System.Linq;
+using Simplex;
 
 public class WorldGenerator : MonoBehaviour {
     // Generation settings
@@ -22,19 +23,21 @@ public class WorldGenerator : MonoBehaviour {
     
     // Maps
     private Dictionary<Vector2, Tile> map;
+    private Dictionary<string, Biome> biomes;
 
     // Will be called after JSON gets parsed
-    public void Generate(Dictionary<string, Biome> biomes)
+    public void Generate()
     {
         hexWidth = Mathf.Sqrt(3) / 2 * hexHeight;
 
+        this.biomes = GetComponent<NiceJsonLoader>().Biomes;
         // No custom seed? Calculate one!
         if (!customSeed) seed = Random.Range(1000000, 3000000);
         map = new Dictionary<Vector2, Tile>();
 
-        for (int r = 0; r < 4; r++)
+        for (int r = -2; r < 5; r++)
         {
-            for (int q = 0; q < 4; q++)
+            for (int q = -5; q < 2; q++)
             {
                 NewChunk(r, q, biomes.ElementAt(Random.Range(0, biomes.Count)).Value);
             }
@@ -42,14 +45,12 @@ public class WorldGenerator : MonoBehaviour {
 
         // Setup the map stuff
         Map tilemap = GetComponent<Map>();
-        GameObject player = Instantiate(tilemap.playerPrefab, map[new Vector2(0, 0)].transform.position, Quaternion.identity);
-        player.name = "Player";
-        player.GetComponent<Controls>().map = tilemap;
-        tilemap.player = player;
+
+        //Camera.main.GetComponent<Controls>().map = tilemap;
+        //Camera.main.GetComponent<Controls>().player = player;
+        //tilemap.player = player;
         tilemap.tileMap = map;
         tilemap.currentTile = map[new Vector2(0, 0)];
-        tilemap.playerCam.SetPlayer(player);
-        tilemap.playerCam.transform.position = player.transform.position + tilemap.playerCam.offset;
         Debug.Log("Finished Initial Generation");
     }
 
@@ -69,7 +70,6 @@ public class WorldGenerator : MonoBehaviour {
         chunk.coords = new Vector2(x, y);
         chunk.biome = biome;
         chunk.BiomeName = chunk.biome.name;
-        Debug.Log("Biome: " + chunk.biome.name);
         chunk = CreateChunk(chunkObj);
     }
 
@@ -102,7 +102,7 @@ public class WorldGenerator : MonoBehaviour {
         int wZ = -wX - wY;
         // Do the height
         realPos.y = GetTileHeight(wX, wY);
-
+       
         // Setup a new Tile
         GameObject newTile = Instantiate(TilePrefab, realPos, Quaternion.identity, chunk.transform);
         newTile.name = "Tile (" + wX + ", " + wY + ")";
@@ -113,7 +113,7 @@ public class WorldGenerator : MonoBehaviour {
         tile.worldCoords = new Vector3(wX, wY, wZ);
         // Tile config
         Biome biome = chunk.GetComponent<Chunk>().biome;
-        
+        biome = GetBiome(realPos.y);
         tile.tileType = biome.tiles[0];
         tile.moveCost = 1;
         tile.SetColor(tile.tileType.defaultColor);
@@ -122,11 +122,62 @@ public class WorldGenerator : MonoBehaviour {
         map.Add(new Vector2(wX, wY), tile);
         return tile;
     }
+    
+    Biome GetBiome(float height)
+    {
+        if (height < 20f)
+            return biomes["ocean"];
+        else if (height >= 20f && height < 35f)
+            return biomes["forest"];
+        else
+            return biomes["mountain"];
+    }
 
     float GetTileHeight(int x, int y)
     {
-        int height = (int)(Mathf.PerlinNoise((x + seed) / detailScale, (y + seed) / detailScale) * heightScale);
+        // O.o #SuperNoise by @JohnyCilohokla.. lol
+        x += seed;
+        y += seed;
+
+        float noise100 = Mathf.PerlinNoise(x / 100.0F, y / 100.0F);
+        float noise1000 = Mathf.PerlinNoise(x / 1000.0F, y / 1000.0F);
+        float noise10000 = Mathf.PerlinNoise(x / 10000.0F, y / 10000.0F);
+
+        float ground = noise100 * 0.5F + noise1000 * 0.3F + noise10000 * 0.2F;
+
+
+        float noiseM1 = Mathf.PerlinNoise(0.25F + x / 40.0F, 0.25F + y / 40.0F);
+        float noiseM2 = Mathf.PerlinNoise(0.25F + x / 40.0F, 0.25F + y / 40.0F);
+        float noiseM = Mathf.Sqrt(noiseM1) * Mathf.Sqrt(noiseM2);
+        float mountain = 0;
+        if (noiseM > 0.4)
+        {
+            mountain = (noiseM - 0.4f) * 0.4f;
+        }
+
+
+
+        float noiseN10 = Mathf.PerlinNoise(x / 5.0F, y / 5.0F);
+        float noiseN = Mathf.PerlinNoise(0.25F + x / 25.0F, 0.25F + y / 25.0F);
+        float noise = 0;
+        if (noiseN > 0.55)
+        {
+            noise = Mathf.Max(0, noiseN10 - 0.5f) * 0.1f;
+        }
+
+
+        float noiseF = Mathf.PerlinNoise(0.85F + x / 40.0F, 0.85F + y / 40.0F);
+        float ratioNoise = 1;
+        if (noiseF > 0.5)
+        {
+            ratioNoise = 1 - Mathf.Max(0, (noiseF - 0.5f) * 0.5f);
+        }
+
+        float height = ratioNoise * (ground + mountain) + noise;
+
+
         if (flat) height = 0;
+        height *= 50;
         return height;
     }
 
@@ -137,5 +188,14 @@ public class WorldGenerator : MonoBehaviour {
         string coordtext = tile.worldCoords.x + "," + tile.worldCoords.y;
         GameObject obj = Instantiate(TextObj, tile.transform.position, Quaternion.identity, tile.transform);
         obj.transform.GetChild(0).GetComponent<TextMesh>().text = coordtext;
+    }
+
+    public GameObject playerPrefab;
+    public GameObject CreatePlayer()
+    {
+        GameObject player = Instantiate(playerPrefab, map[new Vector2(0, 0)].transform.position, Quaternion.identity, transform.parent);
+        player.name = "Player";
+
+        return player;
     }
 }

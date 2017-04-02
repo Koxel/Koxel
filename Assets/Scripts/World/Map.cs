@@ -12,15 +12,14 @@ public class Map : MonoBehaviour {
     public float playerSpeed = .5f;
     public Tile currentTile;
     private int pathProgress = 0;
-    public PlayerCam playerCam;
     public int maxMoveDist = 100;
     List<Tile> oPath;
     public bool moving = false;
+    public Color ErrorColor = new Color(0.507068f, 0.021169f, 0.016924f, 1f);
 
     void Start () {
         path = new List<Tile>();
         oPath = new List<Tile>();
-
     }
 	
 	void Update () {
@@ -53,7 +52,8 @@ public class Map : MonoBehaviour {
 
     public void PathTo(Tile goal)
     {
-        if (path.Count == 0)
+        Debug.Log(HexDistance(goal, currentTile));
+        if (path.Count == 0 && HexDistance(goal, currentTile) < 50)
         {
             moving = true;
             path = AStar(currentTile, goal);
@@ -76,53 +76,58 @@ public class Map : MonoBehaviour {
     // Fix by JohnyCilohokla (19-03-'17)
     public List<Tile> AStar(Tile start, Tile goal)
     {
-        FastPriorityQueue<Node> frontier;
-        Dictionary<Tile, bool> visited = new Dictionary<Tile, bool>();
-        List<Tile> path;
-        Node current = new Node(start, 0);
-
-        frontier = new FastPriorityQueue<Node>(maxMoveDist);
-        frontier.Enqueue(current, 0);
-        
-        visited[start] = true;
-        
-        while (frontier.Count > 0)
+        if (HexDistance(start, goal) <= maxMoveDist)
         {
-            current = frontier.Dequeue();
+            //Debug.Log(HexDistance(start, goal));
+            FastPriorityQueue<Node> frontier;
+            Dictionary<Tile, bool> visited = new Dictionary<Tile, bool>();
+            List<Tile> path;
+            Node current = new Node(start, 0);
 
-            if (current.tile == goal)
-                break;
+            frontier = new FastPriorityQueue<Node>(maxMoveDist*6);
+            frontier.Enqueue(current, 0);
 
-            foreach (Tile next in GetNeighbours(current.tile))
+            visited[start] = true;
+
+            while (frontier.Count > 0)
             {
-                var new_cost = current.cost + current.tile.moveCost;
-                if (!visited.ContainsKey(next))
-                {
-                    visited[next] = true;
+                current = frontier.Dequeue();
 
-                    var heuristic = HexDistance(goal, next);
-                    float priority = (float)new_cost + heuristic;
-                    frontier.Enqueue(new Node(next, new_cost, current), priority);
+                if (current.tile == goal)
+                    break;
+
+                foreach (Tile next in GetNeighbours(current.tile))
+                {
+                    var new_cost = current.cost + current.tile.moveCost;
+                    if (!visited.ContainsKey(next))
+                    {
+                        visited[next] = true;
+
+                        var heuristic = HexDistance(goal, next);
+                        float priority = (float)new_cost + heuristic;
+                        frontier.Enqueue(new Node(next, new_cost, current), priority);
+                    }
                 }
             }
-        }
 
-        if (current.tile!=goal) // path not found
-        {
-            return new List<Tile>(); // empty path
-        }
+            if (current.tile != goal) // path not found
+            {
+                return new List<Tile>(); // empty path
+            }
 
-        // current = goal;
-        path = new List<Tile>();
-        path.Add(current.tile);
-        while(current.tile != start)
-        {
-            current = current.prev;
+            // current = goal;
+            path = new List<Tile>();
             path.Add(current.tile);
+            while (current.tile != start)
+            {
+                current = current.prev;
+                path.Add(current.tile);
+            }
+            path.Add(start);
+            path.Reverse();
+            return path;
         }
-        path.Add(start);
-        path.Reverse();
-        return path;
+        return new List<Tile>();
     }
 
     // TODO save neighbours to tile if there are 6, otherwise there are still some yet to be generated.
@@ -176,5 +181,10 @@ public class Map : MonoBehaviour {
             tile.neighbours = neighbours;
 
         return neighbours;
+    }
+
+    void SetChunkNeighbours(Chunk chunk)
+    {
+
     }
 }
