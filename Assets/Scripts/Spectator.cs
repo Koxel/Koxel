@@ -17,7 +17,7 @@ public class Spectator : MonoBehaviour {
                 pos.z = Mathf.Lerp(pos.z, pos.z + Input.GetAxis("Vertical") * 2, interpolation);
             }
             RaycastHit hit;
-            if (Physics.Raycast(transform.position, -Vector3.up, out hit))
+            if (Physics.Raycast(transform.position, -Vector3.up, out hit, Mathf.Infinity, 1 << 8))
                 pos.y = Mathf.Lerp(pos.y, hit.transform.position.y + 15f, interpolation);
 
             transform.position = pos;

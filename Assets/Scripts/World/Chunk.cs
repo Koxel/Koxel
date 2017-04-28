@@ -3,9 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class Chunk : MonoBehaviour{
-    public Biome biome;
     public List<Chunk> neighbours;
-    public List<Tile> tiles;
+    public List<Tile> tiles = new List<Tile>();
     public Vector2 coords;
-    public string BiomeName;
 }

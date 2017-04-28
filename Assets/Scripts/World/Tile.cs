@@ -5,6 +5,7 @@ using Priority_Queue;
 
 public class Tile : MonoBehaviour
 {
+    public Biome biome;
     public TileType tileType;
     public Chunk chunk;
     public List<Tile> neighbours;

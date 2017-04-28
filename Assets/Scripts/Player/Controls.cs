@@ -13,6 +13,7 @@ public class Controls : MonoBehaviour {
 
     // Use this for initialization
     void Start () {
+        canvas = GameObject.Find("Canvas");
         hoverList = new List<Tile>();
         prevHoverList = new List<Tile>();
         //player = GameObject.Find("Player");
@@ -100,17 +101,11 @@ public class Controls : MonoBehaviour {
             if (hitTile != prevHitTile)
             {
                 foreach (Tile tile in prevHoverList)
-                {
                     tile.SetColor(tile.tileType.defaultColor);
-                }
 
                 foreach (Tile tile in hoverList)
-                {
-                    //if(hoverList.Count < map.maxMoveDist)
                         tile.SetColor(tile.tileType.hoverColor);
-                    //else
-                        //tile.SetColor(map.ErrorColor);
-                }
+                
                 prevHoverList = hoverList;
                 prevHitTile = hitTile;
             }

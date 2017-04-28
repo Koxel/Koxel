@@ -6,27 +6,22 @@ using System.IO;
 
 public class NiceJsonLoader : MonoBehaviour {
     public bool DEBUG = false;
-    Dictionary<string, TileType> Tiles;
+    Dictionary<string, TileType> TileTypes;
     public Dictionary<string, Biome> Biomes;
 
-    // Use this for initialization
     public void Parse () {
-        Tiles = new Dictionary<string, TileType>();
-        DirectoryInfo tileDir = new DirectoryInfo(Application.dataPath + "/Mods/Koxel/Tiles");
+        TileTypes = new Dictionary<string, TileType>();
+        DirectoryInfo tileDir = new DirectoryInfo(Application.dataPath + "/Mods/Koxel/TileTypes");
         FileInfo[] tileInfo = tileDir.GetFiles("*.json");
 
         foreach (FileInfo file in tileInfo)
         {
             JsonObject array = (JsonObject)JsonNode.ParseJsonString(File.ReadAllText(file.FullName));
-            CreateTile(array);
+            CreateTileType(array);
         }
         if (DEBUG)
-        {
-            foreach (string text in Tiles.Keys)
-            {
+            foreach (string text in TileTypes.Keys)
                 Debug.Log(text);
-            }
-        }
 
         Biomes = new Dictionary<string, Biome>();
         DirectoryInfo biomeDir = new DirectoryInfo(Application.dataPath + "/Mods/Koxel/Biomes");
@@ -38,18 +33,11 @@ public class NiceJsonLoader : MonoBehaviour {
             CreateBiome(array);
         }
         if (DEBUG)
-        {
             foreach (string text in Biomes.Keys)
-            {
                 Debug.Log(text);
-            }
-        }
-
-        // JSON DONE start generation
-        //GetComponent<WorldGenerator>().Generate(Biomes);
     }
 
-    void CreateTile(JsonObject json)
+    void CreateTileType(JsonObject json)
     {
         string Hname = json["Hname"];
         string name = json["name"];
@@ -57,18 +45,19 @@ public class NiceJsonLoader : MonoBehaviour {
         Color hoverColor = new Color(json["hoverColor"][0], json["hoverColor"][1], json["hoverColor"][2], json["hoverColor"][3]);
         float moveCost = json["stepCost"];
 
-        TileType tileType = new TileType(name, defaultColor, hoverColor, moveCost);
-        Tiles.Add(Hname, tileType);
+        TileType tileType = new TileType(Hname, name, defaultColor, hoverColor, moveCost);
+        TileTypes.Add(Hname, tileType);
     }
 
     void CreateBiome(JsonObject json)
     {
         string Hname = json["Hname"];
         string name = json["name"];
-        List<TileType> tiles = new List<TileType>();
-        tiles.Add(Tiles[json["defaultTile"]]);
+        Dictionary<string, TileType> tileTypes = new Dictionary<string, TileType>();
+        
+        tileTypes.Add(json["defaultTile"], TileTypes[json["defaultTile"]]);
         //Debug.Log(json["tiles"][0]["Hname"]);
-        //tiles.Add(Tiles[json["tiles"]["Forest Tile"]["Hname"]]);
+        //tiles.Add(TileTypes[json["tiles"]["Forest Tile"]["Hname"]]);
 
         Dictionary<string, float> multipliers = new Dictionary<string, float>();
         multipliers.Add("steps", json["multipliers"]["steps"]);
@@ -80,7 +69,7 @@ public class NiceJsonLoader : MonoBehaviour {
             multipliers.Add(key, value / 100);
         }*/
 
-        Biome biome = new Biome(name, tiles, multipliers);
+        Biome biome = new Biome(Hname, name, tileTypes, multipliers);
         Biomes.Add(Hname, biome);
     }
 }

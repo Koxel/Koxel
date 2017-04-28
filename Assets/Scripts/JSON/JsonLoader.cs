@@ -30,7 +30,7 @@ public class JsonLoader : MonoBehaviour {
         }
 
         // We're ready, start Generation
-        GetComponent<WorldGenerator>().Generate(null, Biomes);
+        GetComponent<World>().Generate(null, Biomes);
     }
 
     void CreateTile(JsonData jsonData)

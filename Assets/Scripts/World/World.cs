@@ -1,9 +1,8 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
 using System.Linq;
-using Simplex;
 
-public class WorldGenerator : MonoBehaviour {
+public class World : MonoBehaviour {
     // Generation settings
     public int chunkRadius = 7;
     public bool flat = false;
@@ -20,41 +19,62 @@ public class WorldGenerator : MonoBehaviour {
     private float hexWidth;
     private float chunkWidth;
     private float chunkHeight;
-    
-    // Maps
-    private Dictionary<Vector2, Tile> map;
-    private Dictionary<string, Biome> biomes;
 
-    // Will be called after JSON gets parsed
-    public void Generate()
+    // Maps
+    Map MAP;
+    Dictionary<Vector2, Tile> map;
+    Dictionary<string, Biome> biomes;
+    
+    public void SetupWorld(WorldData worldData, Dictionary<string, Biome> biomes)
     {
+        MAP = GetComponent<Map>();
         hexWidth = Mathf.Sqrt(3) / 2 * hexHeight;
 
-        this.biomes = GetComponent<NiceJsonLoader>().Biomes;
-        // No custom seed? Calculate one!
-        if (!customSeed) seed = Random.Range(1000000, 3000000);
+        WorldData = worldData;
+        seed = (int)WorldData.seed;
+        this.biomes = biomes;
+    }
+
+    public Biome FindBiome(string biomeName)
+    {
+        Biome biome;
+        if (biomes.TryGetValue(biomeName, out biome))
+            return biome;
+        else
+        {
+            Debug.LogError("Biome '" + biomeName + "' cannot be found.");
+            return null;
+        }
+    }
+
+    public TileType FindTileType(Biome biome, string tileTypeName) 
+    {
+        TileType tileType;
+        if (biome.tileTypes.TryGetValue(tileTypeName, out tileType))
+            return tileType;
+        else
+        {
+            Debug.LogError("TileType '" + tileTypeName + "' cannot be found in biome '" + biome.name + "'.");
+            return null;
+        }
+    }
+
+    public void Generate()
+    {
+        Debug.Log("Generating with seed: " + seed);
         map = new Dictionary<Vector2, Tile>();
 
         for (int r = -2; r < 5; r++)
         {
             for (int q = -5; q < 2; q++)
             {
-                NewChunk(r, q, biomes.ElementAt(Random.Range(0, biomes.Count)).Value);
+                FillChunk(CreateChunk(r, q));
             }
         }
-
-        // Setup the map stuff
-        Map tilemap = GetComponent<Map>();
-
-        //Camera.main.GetComponent<Controls>().map = tilemap;
-        //Camera.main.GetComponent<Controls>().player = player;
-        //tilemap.player = player;
-        tilemap.tileMap = map;
-        tilemap.currentTile = map[new Vector2(0, 0)];
-        Debug.Log("Finished Initial Generation");
+        MAP.currentTile = MAP.tileMap[new Vector2(0, 0)];
     }
 
-    void NewChunk(int x, int y, Biome biome)
+    public Chunk CreateChunk(int x, int y)
     {
         // Position the chunk to the correct realPos
         Vector3 realPos = new Vector3();
@@ -68,29 +88,22 @@ public class WorldGenerator : MonoBehaviour {
         chunkObj.transform.position = realPos;
         Chunk chunk = chunkObj.AddComponent(typeof(Chunk)) as Chunk;
         chunk.coords = new Vector2(x, y);
-        chunk.biome = biome;
-        chunk.BiomeName = chunk.biome.name;
-        chunk = CreateChunk(chunkObj);
+        return chunk;
     }
 
-    Chunk CreateChunk(GameObject chunkObj)
+    void FillChunk(Chunk chunk)
     {
-        Chunk chunk = chunkObj.GetComponent<Chunk>();
-        chunk.tiles = new List<Tile>();
-        
         for (int r = -chunkRadius / 2; r < chunkRadius / 2; r++)
         {
             int r_offset = (int)Mathf.Floor(r / 2);
             for (int q = -chunkRadius / 2 - r_offset; q < chunkRadius / 2 - r_offset; q++)
             {
-                Tile tile = CreateTile(q, r, chunkObj);
-                chunk.tiles.Add(tile);
+                Tile tile = CreateTile(q, r, chunk, null, null);
             }
         }
-        return chunk;
     }
 
-    Tile CreateTile(int x, int y, GameObject chunk)
+    public Tile CreateTile(int x, int y, Chunk chunk, Biome biome, TileType tileType)
     {
         Vector3 realPos = new Vector3();
         realPos.x = x * hexWidth + 0.866026f * y;
@@ -107,19 +120,27 @@ public class WorldGenerator : MonoBehaviour {
         GameObject newTile = Instantiate(TilePrefab, realPos, Quaternion.identity, chunk.transform);
         newTile.name = "Tile (" + wX + ", " + wY + ")";
 
-        // Save to the map
+        // Save coords
         Tile tile = newTile.GetComponent<Tile>();
         tile.chunkCoords = new Vector3(x, y, -x -y);
         tile.worldCoords = new Vector3(wX, wY, wZ);
+
         // Tile config
-        Biome biome = chunk.GetComponent<Chunk>().biome;
-        biome = GetBiome(realPos.y);
-        tile.tileType = biome.tiles[0];
-        tile.moveCost = 1;
+        if (biome == null)
+            biome = GetBiome(realPos.y);
+        tile.biome = biome;
+
+        if (tileType == null)
+            tileType = biome.tileTypes.ElementAt(0).Value;
+        tile.tileType = tileType;
+
+        tile.moveCost = tileType.moveCost;
         tile.SetColor(tile.tileType.defaultColor);
 
+        chunk.tiles.Add(tile);
+        MAP.tileMap.Add(new Vector2(tile.worldCoords.x, tile.worldCoords.y), tile);
+
         if (textCoords) TextCoord(tile);
-        map.Add(new Vector2(wX, wY), tile);
         return tile;
     }
     
@@ -193,9 +214,18 @@ public class WorldGenerator : MonoBehaviour {
     public GameObject playerPrefab;
     public GameObject CreatePlayer()
     {
-        GameObject player = Instantiate(playerPrefab, map[new Vector2(0, 0)].transform.position, Quaternion.identity, transform.parent);
+        GameObject player = Instantiate(playerPrefab, MAP.tileMap[new Vector2(0, 0)].transform.position, Quaternion.identity, transform.parent);
         player.name = "Player";
-
+        MAP.currentTile = MAP.tileMap[new Vector2(0, 0)];
         return player;
     }
+
+
+    public WorldData WorldData;
+}
+
+public class WorldData
+{
+    public string name;
+    public float seed;
 }

@@ -766,7 +766,7 @@ namespace NiceJson
             return m_dictionary.Remove(key);
         }
 
-        public bool ContainsKey(string key)
+        new public bool ContainsKey(string key)
         {
             return m_dictionary.ContainsKey(key);
         }

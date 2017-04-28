@@ -13,9 +13,14 @@
     "damage": 100
   },
 
-	"tiles":[
-		["forest.basic",100,1,1000]
-		],
+  "tiles": [
+    [
+      "forest.basic",
+      100,
+      1,
+      1000
+    ]
+  ],
 
 	"tileAssets":[
 		["Tree",65,18,35,["forest.*"]]

@@ -4,22 +4,19 @@ using UnityEngine;
 using Priority_Queue;
 
 public class Map : MonoBehaviour {
-    public GameObject playerPrefab;
     public GameObject player;
     public Dictionary<Vector2, Tile> tileMap;
     public int radius;
     List<Tile> path;
     public float playerSpeed = .5f;
     public Tile currentTile;
-    private int pathProgress = 0;
+    int pathProgress = 0;
     public int maxMoveDist = 100;
-    List<Tile> oPath;
     public bool moving = false;
-    public Color ErrorColor = new Color(0.507068f, 0.021169f, 0.016924f, 1f);
 
     void Start () {
         path = new List<Tile>();
-        oPath = new List<Tile>();
+        tileMap = new Dictionary<Vector2, Tile>();
     }
 	
 	void Update () {
@@ -42,27 +39,17 @@ public class Map : MonoBehaviour {
         else // We're there
         {
             path = new List<Tile>();
-            /*foreach(Tile tile in oPath)
-            {
-                tile.SetColor(tile.tileType.defaultColor);
-            }*/
             moving = false;
         }
     }
 
     public void PathTo(Tile goal)
     {
-        Debug.Log(HexDistance(goal, currentTile));
         if (path.Count == 0 && HexDistance(goal, currentTile) < 50)
         {
             moving = true;
             path = AStar(currentTile, goal);
             pathProgress = 0;
-            oPath = path;
-            /*foreach (Tile tile in path)
-            {
-                tile.SetColor(tile.tileType.hoverColor);
-            }*/
         }
     }
 
@@ -181,10 +168,5 @@ public class Map : MonoBehaviour {
             tile.neighbours = neighbours;
 
         return neighbours;
-    }
-
-    void SetChunkNeighbours(Chunk chunk)
-    {
-
     }
 }

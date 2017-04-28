@@ -2,17 +2,19 @@
 using UnityEngine;
 
 public class Biome {
+    public string Hname;
     public string name;
     public Color skyColor;
     public Color worldColor;
     public Dictionary<string, float> multipliers;
-    public List<TileType> tiles;
+    public Dictionary<string, TileType> tileTypes;
     public List<TileAsset> tileAssets;
 
-    public Biome(string name, List<TileType> tiles, Dictionary<string, float> multipliers)
+    public Biome(string Hname, string name, Dictionary<string, TileType> tileTypes, Dictionary<string, float> multipliers)
     {
+        this.Hname = Hname;
         this.name = name;
-        this.tiles = tiles;
+        this.tileTypes = tileTypes;
         this.multipliers = multipliers;
     }
 }

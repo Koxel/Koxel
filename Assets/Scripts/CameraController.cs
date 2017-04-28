@@ -5,13 +5,15 @@ using UnityEngine;
 public class CameraController : MonoBehaviour {
 
     Game Game;
-    Camera spectateCam;
-    Camera playerCam;
+    public Camera spectateCam;
+    public Camera playerCam;
 
-	// Use this for initialization
-	public void Setup (GameObject player) {
+    void Start()
+    {
         Game = GetComponent<Game>();
+    }
 
+    public void Setup (GameObject player) {
         spectateCam = transform.FindChild("Spectator Camera").transform.GetChild(0).GetComponent<Camera>();
         playerCam = transform.FindChild("Player Camera").transform.GetChild(0).GetComponent<Camera>();
 
@@ -21,14 +23,23 @@ public class CameraController : MonoBehaviour {
 
         playerCam.enabled = true;
         playerCam.GetComponent<AudioListener>().enabled = true;
+        GetComponent<LoadUnload>().loader = playerCam.transform.parent.gameObject;
 
         playerCam.transform.parent.GetComponent<Follower>().followThis = player;
     }
 	
 	// Update is called once per frame
 	void Update () {
+        if (GetComponent<MenuControls>().isOpenMenu)
+            return;
+
         if (Input.GetKeyDown(KeyCode.Tab))
         {
+            foreach (Tile tile in prevHoverList)
+                tile.SetColor(tile.tileType.defaultColor);
+
+            spectateCam.transform.parent.position = playerCam.transform.position;
+
             //Switch Camera
             spectateCam.enabled = !spectateCam.enabled;
             spectateCam.GetComponent<AudioListener>().enabled = spectateCam.enabled;
@@ -36,6 +47,11 @@ public class CameraController : MonoBehaviour {
 
             playerCam.enabled = !playerCam.enabled;
             playerCam.GetComponent<AudioListener>().enabled = playerCam.enabled;
+            
+            if(spectateCam.enabled)
+                GetComponent<LoadUnload>().loader = spectateCam.transform.parent.gameObject;
+            else
+                GetComponent<LoadUnload>().loader = playerCam.transform.parent.GetComponent<Follower>().followThis;
         }
         if (playerCam.enabled)
         {
