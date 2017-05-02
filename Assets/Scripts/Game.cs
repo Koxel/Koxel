@@ -4,7 +4,7 @@ using System.IO;
 
 public class Game : MonoBehaviour {
 
-    string worldPath;
+    public string worldPath;
     public GameObject World;
     public GameObject Player;
     public bool menuOpen;
@@ -45,17 +45,19 @@ public class Game : MonoBehaviour {
     {
         LoadUnload loader = GetComponent<LoadUnload>();
 
-        GetComponent<NiceJsonLoader>().Parse();
-        World.GetComponent<World>().SetupWorld(worldData, GetComponent<NiceJsonLoader>().Biomes);
+        GetComponent<ModLoader>().Parse();
+        World.GetComponent<World>().SetupWorld(worldData, GetComponent<ModLoader>().Biomes);
         if (isNew)
         {
             //Generate new
-            World.GetComponent<World>().Generate();
+            World world = World.GetComponent<World>();
+            Chunk startChunk = world.FillChunkRandom(world.CreateChunk(0, 0));
+            World.GetComponent<Map>().currentTile = World.GetComponent<Map>().tileMap[new Vector2(0, 0)];
+            loader.ChunkChanged(startChunk);
         }
         else
         {
             //Restore save
-            Debug.Log(worldPath);
             DirectoryInfo dir = new DirectoryInfo(worldPath + "/Chunks");
             FileInfo[] files = dir.GetFiles("*.json");
             foreach(FileInfo file in files)

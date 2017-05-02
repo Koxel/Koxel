@@ -46,7 +46,6 @@ public class World : MonoBehaviour {
             return null;
         }
     }
-
     public TileType FindTileType(Biome biome, string tileTypeName) 
     {
         TileType tileType;
@@ -68,7 +67,7 @@ public class World : MonoBehaviour {
         {
             for (int q = -5; q < 2; q++)
             {
-                FillChunk(CreateChunk(r, q));
+                FillChunkRandom(CreateChunk(r, q));
             }
         }
         MAP.currentTile = MAP.tileMap[new Vector2(0, 0)];
@@ -88,10 +87,14 @@ public class World : MonoBehaviour {
         chunkObj.transform.position = realPos;
         Chunk chunk = chunkObj.AddComponent(typeof(Chunk)) as Chunk;
         chunk.coords = new Vector2(x, y);
+        //Debug.Log(x + " " + y);
+        MAP.chunkMap.Add(chunk.coords, chunk);
+        chunk.neighbours = new List<Chunk>();
+        MAP.UpdateChunkNeighbours(chunk);
         return chunk;
     }
 
-    void FillChunk(Chunk chunk)
+    public Chunk FillChunkRandom(Chunk chunk)
     {
         for (int r = -chunkRadius / 2; r < chunkRadius / 2; r++)
         {
@@ -101,6 +104,7 @@ public class World : MonoBehaviour {
                 Tile tile = CreateTile(q, r, chunk, null, null);
             }
         }
+        return chunk;
     }
 
     public Tile CreateTile(int x, int y, Chunk chunk, Biome biome, TileType tileType)
@@ -137,6 +141,7 @@ public class World : MonoBehaviour {
         tile.moveCost = tileType.moveCost;
         tile.SetColor(tile.tileType.defaultColor);
 
+        tile.chunk = chunk;
         chunk.tiles.Add(tile);
         MAP.tileMap.Add(new Vector2(tile.worldCoords.x, tile.worldCoords.y), tile);
 

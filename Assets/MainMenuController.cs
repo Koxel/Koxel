@@ -13,6 +13,9 @@ public class MainMenuController : MonoBehaviour {
 
     private void Start()
     {
+        if (!Directory.Exists(Application.dataPath + "/Saves"))
+            Directory.CreateDirectory(Application.dataPath + "/Saves");
+
         // Scan
         DirectoryInfo dir = new DirectoryInfo(Application.dataPath + "/Saves");
         DirectoryInfo[] info = dir.GetDirectories();

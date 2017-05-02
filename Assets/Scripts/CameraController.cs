@@ -5,15 +5,22 @@ using UnityEngine;
 public class CameraController : MonoBehaviour {
 
     Game Game;
+    Map Map;
+    LoadUnload loader;
     public Camera spectateCam;
     public Camera playerCam;
+    Chunk currentChunk;
 
     void Start()
     {
         Game = GetComponent<Game>();
+        loader = GetComponent<LoadUnload>();
+        Map = transform.FindChild("World").GetComponent<Map>();
+        currentChunk = null;
     }
 
-    public void Setup (GameObject player) {
+    public void Setup (GameObject player)
+    {
         spectateCam = transform.FindChild("Spectator Camera").transform.GetChild(0).GetComponent<Camera>();
         playerCam = transform.FindChild("Player Camera").transform.GetChild(0).GetComponent<Camera>();
 
@@ -26,10 +33,12 @@ public class CameraController : MonoBehaviour {
         GetComponent<LoadUnload>().loader = playerCam.transform.parent.gameObject;
 
         playerCam.transform.parent.GetComponent<Follower>().followThis = player;
+
+        currentChunk = Map.currentTile.chunk;
     }
 	
-	// Update is called once per frame
-	void Update () {
+	void Update ()
+    {
         if (GetComponent<MenuControls>().isOpenMenu)
             return;
 
@@ -60,6 +69,22 @@ public class CameraController : MonoBehaviour {
 
             if (Input.GetMouseButtonDown(0))
                 CreatePath();
+        }
+
+        if (spectateCam.enabled)
+        {
+            Ray ray = spectateCam.ScreenPointToRay(new Vector3(0,0,0));
+            RaycastHit hit;
+            if (Physics.Raycast(spectateCam.transform.position, spectateCam.transform.forward, out hit, Mathf.Infinity, 1 << 8))
+            {
+                Tile tile = hit.transform.parent.GetComponent<Tile>();
+                if (tile.chunk != currentChunk)
+                {
+                    Debug.Log("Hit " + tile.chunk);
+                    currentChunk = tile.chunk;
+                    loader.ChunkChanged(currentChunk);
+                }
+            }
         }
 	}
 

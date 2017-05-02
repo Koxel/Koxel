@@ -9,8 +9,10 @@ public class NiceJsonLoader : MonoBehaviour {
     Dictionary<string, TileType> TileTypes;
     public Dictionary<string, Biome> Biomes;
 
-    public void Parse () {
+    public void Parse ()
+    {
         TileTypes = new Dictionary<string, TileType>();
+        Debug.Log(Application.dataPath);
         DirectoryInfo tileDir = new DirectoryInfo(Application.dataPath + "/Mods/Koxel/TileTypes");
         FileInfo[] tileInfo = tileDir.GetFiles("*.json");
 

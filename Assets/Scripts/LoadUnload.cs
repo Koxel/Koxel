@@ -1,53 +1,91 @@
 ﻿using UnityEngine;
 using NiceJson;
 using System.IO;
+using System.Collections.Generic;
 
 public class LoadUnload : MonoBehaviour {
 
+    Game Game;
     World World;
+    Map Map;
     public GameObject loader;
-    GameObject currentChunk;
-    GameObject prevChunk;
-    int radius = 3;
-    GameObject[] loaded;
-    string path;
+    //GameObject currentChunk;
+    //GameObject prevChunk;
+    public int loadRadius = 2;
+    //GameObject[] loaded;
+    //string path;
 
     void Start()
     {
+        Game = GetComponent<Game>();
         World = transform.FindChild("World").GetComponent<World>();
+        Map = World.GetComponent<Map>();
+        loadedChunks = new List<Chunk>();
     }
 
-    void Update()
+    List<Chunk> loadedChunks;
+    List<Chunk> prevLoadedChunks;
+    public void ChunkChanged(Chunk chunk)
     {
-        if (loader != null)
+        int radiusCounter = 1;
+        int _x = (int)chunk.coords.x;
+        int _y = (int)chunk.coords.y;
+        prevLoadedChunks = loadedChunks;
+        loadedChunks = new List<Chunk>();
+
+        LoadChunk(_x, _y);
+        LoadChunk(_x, _y+1);
+        LoadChunk(_x+1, _y);
+        LoadChunk(_x+1, _y-1);
+        LoadChunk(_x, _y-1);
+        LoadChunk(_x-1, _y);
+        LoadChunk(_x-1, _y+1);
+
+        UnloadChunks();
+    }
+
+    Chunk LoadChunk(int x, int y)
+    {
+        Chunk chunk;
+        if (Map.chunkMap.ContainsKey(new Vector2(x, y)))
         {
-            GetCurrentChunk();
-            if (currentChunk != prevChunk)
+            // Chunk already exists. 
+            chunk = Map.chunkMap[new Vector2(x, y)];
+        }
+        else
+        {
+            FileInfo file = FindJSONChunk(x, y);
+            if (file != null)
             {
-                //Chunk was changed
-                //ChunkToJSON(currentChunk);
+                chunk = JSONToChunk(file);
+            }
+            else
+            {
+                chunk = World.FillChunkRandom(World.CreateChunk(x, y));
             }
         }
+        loadedChunks.Add(chunk);
+        Debug.Log("Add " + chunk);
+        return chunk;
     }
 
-    void GetCurrentChunk()
+    void UnloadChunks()
     {
-        RaycastHit hit;
-        if (Physics.Raycast(loader.transform.position + new Vector3(0, 50, 0), -Vector3.up, out hit, Mathf.Infinity, 1 << 8))
+        List<Chunk> toUnload = new List<Chunk>();
+        foreach (Chunk loaded in prevLoadedChunks)
         {
-            prevChunk = currentChunk;
-            currentChunk = hit.collider.transform.parent.parent.gameObject;
+            if (!loadedChunks.Contains(loaded))
+            {
+                Debug.Log("Remove " + loaded);
+                Map.chunkMap.Remove(loaded.coords);
+                Destroy(loaded.gameObject);
+            }
+            else
+            {
+
+            }
         }
-    }
-
-    void LoadChunk()
-    {
-
-    }
-
-    void UnloadChunk()
-    {
-        
+        //prevLoadedChunks = new List<Chunk>();
     }
     //Distance between neighbours = ~27.71;
 
@@ -68,14 +106,14 @@ public class LoadUnload : MonoBehaviour {
         jsonObject.Add("tiles", tiles);
         string json = jsonObject.ToJsonPrettyPrintString();
 
-        string filePath = path + "/" + chunk.name + ".json";
+        string filePath = path + "/" + chunk.GetComponent<Chunk>().coords.x + "_" + chunk.GetComponent<Chunk>().coords.y + ".json";
         if (File.Exists(filePath))
             File.Delete(filePath);
 
         File.WriteAllText(filePath, json);
     }
 
-    public void JSONToChunk(FileInfo jsonFile)
+    public Chunk JSONToChunk(FileInfo jsonFile)
     {
         JsonObject json = (JsonObject)JsonNode.ParseJsonString(File.ReadAllText(jsonFile.FullName));
         Chunk chunk = World.CreateChunk(json["coords"][0], json["coords"][1]);
@@ -91,6 +129,26 @@ public class LoadUnload : MonoBehaviour {
                 World.CreateTile(r, q, chunk, biome, tileType);
                 tileCount += 1;
             }
+        }
+        return chunk;
+    }
+
+    public FileInfo FindJSONChunk(int x, int y)
+    {
+        string path = Game.worldPath + "/Chunks";
+        string fileName = x + "_" + y + ".json";
+
+        if(File.Exists(path + "/" + fileName))
+        {
+            Debug.Log("File Exists");
+            DirectoryInfo dir = new DirectoryInfo(path);
+            FileInfo fileInfo = dir.GetFiles(fileName)[0];
+            return fileInfo;
+        }
+        else
+        {
+            Debug.Log("Does not exist");
+            return null;
         }
     }
 }

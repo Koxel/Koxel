@@ -6,6 +6,7 @@ using Priority_Queue;
 public class Map : MonoBehaviour {
     public GameObject player;
     public Dictionary<Vector2, Tile> tileMap;
+    public Dictionary<Vector2, Chunk> chunkMap;
     public int radius;
     List<Tile> path;
     public float playerSpeed = .5f;
@@ -14,12 +15,15 @@ public class Map : MonoBehaviour {
     public int maxMoveDist = 100;
     public bool moving = false;
 
-    void Start () {
+    void Start ()
+    {
         path = new List<Tile>();
         tileMap = new Dictionary<Vector2, Tile>();
+        chunkMap = new Dictionary<Vector2, Chunk>();
     }
 	
-	void Update () {
+	void Update ()
+    {
         // Move over the path
 		if(path.Count > 0)
         {
@@ -168,5 +172,70 @@ public class Map : MonoBehaviour {
             tile.neighbours = neighbours;
 
         return neighbours;
+    }
+
+    public void UpdateChunkNeighbours(Chunk chunk)
+    {
+        if (chunk == null)
+            return;
+        if(chunk.neighbours.Count != 6)
+        {
+            Chunk foundChunk;
+            //  0, -1
+            if (chunkMap.ContainsKey(new Vector2(chunk.coords.x, chunk.coords.y - 1)))
+            {
+                foundChunk = chunkMap[new Vector2(chunk.coords.x, chunk.coords.y - 1)];
+                if (!chunk.neighbours.Contains(foundChunk))
+                    chunk.neighbours.Add(foundChunk);
+                if (!foundChunk.neighbours.Contains(chunk))
+                    foundChunk.neighbours.Add(chunk);
+            }
+            // +1, -1
+            if (chunkMap.ContainsKey(new Vector2(chunk.coords.x + 1, chunk.coords.y - 1)))
+            {
+                foundChunk = chunkMap[new Vector2(chunk.coords.x + 1, chunk.coords.y - 1)];
+                if (!chunk.neighbours.Contains(foundChunk))
+                    chunk.neighbours.Add(foundChunk);
+                if (!foundChunk.neighbours.Contains(chunk))
+                    foundChunk.neighbours.Add(chunk);
+            }
+            // -1,  0
+            if (chunkMap.ContainsKey(new Vector2(chunk.coords.x - 1, chunk.coords.y)))
+            {
+                foundChunk = chunkMap[new Vector2(chunk.coords.x - 1, chunk.coords.y)];
+                if (!chunk.neighbours.Contains(foundChunk))
+                    chunk.neighbours.Add(foundChunk);
+                if (!foundChunk.neighbours.Contains(chunk))
+                    foundChunk.neighbours.Add(chunk);
+            }
+            // +1,  0
+            if (chunkMap.ContainsKey(new Vector2(chunk.coords.x + 1, chunk.coords.y)))
+            {
+                foundChunk = chunkMap[new Vector2(chunk.coords.x + 1, chunk.coords.y)];
+                if (!chunk.neighbours.Contains(foundChunk))
+                    chunk.neighbours.Add(foundChunk);
+                if (!foundChunk.neighbours.Contains(chunk))
+                    foundChunk.neighbours.Add(chunk);
+            }
+            // -1, +1
+            if (chunkMap.ContainsKey(new Vector2(chunk.coords.x - 1, chunk.coords.y + 1)))
+            {
+                foundChunk = chunkMap[new Vector2(chunk.coords.x - 1, chunk.coords.y + 1)];
+                if (!chunk.neighbours.Contains(foundChunk))
+                    chunk.neighbours.Add(foundChunk);
+                if (!foundChunk.neighbours.Contains(chunk))
+                    foundChunk.neighbours.Add(chunk);
+            }
+            //  0, +1
+            if (chunkMap.ContainsKey(new Vector2(chunk.coords.x, chunk.coords.y + 1)))
+            {
+                foundChunk = chunkMap[new Vector2(chunk.coords.x, chunk.coords.y + 1)];
+                if (!chunk.neighbours.Contains(foundChunk))
+                    chunk.neighbours.Add(foundChunk);
+                if (!foundChunk.neighbours.Contains(chunk))
+                    foundChunk.neighbours.Add(chunk);
+            }
+
+        }
     }
 }
