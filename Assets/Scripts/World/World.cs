@@ -143,6 +143,12 @@ public class World : MonoBehaviour {
 
         tile.chunk = chunk;
         chunk.tiles.Add(tile);
+        if (MAP.tileMap.ContainsKey(new Vector2(tile.worldCoords.x, tile.worldCoords.y)))
+        {
+            if(MAP.tileMap[new Vector2(tile.worldCoords.x, tile.worldCoords.y)] != null)
+                Destroy(MAP.tileMap[new Vector2(tile.worldCoords.x, tile.worldCoords.y)]);
+            MAP.tileMap.Remove(new Vector2(tile.worldCoords.x, tile.worldCoords.y));
+        }
         MAP.tileMap.Add(new Vector2(tile.worldCoords.x, tile.worldCoords.y), tile);
 
         if (textCoords) TextCoord(tile);

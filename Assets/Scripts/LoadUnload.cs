@@ -2,6 +2,7 @@
 using NiceJson;
 using System.IO;
 using System.Collections.Generic;
+using System.Collections;
 
 public class LoadUnload : MonoBehaviour {
 
@@ -9,11 +10,7 @@ public class LoadUnload : MonoBehaviour {
     World World;
     Map Map;
     public GameObject loader;
-    //GameObject currentChunk;
-    //GameObject prevChunk;
-    public int loadRadius = 2;
-    //GameObject[] loaded;
-    //string path;
+    public int loadRadius = 5;
 
     void Start()
     {
@@ -27,24 +24,32 @@ public class LoadUnload : MonoBehaviour {
     List<Chunk> prevLoadedChunks;
     public void ChunkChanged(Chunk chunk)
     {
-        int radiusCounter = 1;
+        int radiusCounter = 0;
         int _x = (int)chunk.coords.x;
         int _y = (int)chunk.coords.y;
         prevLoadedChunks = loadedChunks;
         loadedChunks = new List<Chunk>();
 
-        LoadChunk(_x, _y);
-        LoadChunk(_x, _y+1);
-        LoadChunk(_x+1, _y);
-        LoadChunk(_x+1, _y-1);
-        LoadChunk(_x, _y-1);
-        LoadChunk(_x-1, _y);
-        LoadChunk(_x-1, _y+1);
+        for (int x = -loadRadius; x <= loadRadius; x++)
+        {
+            for(int y = Mathf.Max(-loadRadius, -x-loadRadius); y <= Mathf.Min(loadRadius, -x+loadRadius); y++)
+            {
+                LoadChunk(_x+x, _y+y);
+            }
+            /*for (int y = -loadRadius; y <= loadRadius; y++)
+            {
+                for (int z = -loadRadius; z <= loadRadius; z++)
+                {
+                    if(x + y + z == 0)
+                        LoadChunk(_x + x, _y + y);
+                }
+            }*/
+        }
 
         UnloadChunks();
     }
 
-    Chunk LoadChunk(int x, int y)
+    void LoadChunk(int x, int y)
     {
         Chunk chunk;
         if (Map.chunkMap.ContainsKey(new Vector2(x, y)))
@@ -65,29 +70,33 @@ public class LoadUnload : MonoBehaviour {
             }
         }
         loadedChunks.Add(chunk);
-        Debug.Log("Add " + chunk);
-        return chunk;
+        //Debug.Log("Add " + chunk);
     }
 
     void UnloadChunks()
     {
-        List<Chunk> toUnload = new List<Chunk>();
         foreach (Chunk loaded in prevLoadedChunks)
         {
             if (!loadedChunks.Contains(loaded))
             {
-                Debug.Log("Remove " + loaded);
-                Map.chunkMap.Remove(loaded.coords);
-                Destroy(loaded.gameObject);
+                RemoveChunk(loaded);
             }
             else
             {
 
             }
         }
-        //prevLoadedChunks = new List<Chunk>();
     }
-    //Distance between neighbours = ~27.71;
+
+    void RemoveChunk(Chunk chunk)
+    {
+        ChunkToJSON(chunk.gameObject, Game.worldPath);
+        foreach(Tile tile in chunk.tiles)
+            Map.tileMap.Remove(tile.worldCoords);
+        Map.chunkMap.Remove(chunk.coords);
+        Destroy(chunk.gameObject);
+    }
+    
 
     public void ChunkToJSON(GameObject chunk, string path)
     {
@@ -140,14 +149,14 @@ public class LoadUnload : MonoBehaviour {
 
         if(File.Exists(path + "/" + fileName))
         {
-            Debug.Log("File Exists");
+            //Debug.Log("File Exists");
             DirectoryInfo dir = new DirectoryInfo(path);
             FileInfo fileInfo = dir.GetFiles(fileName)[0];
             return fileInfo;
         }
         else
         {
-            Debug.Log("Does not exist");
+            //Debug.Log("Does not exist");
             return null;
         }
     }
