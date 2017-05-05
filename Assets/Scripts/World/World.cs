@@ -67,13 +67,75 @@ public class World : MonoBehaviour {
         {
             for (int q = -5; q < 2; q++)
             {
-                FillChunkRandom(CreateChunk(r, q));
+                //FillChunkRandom(CreateChunk(r, q));
+                PooledChunk(r,q, ObjectPooler.SharedInstance.GetPooledObject("Chunk"));
             }
         }
         MAP.currentTile = MAP.tileMap[new Vector2(0, 0)];
     }
 
-    public Chunk CreateChunk(int x, int y)
+    public Chunk PooledChunk(int x, int y, GameObject chunkObj)
+    {
+        // Position the chunk to the correct realPos
+        Vector3 realPos = new Vector3();
+        realPos.x = x * chunkRadius * hexWidth + y * (chunkRadius / 2 * hexWidth);
+        realPos.z = y * chunkRadius * (0.75f * hexHeight);
+
+        chunkObj.transform.parent = transform;
+        chunkObj.name = "Chunk (" + x + ", " + y + ")";
+        chunkObj.transform.position = realPos;
+        chunkObj.SetActive(true);
+        Chunk chunk = chunkObj.GetComponent<Chunk>();
+        chunk.coords = new Vector2(x, y);
+        MAP.chunkMap.Add(chunk.coords, chunk);
+        chunk.neighbours = new List<Chunk>();
+        MAP.UpdateChunkNeighbours(chunk);
+        return chunk;
+    }
+
+    public Tile PooledTile(Tile tile, int x, int y, Chunk chunk, Biome biome, TileType tileType)
+    {
+        Vector3 realPos = new Vector3();
+        realPos.x = x * hexWidth + 0.866026f * y;
+        realPos.z = y * (hexHeight - (.25f * hexHeight));
+        realPos = realPos + chunk.transform.position;
+        // Turn relative chunkCoords into worldCoords
+        int wX = (int)(chunk.GetComponent<Chunk>().coords.x * (chunkRadius) + x);
+        int wY = (int)(chunk.GetComponent<Chunk>().coords.y * (chunkRadius) + y);
+        int wZ = -wX - wY;
+        // Do the height
+        realPos.y = GetTileHeight(wX, wY);
+        tile.transform.position = realPos;
+        tile.name = "Tile (" + wX + ", " + wY + ")";
+        tile.transform.parent = chunk.transform;
+
+        // Save coords
+        tile.chunkCoords = new Vector3(x, y, -x - y);
+        tile.worldCoords = new Vector3(wX, wY, wZ);
+
+        // Tile config
+        if (biome == null)
+            biome = GetBiome(realPos.y);
+        tile.biome = biome;
+
+        if (tileType == null)
+            tileType = biome.tileTypes.ElementAt(0).Value;
+        tile.tileType = tileType;
+
+        tile.moveCost = tileType.moveCost;
+        tile.SetColor(tile.tileType.defaultColor);
+
+        tile.chunk = chunk;
+        chunk.tiles.Add(new Vector2(x, y), tile);
+        MAP.tileMap.Add(new Vector2(wX, wY), tile);
+        //MAP.GetNeighbours(tile);
+        if (tile == null)
+            Debug.LogError(tile + " is null!");
+        if (textCoords) TextCoord(tile);
+        return tile;
+    }
+
+    /*public Chunk CreateChunk(int x, int y)
     {
         // Position the chunk to the correct realPos
         Vector3 realPos = new Vector3();
@@ -119,10 +181,13 @@ public class World : MonoBehaviour {
         int wZ = -wX - wY;
         // Do the height
         realPos.y = GetTileHeight(wX, wY);
-       
+
         // Setup a new Tile
+        //GameObject newTile = ObjectPooler.SharedInstance.GetPooledObject("Tile");
+        //Debug.Log("Requested tile: " + newTile);
         GameObject newTile = Instantiate(TilePrefab, realPos, Quaternion.identity, chunk.transform);
         newTile.name = "Tile (" + wX + ", " + wY + ")";
+        newTile.transform.parent = chunk.transform;
 
         // Save coords
         Tile tile = newTile.GetComponent<Tile>();
@@ -142,18 +207,12 @@ public class World : MonoBehaviour {
         tile.SetColor(tile.tileType.defaultColor);
 
         tile.chunk = chunk;
-        chunk.tiles.Add(tile);
-        if (MAP.tileMap.ContainsKey(new Vector2(tile.worldCoords.x, tile.worldCoords.y)))
-        {
-            if(MAP.tileMap[new Vector2(tile.worldCoords.x, tile.worldCoords.y)] != null)
-                Destroy(MAP.tileMap[new Vector2(tile.worldCoords.x, tile.worldCoords.y)]);
-            MAP.tileMap.Remove(new Vector2(tile.worldCoords.x, tile.worldCoords.y));
-        }
+        chunk.tiles.Add(new Vector2(x, y), tile);
         MAP.tileMap.Add(new Vector2(tile.worldCoords.x, tile.worldCoords.y), tile);
 
         if (textCoords) TextCoord(tile);
         return tile;
-    }
+    }*/
     
     Biome GetBiome(float height)
     {

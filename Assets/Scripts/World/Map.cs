@@ -89,6 +89,11 @@ public class Map : MonoBehaviour {
 
                 foreach (Tile next in GetNeighbours(current.tile))
                 {
+                    if (next == null)
+                    {
+                        Debug.Log(next + " from " + current.tile);
+                        current.tile.SetColor(new Color());
+                    }
                     var new_cost = current.cost + current.tile.moveCost;
                     if (!visited.ContainsKey(next))
                     {
@@ -122,7 +127,7 @@ public class Map : MonoBehaviour {
     }
 
     // TODO save neighbours to tile if there are 6, otherwise there are still some yet to be generated.
-    List<Tile> GetNeighbours(Tile tile)
+    public List<Tile> GetNeighbours(Tile tile)
     {
         // Check if it has all possible neighbours...
         if (tile.neighbours.Count == 6)
@@ -132,22 +137,46 @@ public class Map : MonoBehaviour {
         List<Tile> neighbours = new List<Tile>();
         //  0, -1
         if (tileMap.ContainsKey(new Vector2(tile.worldCoords.x, tile.worldCoords.y - 1)))
+        {
             neighbours.Add(tileMap[new Vector2(tile.worldCoords.x, tile.worldCoords.y - 1)]);
+            if (tile.worldCoords == new Vector3(8,0,-8))
+                Debug.Log((tile.worldCoords.x) + ", " + (tile.worldCoords.y - 1) + " is null");
+        }
         // +1, -1
         if (tileMap.ContainsKey(new Vector2(tile.worldCoords.x + 1, tile.worldCoords.y - 1)))
+        {
             neighbours.Add(tileMap[new Vector2(tile.worldCoords.x + 1, tile.worldCoords.y - 1)]);
+            if (tile.worldCoords == new Vector3(8, 0, -8))
+                Debug.Log((tile.worldCoords.x+1) + ", " + (tile.worldCoords.y - 1) + " is null");
+        }
         // -1,  0
         if (tileMap.ContainsKey(new Vector2(tile.worldCoords.x - 1, tile.worldCoords.y)))
+        {
             neighbours.Add(tileMap[new Vector2(tile.worldCoords.x - 1, tile.worldCoords.y)]);
+            if (tile.worldCoords == new Vector3(8, 0, -8))
+                Debug.Log((tile.worldCoords.x-1) + ", " + (tile.worldCoords.y) + " is null");
+        }
         // +1,  0
         if (tileMap.ContainsKey(new Vector2(tile.worldCoords.x + 1, tile.worldCoords.y)))
+        {
             neighbours.Add(tileMap[new Vector2(tile.worldCoords.x + 1, tile.worldCoords.y)]);
+            if (tile.worldCoords == new Vector3(8, 0, -8))
+                Debug.Log((tile.worldCoords.x+1) + ", " + (tile.worldCoords.y) + " is null");
+        }
         // -1, +1
         if (tileMap.ContainsKey(new Vector2(tile.worldCoords.x - 1, tile.worldCoords.y + 1)))
+        {
             neighbours.Add(tileMap[new Vector2(tile.worldCoords.x - 1, tile.worldCoords.y + 1)]);
+            if (tile.worldCoords == new Vector3(8, 0, -8))
+                Debug.Log((tile.worldCoords.x-1) + ", " + (tile.worldCoords.y+1) + " is null");
+        }
         //  0, +1
         if (tileMap.ContainsKey(new Vector2(tile.worldCoords.x, tile.worldCoords.y + 1)))
+        {
             neighbours.Add(tileMap[new Vector2(tile.worldCoords.x, tile.worldCoords.y + 1)]);
+            if (tile.worldCoords == new Vector3(8, 0, -8))
+                Debug.Log((tile.worldCoords.x) + ", " + (tile.worldCoords.y + 1) + " is null");
+        }
         /*// +2, -1
         if (tileMap.ContainsKey(new Vector2(tile.worldCoords.x + 2, tile.worldCoords.y - 1)))
             neighbours.Add(tileMap[new Vector2(tile.worldCoords.x + 2, tile.worldCoords.y - 1)]);
@@ -168,8 +197,8 @@ public class Map : MonoBehaviour {
             neighbours.Add(tileMap[new Vector2(tile.worldCoords.x + 1, tile.worldCoords.y + 1)]);*/
 
         // If we found all neighbours now, save them to the tile
-        if (neighbours.Count == 6)
-            tile.neighbours = neighbours;
+        if (neighbours.Count == 6) ;
+            //tile.neighbours = neighbours;
 
         return neighbours;
     }

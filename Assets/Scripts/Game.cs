@@ -46,12 +46,19 @@ public class Game : MonoBehaviour {
         LoadUnload loader = GetComponent<LoadUnload>();
 
         GetComponent<ModLoader>().Parse();
-        World.GetComponent<World>().SetupWorld(worldData, GetComponent<ModLoader>().Biomes);
+        World WORLD = World.GetComponent<World>();
+        WORLD.SetupWorld(worldData, GetComponent<ModLoader>().Biomes);
         if (isNew)
         {
             //Generate new
-            World world = World.GetComponent<World>();
-            Chunk startChunk = world.FillChunkRandom(world.CreateChunk(0, 0));
+            //Chunk startChunk = world.FillChunkRandom(world.CreateChunk(0, 0));
+            Chunk startChunk = WORLD.PooledChunk(0, 0, ObjectPooler.SharedInstance.GetPooledObject("Chunk"));
+            for (int i = 0; i < startChunk.transform.childCount; i++)
+            {
+                Tile tile = startChunk.transform.GetChild(i).GetComponent<Tile>();
+                //Debug.Log(tile.chunkCoords.x + ", " + tile.chunkCoords.y);
+                WORLD.PooledTile(tile, (int)tile.chunkCoords.x, (int)tile.chunkCoords.y, startChunk, null, null);
+            }
             World.GetComponent<Map>().currentTile = World.GetComponent<Map>().tileMap[new Vector2(0, 0)];
             loader.ChunkChanged(startChunk);
         }
@@ -65,7 +72,7 @@ public class Game : MonoBehaviour {
                 loader.JSONToChunk(file);
             }
         }
-        Player = World.GetComponent<World>().CreatePlayer();
+        Player = WORLD.CreatePlayer();
         World.GetComponent<Map>().player = Player;
         GetComponent<CameraController>().Setup(Player);
     }

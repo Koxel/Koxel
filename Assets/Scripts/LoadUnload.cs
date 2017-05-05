@@ -24,7 +24,6 @@ public class LoadUnload : MonoBehaviour {
     List<Chunk> prevLoadedChunks;
     public void ChunkChanged(Chunk chunk)
     {
-        int radiusCounter = 0;
         int _x = (int)chunk.coords.x;
         int _y = (int)chunk.coords.y;
         prevLoadedChunks = loadedChunks;
@@ -36,16 +35,7 @@ public class LoadUnload : MonoBehaviour {
             {
                 LoadChunk(_x+x, _y+y);
             }
-            /*for (int y = -loadRadius; y <= loadRadius; y++)
-            {
-                for (int z = -loadRadius; z <= loadRadius; z++)
-                {
-                    if(x + y + z == 0)
-                        LoadChunk(_x + x, _y + y);
-                }
-            }*/
         }
-
         UnloadChunks();
     }
 
@@ -66,11 +56,16 @@ public class LoadUnload : MonoBehaviour {
             }
             else
             {
-                chunk = World.FillChunkRandom(World.CreateChunk(x, y));
+                chunk = World.PooledChunk(x, y, ObjectPooler.SharedInstance.GetPooledObject("Chunk"));
+                for(int i = 0; i < chunk.transform.childCount; i++)
+                {
+                    Tile tile = chunk.transform.GetChild(i).GetComponent<Tile>();
+                    World.PooledTile(tile, (int)tile.chunkCoords.x, (int)tile.chunkCoords.y, chunk, null, null);
+                }
+                //chunk = World.FillChunkRandom(World.CreateChunk(x, y));
             }
         }
         loadedChunks.Add(chunk);
-        //Debug.Log("Add " + chunk);
     }
 
     void UnloadChunks()
@@ -79,22 +74,22 @@ public class LoadUnload : MonoBehaviour {
         {
             if (!loadedChunks.Contains(loaded))
             {
+                Debug.Log("Unload");
                 RemoveChunk(loaded);
-            }
-            else
-            {
-
             }
         }
     }
 
     void RemoveChunk(Chunk chunk)
     {
-        ChunkToJSON(chunk.gameObject, Game.worldPath);
-        foreach(Tile tile in chunk.tiles)
+        ChunkToJSON(chunk.gameObject, Game.worldPath + "/Chunks");
+        foreach (Tile tile in chunk.tiles.Values)
+        {
             Map.tileMap.Remove(tile.worldCoords);
+            //ObjectPooler.SharedInstance.PoolObject(tile.gameObject);
+        }
         Map.chunkMap.Remove(chunk.coords);
-        Destroy(chunk.gameObject);
+        ObjectPooler.SharedInstance.PoolObject(chunk.gameObject);
     }
     
 
@@ -125,7 +120,8 @@ public class LoadUnload : MonoBehaviour {
     public Chunk JSONToChunk(FileInfo jsonFile)
     {
         JsonObject json = (JsonObject)JsonNode.ParseJsonString(File.ReadAllText(jsonFile.FullName));
-        Chunk chunk = World.CreateChunk(json["coords"][0], json["coords"][1]);
+        //Chunk chunk = World.CreateChunk(json["coords"][0], json["coords"][1]);
+        Chunk chunk = World.PooledChunk(json["coords"][0], json["coords"][1], ObjectPooler.SharedInstance.GetPooledObject("Chunk"));
         int tileCount = 0;
         for (int r = -World.chunkRadius / 2; r < World.chunkRadius / 2; r++)
         {
@@ -135,7 +131,9 @@ public class LoadUnload : MonoBehaviour {
                 //x=r, y=q
                 Biome biome = World.FindBiome(json["tiles"][tileCount][0]);
                 TileType tileType = biome.tileTypes[json["tiles"][tileCount][1]];
-                World.CreateTile(r, q, chunk, biome, tileType);
+                Tile tile = chunk.tiles[new Vector2(r, q)];
+                World.PooledTile(tile, r, q, chunk, biome, tileType);
+                //World.CreateTile(r, q, chunk, biome, tileType);
                 tileCount += 1;
             }
         }

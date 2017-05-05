@@ -73,14 +73,12 @@ public class CameraController : MonoBehaviour {
 
         if (spectateCam.enabled)
         {
-            Ray ray = spectateCam.ScreenPointToRay(new Vector3(0,0,0));
             RaycastHit hit;
             if (Physics.Raycast(spectateCam.transform.position, spectateCam.transform.forward, out hit, Mathf.Infinity, 1 << 8))
             {
                 Tile tile = hit.transform.parent.GetComponent<Tile>();
                 if (tile.chunk != currentChunk)
                 {
-                    Debug.Log("Hit " + tile.chunk);
                     currentChunk = tile.chunk;
                     loader.ChunkChanged(currentChunk);
                 }
