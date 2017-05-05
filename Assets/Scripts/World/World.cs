@@ -128,6 +128,7 @@ public class World : MonoBehaviour {
         tile.chunk = chunk;
         chunk.tiles.Add(new Vector2(x, y), tile);
         MAP.tileMap.Add(new Vector2(wX, wY), tile);
+        //tile.neighbours = new List<Tile>();
         //MAP.GetNeighbours(tile);
         if (tile == null)
             Debug.LogError(tile + " is null!");

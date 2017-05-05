@@ -8,7 +8,7 @@ public class Tile : MonoBehaviour
     public Biome biome;
     public TileType tileType;
     public Chunk chunk;
-    public List<Tile> neighbours;
+    //public List<Tile> neighbours;
     public float moveCost;
     public Vector3 chunkCoords;
     public Vector3 worldCoords;

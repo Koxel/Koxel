@@ -18,7 +18,7 @@ public class ModLoader : MonoBehaviour {
         foreach (string mod in Directory.GetDirectories(folderPath))
         {
             string modFolder = mod.Replace(@"\", "/");
-            Debug.Log(modFolder);
+            if(DEBUG) Debug.Log(modFolder);
             DirectoryInfo tileDir = new DirectoryInfo(modFolder  + "/TileTypes");
             FileInfo[] tileInfo = tileDir.GetFiles("*.json");
 
