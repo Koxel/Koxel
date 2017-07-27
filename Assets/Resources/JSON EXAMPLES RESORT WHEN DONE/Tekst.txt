@@ -1,5 +1,0 @@
-<object.variable> gets substituted with the variable of the object AKA <Player.Health>
-
-<Refer.variable> gets substituted with the variable of the object you started this conversation with.
-
-AKA: you click on a cow then in the conversation it would be <entity.number.variable>

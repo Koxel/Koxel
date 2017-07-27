@@ -1,7 +1,0 @@
-{
-  "name": "Stone Tile",
-  "defaultRGB": [ 49, 159, 99, 255 ],
-  "hoverRGB": [ 87, 253, 163, 255 ],
-  "moveCost": 1,
-  "floatTest":  1005.505646
-}
