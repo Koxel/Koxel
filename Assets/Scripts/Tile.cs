@@ -24,23 +24,23 @@ public class Tile : MonoBehaviour {
 
     private void Update()
     {
-        /*float perlin = World.instance.HeightMap((int)(coords.x + chunk.coords.x), (int)(coords.y + chunk.coords.y));
+        float perlin = World.instance.HeightMap2((int)(coords.x + chunk.coords.x), (int)(coords.y + chunk.coords.y));
         Vector3 pos = transform.position;
         pos.y = perlin;
         transform.position = pos;
         
-        if (perlin < 0f * World.instance.heightScale)
+        if (perlin < World.instance.waterThreshold)
         {
             SetColor(World.instance.water);
         }
-        else if (perlin < .9f * World.instance.heightScale)
+        else if (perlin < World.instance.grassThreshold)
         {
             SetColor(World.instance.grass);
         }
         else
         {
             SetColor(World.instance.stone);
-        }*/
+        }
     }
 
     public void SetColor(Color color)

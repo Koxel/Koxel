@@ -64,25 +64,36 @@ public class World : MonoBehaviour {
 
 
 
-    [Header("Perlin Noise")]
-    public float heightScale = 5f;
-    public float detailScale = 5f;
-
+    [Header("Height Noise")]
+    public float worldSize = 1000000f;
+    public float powAmount = 3f;
+    public float finalMultiplication = 10f;
     public Color water;
+    public float waterThreshold = 0f;
     public Color grass;
+    public float grassThreshold = .9f;
     public Color stone;
 
-public float HeightMap2(int x, int y)
-{
-    float noise = 1f * Mathf.PerlinNoise(x / 10f, y / 10f)
-            + .5f * Mathf.PerlinNoise(x / 10f, y / 10f)
-        + .25f * Mathf.PerlinNoise(x/10f, y / 10f);
-    float elevation = Mathf.Pow(noise, 3);
-    Debug.Log("X, Y: " + x + ", " + y + "\nNoise: " + noise + "\nElevation: " + elevation);
-    return elevation * 10f;
-}
+    public float mult1out = 1f;
+    public float mult1in = 1f;
+    public float mult2out = .5f;
+    public float mult2in = 2f;
+    public float mult3out = .25f;
+    public float mult3in = 4f;
 
-    public float HeightMap(int tileX, int tileY)
+    public float HeightMap2(int xx, int yy)
+    {
+        float x = xx / worldSize;
+        float y = yy / worldSize;
+        float noise = mult1out * Mathf.PerlinNoise(x * mult1in, y * mult1in)
+                + mult2out * Mathf.PerlinNoise(x * mult2in, y * mult2in)
+            + mult3out * Mathf.PerlinNoise(x * mult3in, y * mult3in);
+        float elevation = Mathf.Pow(noise, powAmount);
+        //Debug.Log("X, Y: " + x + ", " + y + "\nNoise: " + noise + "\nElevation: " + elevation);
+        return elevation * finalMultiplication;
+    }
+
+   /* public float HeightMap(int tileX, int tileY)
     {
         float height = 0;
 
@@ -127,5 +138,5 @@ public float HeightMap2(int x, int y)
         //Debug.Log(height);
         return height;
     }
-    public float heightMultiplier = 50f;
+    public float heightMultiplier = 50f;*/
 }

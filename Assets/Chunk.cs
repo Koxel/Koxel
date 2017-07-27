@@ -60,23 +60,23 @@ public class Chunk : MonoBehaviour {
                 tile.chunk = this;
                 tile.biome = "randomBiome";
                 tile.tileType = "randomTileType";
-                float perlin = World.instance.HeightMap2((int)(tile.coords.x), (int)(tile.coords.y));
+                /*float perlin = World.instance.HeightMap2((int)(tile.coords.x), (int)(tile.coords.y));
                 Vector3 posy = tile.transform.position;
                 posy.y = perlin;
                 tile.transform.position = posy;
 
-                if (perlin < 0f * World.instance.heightScale)
+                if (perlin < World.instance.waterThreshold)
                 {
                     tile.SetColor(World.instance.water);
                 }
-                else if (perlin < .9f * World.instance.heightScale)
+                else if (perlin < World.instance.grassThreshold)
                 {
                     tile.SetColor(World.instance.grass);
                 }
                 else
                 {
                     tile.SetColor(World.instance.stone);
-                }
+                }*/
                 //World.instance.HeightMap2(xr, yq);
             }
         }
@@ -94,7 +94,7 @@ public class Chunk : MonoBehaviour {
                 GameObject tileGO = tiles[new Vector3(r, q, -r - q)].gameObject;
                 Vector3 pos = new Vector3(
                     tileGO.transform.localPosition.x,
-                    World.instance.HeightMap(r, q) * 10f,
+                    World.instance.HeightMap2(r, q) * 10f,
                     tileGO.transform.localPosition.z
                 );
                 tileGO.transform.localPosition = pos;
