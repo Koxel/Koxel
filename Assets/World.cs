@@ -2,13 +2,14 @@
 using System.Collections.Generic;
 using UnityEngine;
 using Koxel;
+using SimplexNoise;
 
 public class World : MonoBehaviour {
 
     public static World instance;
     HexData hexData;
     public Dictionary<Vector3, Chunk> chunks;
-
+    Simplex simplex;
     private void Awake()
     {
         instance = this;
@@ -16,8 +17,8 @@ public class World : MonoBehaviour {
         hexData = new HexData(Game.instance.gameConfig.hexSize);
         chunks = new Dictionary<Vector3, Chunk>();
 
-        Debug.Log(Mathf.PerlinNoise(5f/10f, 2f/10f));
-        Debug.Log(Mathf.PerlinNoise(9f/10f, 3f/10f));
+        long seed = 13;
+        simplex = new Simplex(seed);
     }
 
     public Chunk AddChunk(ChunkData chunkData)
@@ -65,59 +66,50 @@ public class World : MonoBehaviour {
 
 
     [Header("Height Noise")]
-    public float worldSize = 1000000f;
-    public float powAmount = 3f;
-    public float finalMultiplication = 10f;
     public Color water;
     public float waterThreshold = 0f;
     public Color grass;
     public float grassThreshold = .9f;
     public Color stone;
 
-    public float mult1out = 1f;
-    public float mult1in = 1f;
-    public float mult2out = .5f;
-    public float mult2in = 2f;
-    public float mult3out = .25f;
-    public float mult3in = 4f;
-
-    public float HeightMap2(int xx, int yy)
+    //Experiment with this Koko! :P
+    public float HeightMap2(int x, int y)
     {
-        float x = xx / worldSize;
-        float y = yy / worldSize;
-        float noise = mult1out * Mathf.PerlinNoise(x * mult1in, y * mult1in)
-                + mult2out * Mathf.PerlinNoise(x * mult2in, y * mult2in)
-            + mult3out * Mathf.PerlinNoise(x * mult3in, y * mult3in);
-        float elevation = Mathf.Pow(noise, powAmount);
-        //Debug.Log("X, Y: " + x + ", " + y + "\nNoise: " + noise + "\nElevation: " + elevation);
-        return elevation * finalMultiplication;
+        double noise = 0;
+
+        noise += simplex.Evaluate(x / 50f, y / 50f);
+        noise += simplex.Evaluate(x / 100f, y / 100f);
+
+        return (float)noise * 100f;
     }
 
-   /* public float HeightMap(int tileX, int tileY)
+    //Johny's Perlin noise example
+    public float HeightMap(int tileX, int tileY)
     {
         float height = 0;
 
         float x = (tileX);
         float y = (tileY);
 
-        float noise100 = Mathf.PerlinNoise(x / 100.0F, y / 100.0F) * heightScale;
-        float noise1000 = Mathf.PerlinNoise(x / 1000.0F, y / 1000.0F) * heightScale;
-        float noise10000 = Mathf.PerlinNoise(x / 10000.0F, y / 10000.0F) * heightScale;
+        float noise100 = Mathf.PerlinNoise(x / 100.0F, y / 100.0F);
+        float noise1000 = Mathf.PerlinNoise(x / 1000.0F, y / 1000.0F);
+        float noise10000 = Mathf.PerlinNoise(x / 10000.0F, y / 10000.0F);
 
         float ground = noise100 * 0.5F + noise1000 * 0.3F + noise10000 * 0.2F;
 
 
-        float noiseM1 = Mathf.PerlinNoise(0.25F + x / 40.0F, 0.25F + y / 40.0F) * heightScale;
-        float noiseM2 = Mathf.PerlinNoise(0.25F + x / 40.0F, 0.25F + y / 40.0F) * heightScale;
+        float noiseM1 = Mathf.PerlinNoise(0.25F + x / 80.0F, 0.25F + y / 80.0F);
+        float noiseM2 = Mathf.PerlinNoise(0.25F + x / 80.0F, 0.25F + y / 80.0F);
         float noiseM = Mathf.Sqrt(noiseM1) * Mathf.Sqrt(noiseM2);
+        noiseM *= 2;
         float mountain = 0;
         if (noiseM > 0.4)
         {
-            mountain = (noiseM - 0.4f) * 0.4f;
+            mountain = (noiseM - 0.4f) * 2f;
         }
 
-        float noiseN10 = Mathf.PerlinNoise(x / 5.0F, y / 5.0F) * heightScale;
-        float noiseN = Mathf.PerlinNoise(0.25F + x / 25.0F, 0.25F + y / 25.0F) * heightScale;
+        float noiseN10 = Mathf.PerlinNoise(x / 5.0F, y / 5.0F);
+        float noiseN = Mathf.PerlinNoise(0.25F + x / 25.0F, 0.25F + y / 25.0F);
         float noise = 0;
         if (noiseN > 0.55)
         {
@@ -125,7 +117,7 @@ public class World : MonoBehaviour {
         }
 
 
-        float noiseF = Mathf.PerlinNoise(0.85F + x / 40.0F, 0.85F + y / 40.0F) * heightScale;
+        float noiseF = Mathf.PerlinNoise(0.85F + x / 40.0F, 0.85F + y / 40.0F);
         float ratioNoise = 1;
         if (noiseF > 0.5)
         {
@@ -134,9 +126,9 @@ public class World : MonoBehaviour {
 
         height = ratioNoise * (ground + mountain) + noise;
 
-        height *= heightScale;
+        height *= heightMultiplier;
         //Debug.Log(height);
         return height;
     }
-    public float heightMultiplier = 50f;*/
+    public float heightMultiplier = 50f;
 }

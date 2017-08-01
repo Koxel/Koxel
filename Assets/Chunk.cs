@@ -94,7 +94,7 @@ public class Chunk : MonoBehaviour {
                 GameObject tileGO = tiles[new Vector3(r, q, -r - q)].gameObject;
                 Vector3 pos = new Vector3(
                     tileGO.transform.localPosition.x,
-                    World.instance.HeightMap2(r, q) * 10f,
+                    World.instance.HeightMap2(r, q),
                     tileGO.transform.localPosition.z
                 );
                 tileGO.transform.localPosition = pos;
