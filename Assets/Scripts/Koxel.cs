@@ -39,8 +39,8 @@ namespace Koxel
     {
         public Vector2 CubeToOddR(Vector3 cube)
         {
-            int col = (int)(cube.x + (int)(cube.z - (Math.Abs(cube.z) % 2)) / 2);
-            int row = (int)cube.z;
+            int col = (int)(cube.x + (int)(cube.y - (Math.Abs(cube.y) % 2)) / 2);
+            int row = (int)cube.y;
             return new Vector2(col, row);
         }
 

@@ -20,8 +20,7 @@ public class World : MonoBehaviour {
         chunks = new Dictionary<Vector3, Chunk>();
         
         hexCalc = new HexCalc();
-
-        long seed = 13;
+        
         simplex = new Simplex(seed);
     }
 
@@ -75,24 +74,25 @@ public class World : MonoBehaviour {
     public Color grass;
     public float grassThreshold = .9f;
     public Color stone;
+    public long seed = 13;
 
     //Experiment with this Koko! :P
     public float HeightMap2(Tile tile)
     {
-        int x = (int)(tile.coords.x + tile.coords.y);
-        int y = (int)tile.coords.y;
-        //float wY = tile.transform.position.z;
-        //int y = (int)(wY / (hexData.Height() * hexData.Size()));
-
+        Vector2 offsetCoords = hexCalc.CubeToOddR(tile.coords);
+        int x = (int)offsetCoords.x;
+        int y = (int)offsetCoords.y;
+        x = (int)tile.coords.x;
+        y = (int)tile.coords.y;
         double noise = 0;
 
-        noise += simplex.Evaluate(x / 50f, (-x-y) / 50f);
-        noise += simplex.Evaluate(x / 100f, (-x-y) / 100f);
+        noise += simplex.Evaluate(x / 5f, y / 5f) / 10;
+        noise += simplex.Evaluate(x / 25f, y / 25f) / 2;
+        noise += simplex.Evaluate(x / 50f, y / 50f);
+        noise += simplex.Evaluate(x / 100f, y / 100f);
 
-        //noise = noise * noise * noise * (noise * (noise * 10f - 15f) + 5f);
-
-        if (noise * 50f <= waterThreshold) noise = waterThreshold / 50 - 0.01;
-        noise = 0f;
+        if (noise * 50f <= waterThreshold)
+            noise = waterThreshold / 50f - 0.01f;
         return (float)noise * 50f;
     }
 

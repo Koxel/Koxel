@@ -204,7 +204,6 @@ GameObject:
   - component: {fileID: 100319925}
   - component: {fileID: 100319924}
   - component: {fileID: 100319923}
-  - component: {fileID: 100319922}
   m_Layer: 0
   m_Name: Camera
   m_TagString: Untagged
@@ -225,13 +224,6 @@ Transform:
   m_Father: {fileID: 1104403024}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 90, y: 0, z: 0}
---- !u!81 &100319922
-AudioListener:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 100319920}
-  m_Enabled: 1
 --- !u!92 &100319923
 Behaviour:
   m_ObjectHideFlags: 0
@@ -416,6 +408,7 @@ MonoBehaviour:
   grass: {r: 0, g: 0.553, b: 0, a: 0.503}
   grassThreshold: 45
   stone: {r: 0.61764705, g: 0.61764705, b: 0.61764705, a: 0}
+  seed: 13
   heightMultiplier: 50
 --- !u!4 &1305096899
 Transform:
