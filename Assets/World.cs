@@ -10,12 +10,16 @@ public class World : MonoBehaviour {
     HexData hexData;
     public Dictionary<Vector3, Chunk> chunks;
     Simplex simplex;
+    HexCalc hexCalc;
+
     private void Awake()
     {
         instance = this;
 
         hexData = new HexData(Game.instance.gameConfig.hexSize);
         chunks = new Dictionary<Vector3, Chunk>();
+        
+        hexCalc = new HexCalc();
 
         long seed = 13;
         simplex = new Simplex(seed);
@@ -67,20 +71,29 @@ public class World : MonoBehaviour {
 
     [Header("Height Noise")]
     public Color water;
-    public float waterThreshold = 0f;
+    public float waterThreshold = -0f;
     public Color grass;
     public float grassThreshold = .9f;
     public Color stone;
 
     //Experiment with this Koko! :P
-    public float HeightMap2(int x, int y)
+    public float HeightMap2(Tile tile)
     {
+        int x = (int)(tile.coords.x + tile.coords.y);
+        int y = (int)tile.coords.y;
+        //float wY = tile.transform.position.z;
+        //int y = (int)(wY / (hexData.Height() * hexData.Size()));
+
         double noise = 0;
 
-        noise += simplex.Evaluate(x / 50f, y / 50f);
-        noise += simplex.Evaluate(x / 100f, y / 100f);
+        noise += simplex.Evaluate(x / 50f, (-x-y) / 50f);
+        noise += simplex.Evaluate(x / 100f, (-x-y) / 100f);
 
-        return (float)noise * 100f;
+        //noise = noise * noise * noise * (noise * (noise * 10f - 15f) + 5f);
+
+        if (noise * 50f <= waterThreshold) noise = waterThreshold / 50 - 0.01;
+        noise = 0f;
+        return (float)noise * 50f;
     }
 
     //Johny's Perlin noise example

@@ -34,4 +34,22 @@ namespace Koxel
             return this.hexWidth;
         }
     }
+
+    public class HexCalc
+    {
+        public Vector2 CubeToOddR(Vector3 cube)
+        {
+            int col = (int)(cube.x + (int)(cube.z - (Math.Abs(cube.z) % 2)) / 2);
+            int row = (int)cube.z;
+            return new Vector2(col, row);
+        }
+
+        public Vector3 OddRToCube(Vector2 hex)
+        {
+            float x = hex.x - (hex.y - (Math.Abs(hex.y) % 2)) / 2;
+            float z = hex.y;
+            float y = -x - z;
+            return new Vector3(x, y, z);
+        }
+    }
 }

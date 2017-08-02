@@ -6,6 +6,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.CompilerServices;
+using UnityEngine;
 
 namespace SimplexNoise
 {
@@ -243,7 +244,7 @@ namespace SimplexNoise
             var yins = ys - ysb;
 
             var inSum = xins + yins;
-
+            
             var hash =
                (int)(xins - yins + 1) |
                (int)(inSum) << 1 |

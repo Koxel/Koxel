@@ -24,7 +24,7 @@ public class Tile : MonoBehaviour {
 
     private void Update()
     {
-        float perlin = World.instance.HeightMap2((int)(coords.x + chunk.coords.x), (int)(coords.y + chunk.coords.y));
+        float perlin = World.instance.HeightMap2(this);
         Vector3 pos = transform.position;
         pos.y = perlin;
         transform.position = pos;

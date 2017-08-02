@@ -1,22 +1,26 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Koxel;
 
 public class TileCoordsText : MonoBehaviour {
 
     TextMesh textMesh;
+    HexCalc hexCalc;
+    HexData hexData;
+    Tile tile; 
 
-	// Use this for initialization
 	void Start () {
         if (!Game.instance.gameConfig.DEBUG)
             Destroy(gameObject);
-
-        textMesh = GetComponent<TextMesh>();	
+        hexCalc = new HexCalc();
+        hexData = new HexData(Game.instance.gameConfig.hexSize);
+        textMesh = GetComponent<TextMesh>();
+        tile = GetComponentInParent<Tile>();
 	}
 	
-	// Update is called once per frame
 	void Update () {
-        if (textMesh.text != transform.parent.name.Replace("Tile", "").Replace(" ", "").Replace("(", "").Replace(")", ""))
-            textMesh.text = transform.parent.name.Replace("Tile", "").Replace(" ", "").Replace("(", "").Replace(")", "");
+        if (textMesh.text != tile.coords.x + "," + tile.coords.y)
+            textMesh.text = tile.coords.x + "," + tile.coords.y;
     }
 }

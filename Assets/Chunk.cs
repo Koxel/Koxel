@@ -10,7 +10,7 @@ public class Chunk : MonoBehaviour {
     bool hasGenerated;
     public GameObject tilePrefab;
     public Vector3 coords;
-    public Dictionary<Vector3, Tile> tiles = new Dictionary<Vector3, Tile>();
+    public Dictionary<Vector3, Tile> tiles;// = new Dictionary<Vector3, Tile>();
 
     [Header("Debug")]
     public List<Vector3> tileCoordsDEBUG;
@@ -92,19 +92,20 @@ public class Chunk : MonoBehaviour {
             for (int q = -Game.instance.gameConfig.chunkSize / 2; q <= Game.instance.gameConfig.chunkSize / 2; q++)
             {
                 GameObject tileGO = tiles[new Vector3(r, q, -r - q)].gameObject;
-                Vector3 pos = new Vector3(
-                    tileGO.transform.localPosition.x,
-                    World.instance.HeightMap2(r, q),
-                    tileGO.transform.localPosition.z
-                );
-                tileGO.transform.localPosition = pos;
-                tileGO.transform.localScale = tileGO.transform.localScale * hexData.Size();
-                tileGO.name = "Tile (" + q + ", " + r + ")";
                 Tile tile = tileGO.GetComponent<Tile>();
                 tile.coords = new Vector3(r, q, -r - q) + this.coords;
                 tile.chunk = this;
                 tile.biome = tileDatas[0].biome;
                 tile.tileType = tileDatas[0].tileType;
+
+                Vector3 pos = new Vector3(
+                    tileGO.transform.localPosition.x,
+                    World.instance.HeightMap2(tile),
+                    tileGO.transform.localPosition.z
+                );
+                tileGO.transform.localPosition = pos;
+                tileGO.transform.localScale = tileGO.transform.localScale * hexData.Size();
+                tileGO.name = "Tile (" + q + ", " + r + ")";
                 tileDatas.RemoveAt(0);
                 tile.SetColor(new Color(0, .5f, 0, .5f));
                 //tiles.Add(tile.coords, tile);
