@@ -79,6 +79,14 @@ public class Chunk : MonoBehaviour {
                             tree.transform.Rotate(new Vector3(0f, randomRotation * 60f, 0f));
                         }
                     }
+                    else
+                    {
+                        GameObject tree = Instantiate(World.instance.treePrefab, tileGO.transform);
+                        float randomScale = 1f + Random.Range(-.75f, .5f);
+                        tree.transform.localScale = new Vector3(randomScale, randomScale, randomScale);
+                        int randomRotation = Random.Range(0, 5);
+                        tree.transform.Rotate(new Vector3(0f, randomRotation * 60f, 0f));
+                    }
                 }
                 else
                 {
