@@ -11,9 +11,9 @@ public class World : MonoBehaviour {
     public Dictionary<Vector3, Chunk> chunks;
     Simplex simplex;
     HexCalc hexCalc;
-    public GameObject treePrefab;
-    public bool randomChanceTree;
-    public int randomTreeChance = 6;
+    public GameObject[] tileAssetPrefabs;
+    public bool randomChanceTileAsset;
+    public int randomTileAssetChance = 6;
 
     private void Awake()
     {

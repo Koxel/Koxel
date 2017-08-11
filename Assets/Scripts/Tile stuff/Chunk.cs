@@ -70,9 +70,9 @@ public class Chunk : MonoBehaviour {
                 else if (pos.y < World.instance.grassThreshold)
                 {
                     tile.SetColor(World.instance.grass);
-                    if (World.instance.randomChanceTree) {
-                        if (Random.Range(0, World.instance.randomTreeChance)  == 0) {
-                            GameObject tree = Instantiate(World.instance.treePrefab, tileGO.transform);
+                    if (World.instance.randomChanceTileAsset) {
+                        if (Random.Range(0, World.instance.randomTileAssetChance)  == 0) {
+                            GameObject tree = Instantiate(World.instance.tileAssetPrefabs[Random.Range(0, World.instance.tileAssetPrefabs.Length)], tileGO.transform);
                             float randomScale = 1f + Random.Range(-.75f, .5f);
                             tree.transform.localScale = new Vector3(randomScale, randomScale, randomScale);
                             int randomRotation = Random.Range(0, 5);
@@ -81,7 +81,7 @@ public class Chunk : MonoBehaviour {
                     }
                     else
                     {
-                        GameObject tree = Instantiate(World.instance.treePrefab, tileGO.transform);
+                        GameObject tree = Instantiate(World.instance.tileAssetPrefabs[Random.Range(0, World.instance.tileAssetPrefabs.Length)], tileGO.transform);
                         float randomScale = 1f + Random.Range(-.75f, .5f);
                         tree.transform.localScale = new Vector3(randomScale, randomScale, randomScale);
                         int randomRotation = Random.Range(0, 5);
