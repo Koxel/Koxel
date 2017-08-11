@@ -510,77 +510,6 @@ Transform:
   m_Father: {fileID: 212121725}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &515574232
-GameObject:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 100004, guid: 9e36b4baf367c2048964471aa99bb324, type: 3}
-  m_PrefabInternal: {fileID: 0}
-  serializedVersion: 5
-  m_Component:
-  - component: {fileID: 515574233}
-  - component: {fileID: 515574235}
-  - component: {fileID: 515574234}
-  m_Layer: 0
-  m_Name: Rock_01
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 0
---- !u!4 &515574233
-Transform:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 400004, guid: 9e36b4baf367c2048964471aa99bb324, type: 3}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 515574232}
-  m_LocalRotation: {x: 0.7071068, y: -0, z: -0, w: 0.7071068}
-  m_LocalPosition: {x: 0.23149392, y: 0, z: -0.36316153}
-  m_LocalScale: {x: 1.2201072, y: 1.2201077, z: 1.2201076}
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_RootOrder: 7
-  m_LocalEulerAnglesHint: {x: 90, y: 0, z: 0}
---- !u!23 &515574234
-MeshRenderer:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 2300004, guid: 9e36b4baf367c2048964471aa99bb324,
-    type: 3}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 515574232}
-  m_Enabled: 1
-  m_CastShadows: 1
-  m_ReceiveShadows: 1
-  m_MotionVectors: 1
-  m_LightProbeUsage: 1
-  m_ReflectionProbeUsage: 1
-  m_Materials:
-  - {fileID: 2100000, guid: 307200c573a4afb418b4f70425aa53aa, type: 2}
-  m_StaticBatchInfo:
-    firstSubMesh: 0
-    subMeshCount: 0
-  m_StaticBatchRoot: {fileID: 0}
-  m_ProbeAnchor: {fileID: 0}
-  m_LightProbeVolumeOverride: {fileID: 0}
-  m_ScaleInLightmap: 1
-  m_PreserveUVs: 0
-  m_IgnoreNormalsForChartDetection: 0
-  m_ImportantGI: 0
-  m_SelectedEditorRenderState: 3
-  m_MinimumChartSize: 4
-  m_AutoUVMaxDistance: 0.5
-  m_AutoUVMaxAngle: 89
-  m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
-  m_SortingOrder: 0
---- !u!33 &515574235
-MeshFilter:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 3300004, guid: 9e36b4baf367c2048964471aa99bb324,
-    type: 3}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 515574232}
-  m_Mesh: {fileID: 4300006, guid: 9e36b4baf367c2048964471aa99bb324, type: 3}
 --- !u!1 &547346414
 GameObject:
   m_ObjectHideFlags: 0
@@ -1216,13 +1145,22 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   tileAssets:
   - prefab: {fileID: 1021167890624528, guid: dcf9014f8eb42654e9cbbf5daaeb7507, type: 2}
+    chance: 3
+    sizeRanges: {x: 0.9, y: 1.5}
+  - prefab: {fileID: 1333950843460450, guid: 4204848277eb5564a8eb8d49d581f827, type: 2}
+    chance: 2
+    sizeRanges: {x: 1, y: 2}
+  - prefab: {fileID: 1191298633967060, guid: 69b788dace48c4c44a9f18432206211b, type: 2}
+    chance: 6
+    sizeRanges: {x: 0.9, y: 3}
+  - prefab: {fileID: 1946345443876844, guid: 55e6611b889601040a604a1ca3a388af, type: 2}
     chance: 6
     sizeRanges: {x: 0.9, y: 1.5}
-  - prefab: {fileID: 1961106966339060, guid: 59cc5c8ae9213024d99523886374f9c6, type: 2}
-    chance: 6
-    sizeRanges: {x: 0.9, y: 1.5}
+  - prefab: {fileID: 1096811197106290, guid: 26e90b276844a0d468520a19799abe02, type: 2}
+    chance: 2
+    sizeRanges: {x: 1, y: 2}
   generalTileAssetChance: 0
-  maxAssetsPerTile: 3
+  maxAssetsPerTile: 4
   water: {r: 0.39705884, g: 0.39705884, b: 1, a: 0}
   waterThreshold: -40
   grass: {r: 0, g: 0.553, b: 0, a: 0.503}
