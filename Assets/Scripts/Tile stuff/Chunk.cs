@@ -70,22 +70,25 @@ public class Chunk : MonoBehaviour {
                 else if (pos.y < World.instance.grassThreshold)
                 {
                     tile.SetColor(World.instance.grass);
-                    if (World.instance.randomChanceTileAsset) {
-                        if (Random.Range(0, World.instance.randomTileAssetChance)  == 0) {
-                            GameObject tree = Instantiate(World.instance.tileAssetPrefabs[Random.Range(0, World.instance.tileAssetPrefabs.Length)], tileGO.transform);
-                            float randomScale = 1f + Random.Range(-.75f, .5f);
-                            tree.transform.localScale = new Vector3(randomScale, randomScale, randomScale);
-                            int randomRotation = Random.Range(0, 5);
-                            tree.transform.Rotate(new Vector3(0f, randomRotation * 60f, 0f));
+                    if(Random.Range(0, World.instance.generalTileAssetChance) == 0) {
+                        TileAsset[] tileAssets = World.instance.tileAssets;
+                        List<int> usedRots = new List<int>();
+                        usedRots.Add(-1);
+                        for (int i = 0; i < Random.Range(0, tileAssets.Length) || i < World.instance.maxAssetsPerTile; i++)
+                        {
+                            TileAsset asset = tileAssets[Random.Range(0, tileAssets.Length)];
+                            if (Random.Range(0, asset.chance) == 0)
+                            {
+                                GameObject assetGO = Instantiate(asset.prefab, tile.transform);
+                                float scale = Random.Range(asset.sizeRanges.x, asset.sizeRanges.y);
+                                assetGO.transform.localScale = new Vector3(scale, scale, scale);
+                                int rotation = -1;
+                                while (usedRots.Contains(rotation))
+                                    rotation = Random.Range(0, 5);
+                                usedRots.Add(rotation);
+                                assetGO.transform.Rotate(new Vector3(0f, rotation * 60f, 0f));
+                            }
                         }
-                    }
-                    else
-                    {
-                        GameObject tree = Instantiate(World.instance.tileAssetPrefabs[Random.Range(0, World.instance.tileAssetPrefabs.Length)], tileGO.transform);
-                        float randomScale = 1f + Random.Range(-.75f, .5f);
-                        tree.transform.localScale = new Vector3(randomScale, randomScale, randomScale);
-                        int randomRotation = Random.Range(0, 5);
-                        tree.transform.Rotate(new Vector3(0f, randomRotation * 60f, 0f));
                     }
                 }
                 else

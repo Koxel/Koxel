@@ -1214,11 +1214,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e10616e320abd934e854a7803eba79ea, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  tileAssetPrefabs:
-  - {fileID: 1021167890624528, guid: dcf9014f8eb42654e9cbbf5daaeb7507, type: 2}
-  - {fileID: 1961106966339060, guid: 59cc5c8ae9213024d99523886374f9c6, type: 2}
-  randomChanceTileAsset: 1
-  randomTileAssetChance: 6
+  tileAssets:
+  - prefab: {fileID: 1021167890624528, guid: dcf9014f8eb42654e9cbbf5daaeb7507, type: 2}
+    chance: 6
+    sizeRanges: {x: 0.9, y: 1.5}
+  - prefab: {fileID: 1961106966339060, guid: 59cc5c8ae9213024d99523886374f9c6, type: 2}
+    chance: 6
+    sizeRanges: {x: 0.9, y: 1.5}
+  generalTileAssetChance: 0
+  maxAssetsPerTile: 3
   water: {r: 0.39705884, g: 0.39705884, b: 1, a: 0}
   waterThreshold: -40
   grass: {r: 0, g: 0.553, b: 0, a: 0.503}
