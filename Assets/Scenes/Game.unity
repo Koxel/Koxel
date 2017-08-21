@@ -1182,7 +1182,7 @@ GameObject:
   - component: {fileID: 1858526407}
   - component: {fileID: 1858526408}
   m_Layer: 0
-  m_Name: CameraContainer
+  m_Name: Camera
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1215,6 +1215,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   target: {fileID: 619422079}
   followSpeed: 2
+  rotateSpeed: 2
+  rotL: 113
+  rotR: 114
 --- !u!1 &1874780818
 GameObject:
   m_ObjectHideFlags: 0
