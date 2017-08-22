@@ -19,6 +19,8 @@ public class Game : MonoBehaviour {
         gameConfig = JsonConvert.DeserializeObject<GameConfig>(File.ReadAllText(Directory.GetParent(Application.dataPath).FullName + "/Game/GameConfig.json").Replace(@"\", "/"));
         hexData = new HexData(Game.instance.gameConfig.hexSize);
         world = GameObject.Find("World").GetComponent<World>();
+
+        //Cursor.lockState = CursorLockMode.Confined;
     }
 	
 }

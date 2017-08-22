@@ -21,6 +21,7 @@ GameObject:
   - component: {fileID: 4797002743976038}
   - component: {fileID: 33026308057306912}
   - component: {fileID: 23838296860874054}
+  - component: {fileID: 64537223263696464}
   m_Layer: 0
   m_Name: Stump
   m_TagString: Untagged
@@ -108,4 +109,18 @@ MeshFilter:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1379357885615192}
+  m_Mesh: {fileID: 4300000, guid: 9e36b4baf367c2048964471aa99bb324, type: 3}
+--- !u!64 &64537223263696464
+MeshCollider:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1379357885615192}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Convex: 0
+  m_InflateMesh: 0
+  m_SkinWidth: 0.01
   m_Mesh: {fileID: 4300000, guid: 9e36b4baf367c2048964471aa99bb324, type: 3}

@@ -12,7 +12,7 @@ public class PlayerController : MonoBehaviour {
     public float moveSpeed = 2f;
     public float turnSpeed = 90f;
     public float gravity = 9.81f;
-    public float jumpSpeed = 8f;
+    public float jumpSpeed = 5f;
 
 	void Awake ()
     {

@@ -539,10 +539,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1c79d21d7f6f1dd4bb6eda5bf281dc35, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  moveSpeed: 2
-  turnSpeed: 90
+  moveSpeed: 5
+  turnSpeed: 500
   gravity: 9.81
-  jumpSpeed: 8
+  jumpSpeed: 5
 --- !u!54 &619422075
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -569,12 +569,12 @@ CharacterController:
   m_Enabled: 1
   serializedVersion: 2
   m_Height: 1.6
-  m_Radius: 0.6
+  m_Radius: 0.4
   m_SlopeLimit: 45
-  m_StepOffset: 0.3
+  m_StepOffset: 0.2
   m_SkinWidth: 0.08
   m_MinMoveDistance: 0.001
-  m_Center: {x: 0, y: 0.8, z: 0}
+  m_Center: {x: 0, y: 0.9, z: 0}
 --- !u!4 &619422079
 Transform:
   m_ObjectHideFlags: 0
@@ -1115,7 +1115,7 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1715705345}
-  m_LocalRotation: {x: 0.2588191, y: 0, z: 0, w: 0.9659258}
+  m_LocalRotation: {x: 0.2588191, y: -0, z: -0, w: 0.9659258}
   m_LocalPosition: {x: 0, y: 5, z: -5}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
@@ -1181,6 +1181,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1858526407}
   - component: {fileID: 1858526408}
+  - component: {fileID: 1858526409}
   m_Layer: 0
   m_Name: Camera
   m_TagString: Untagged
@@ -1195,7 +1196,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1858526406}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 50, z: 0}
+  m_LocalPosition: {x: 0, y: 50, z: 0.13}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1715705346}
@@ -1214,10 +1215,32 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   target: {fileID: 619422079}
-  followSpeed: 2
-  rotateSpeed: 2
-  rotL: 113
-  rotR: 114
+  followSpeed: 4
+  rotXSpeed: 120
+  rotYSpeed: 120
+  rotLimits: {x: -60, y: 40}
+  rotLerpSpeed: 5
+  zoomSpeed: 0.5
+  zoomLimits: {x: 0.7, y: 3}
+--- !u!114 &1858526409
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1858526406}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5d7aa337a29c00040b9060ca593d1b3f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  target: {fileID: 619422079}
+  distance: 5
+  xSpeed: 120
+  ySpeed: 120
+  yMinLimit: -20
+  yMaxLimit: 80
+  distanceMin: 0.5
+  distanceMax: 15
 --- !u!1 &1874780818
 GameObject:
   m_ObjectHideFlags: 0
