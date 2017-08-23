@@ -20,4 +20,4 @@ Unity<br />
 Blender
 
 ## Join our Discord Server!
-https://discordapp.com/invite/DJQvCwP
+https://discord.gg/Uurg8Yg
