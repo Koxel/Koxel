@@ -12,6 +12,7 @@ ModelImporter:
     100008: //RootNode
     100010: Tree_01
     100012: TreeStump_01
+    100014: Tree_01_branch
     400000: Pebble_01
     400002: Pebble_02
     400004: Rock_01
@@ -19,21 +20,25 @@ ModelImporter:
     400008: //RootNode
     400010: Tree_01
     400012: TreeStump_01
+    400014: Tree_01_branch
     2300000: Pebble_01
     2300002: Pebble_02
     2300004: Rock_01
     2300006: Tree_01
     2300008: TreeStump_01
+    2300010: Tree_01_branch
     3300000: Pebble_01
     3300002: Pebble_02
     3300004: Rock_01
     3300006: Tree_01
     3300008: TreeStump_01
+    3300010: Tree_01_branch
     4300000: TreeStump_01
     4300002: Pebble_02
     4300004: Pebble_01
     4300006: Rock_01
     4300008: Tree_01
+    4300010: Tree_01_branch
     7400000: Default Take
     9500000: //RootNode
   materials:

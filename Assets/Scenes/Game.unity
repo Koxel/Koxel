@@ -539,7 +539,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1c79d21d7f6f1dd4bb6eda5bf281dc35, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  moveSpeed: 5
+  moveSpeed: 3
   turnSpeed: 500
   gravity: 9.81
   jumpSpeed: 5
@@ -1233,14 +1233,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5d7aa337a29c00040b9060ca593d1b3f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  target: {fileID: 619422079}
-  distance: 5
-  xSpeed: 120
-  ySpeed: 120
-  yMinLimit: -20
-  yMaxLimit: 80
-  distanceMin: 0.5
-  distanceMax: 15
 --- !u!1 &1874780818
 GameObject:
   m_ObjectHideFlags: 0

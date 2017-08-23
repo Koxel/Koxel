@@ -2,5 +2,5 @@
     "DEBUG": false,
     "hexSize": 3,
     "chunkSize": 13,
-    "renderDistance": 4
+    "renderDistance": 2
 }
