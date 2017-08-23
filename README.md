@@ -7,6 +7,9 @@ or destroy whichever you prefer.<br />
 
 
 ## Controls<br />
+WASD/Arrow keys: Move around
+Right Click and drag: Orbit around the player
+ScrollWheel: Zoom in/out on the player
 <br />
 
 
