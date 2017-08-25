@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class PlayerCamera : MonoBehaviour {
 
+    public static PlayerCamera instance;
+
     public Transform target;
     public float followSpeed = 2f;
 
@@ -19,6 +21,10 @@ public class PlayerCamera : MonoBehaviour {
     public float zoomSpeed = 1f;
     public Vector2 zoomLimits = new Vector2(1, 10);
 
+    private void Awake()
+    {
+        instance = this;
+    }
 
     private void Start()
     {
@@ -29,22 +35,20 @@ public class PlayerCamera : MonoBehaviour {
             {
                 target = player.transform;
             }
-
-            Vector3 angles = transform.eulerAngles;
-            x = angles.y;
-            y = angles.x;
-
-            GetComponent<Rigidbody>().freezeRotation = true;
         }
+        
+        Vector3 angles = transform.eulerAngles;
+        x = angles.y;
+        y = angles.x;
     }
 
     private void FixedUpdate()
     {
+        if (target == null)
+            return;
+
         // Position
-        if (target != null)
-        {
-            transform.position = Vector3.Lerp(transform.position, target.position, Time.deltaTime * followSpeed);
-        }
+        transform.position = Vector3.Lerp(transform.position, target.position, Time.deltaTime * followSpeed);
 
         //Rotation
         if (Input.GetMouseButton(1))
@@ -55,17 +59,7 @@ public class PlayerCamera : MonoBehaviour {
             y = ClampAngle(y, rotLimits.x, rotLimits.y);
 
             Quaternion rotation = Quaternion.Euler(y, x, 0);
-            //Quaternion newRotation = Quaternion.Lerp(transform.rotation, rotation, rotLerpSpeed * Time.deltaTime);
-            //Quaternion oldRot = transform.rotation;
             transform.rotation = rotation;
-            //RaycastHit hit;
-            //if (Physics.Linecast(transform.position, transform.GetChild(0).position, out hit/*, 1 << 8*/))
-            //{
-                //if (hit.collider == null)
-                //{
-                    //transform.rotation = oldRot;
-                //}
-            //}
         }
 
         //Zoom

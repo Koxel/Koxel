@@ -13,6 +13,24 @@ ModelImporter:
     100010: Tree_01
     100012: TreeStump_01
     100014: Tree_01_branch
+    100016: Pebble_01_LOD0
+    100018: Pebble_01_LOD1
+    100020: Pebble_02_LOD0
+    100022: Pebble_02_LOD0_001
+    100024: Rock_01_LOD0
+    100026: Rock_01_LOD1
+    100028: Rock_01_LOD2
+    100030: Tree_01_branch_LOD0
+    100032: Tree_01_branch_LOD1
+    100034: Tree_01_branch_LOD2
+    100036: Tree_01_leaves_LOD0
+    100038: Tree_01_leaves_LOD1
+    100040: Tree_01_leaves_LOD2
+    100042: Tree_01_LOD0
+    100044: Tree_01_LOD1
+    100046: Tree_01_LOD2
+    100048: TreeStump_01_LOD0
+    100050: TreeStump_01_LOD1
     400000: Pebble_01
     400002: Pebble_02
     400004: Rock_01
@@ -21,26 +39,99 @@ ModelImporter:
     400010: Tree_01
     400012: TreeStump_01
     400014: Tree_01_branch
+    400016: Pebble_01_LOD0
+    400018: Pebble_01_LOD1
+    400020: Pebble_02_LOD0
+    400022: Pebble_02_LOD0_001
+    400024: Rock_01_LOD0
+    400026: Rock_01_LOD1
+    400028: Rock_01_LOD2
+    400030: Tree_01_branch_LOD0
+    400032: Tree_01_branch_LOD1
+    400034: Tree_01_branch_LOD2
+    400036: Tree_01_leaves_LOD0
+    400038: Tree_01_leaves_LOD1
+    400040: Tree_01_leaves_LOD2
+    400042: Tree_01_LOD0
+    400044: Tree_01_LOD1
+    400046: Tree_01_LOD2
+    400048: TreeStump_01_LOD0
+    400050: TreeStump_01_LOD1
     2300000: Pebble_01
     2300002: Pebble_02
     2300004: Rock_01
     2300006: Tree_01
     2300008: TreeStump_01
     2300010: Tree_01_branch
+    2300012: Pebble_01_LOD0
+    2300014: Pebble_01_LOD1
+    2300016: Pebble_02_LOD0
+    2300018: Pebble_02_LOD0_001
+    2300020: Rock_01_LOD0
+    2300022: Rock_01_LOD1
+    2300024: Rock_01_LOD2
+    2300026: Tree_01_branch_LOD0
+    2300028: Tree_01_branch_LOD1
+    2300030: Tree_01_branch_LOD2
+    2300032: Tree_01_leaves_LOD0
+    2300034: Tree_01_leaves_LOD1
+    2300036: Tree_01_leaves_LOD2
+    2300038: Tree_01_LOD0
+    2300040: Tree_01_LOD1
+    2300042: Tree_01_LOD2
+    2300044: TreeStump_01_LOD0
+    2300046: TreeStump_01_LOD1
     3300000: Pebble_01
     3300002: Pebble_02
     3300004: Rock_01
     3300006: Tree_01
     3300008: TreeStump_01
     3300010: Tree_01_branch
+    3300012: Pebble_01_LOD0
+    3300014: Pebble_01_LOD1
+    3300016: Pebble_02_LOD0
+    3300018: Pebble_02_LOD0_001
+    3300020: Rock_01_LOD0
+    3300022: Rock_01_LOD1
+    3300024: Rock_01_LOD2
+    3300026: Tree_01_branch_LOD0
+    3300028: Tree_01_branch_LOD1
+    3300030: Tree_01_branch_LOD2
+    3300032: Tree_01_leaves_LOD0
+    3300034: Tree_01_leaves_LOD1
+    3300036: Tree_01_leaves_LOD2
+    3300038: Tree_01_LOD0
+    3300040: Tree_01_LOD1
+    3300042: Tree_01_LOD2
+    3300044: TreeStump_01_LOD0
+    3300046: TreeStump_01_LOD1
     4300000: TreeStump_01
     4300002: Pebble_02
     4300004: Pebble_01
     4300006: Rock_01
     4300008: Tree_01
     4300010: Tree_01_branch
+    4300012: Pebble_02_LOD0_001
+    4300014: Pebble_01_LOD1
+    4300016: Rock_01_LOD2
+    4300018: Rock_01_LOD1
+    4300020: TreeStump_01_LOD1
+    4300022: Tree_01_LOD2
+    4300024: Tree_01_leaves_LOD2
+    4300026: Tree_01_branch_LOD2
+    4300028: Tree_01_LOD1
+    4300030: Tree_01_branch_LOD1
+    4300032: Tree_01_leaves_LOD1
+    4300034: TreeStump_01_LOD0
+    4300036: Pebble_02_LOD0
+    4300038: Pebble_01_LOD0
+    4300040: Rock_01_LOD0
+    4300042: Tree_01_LOD0
+    4300044: Tree_01_leaves_LOD0
+    4300046: Tree_01_branch_LOD0
     7400000: Default Take
     9500000: //RootNode
+    20500000: //RootNode
   materials:
     importMaterials: 1
     materialName: 0
@@ -67,7 +158,10 @@ ModelImporter:
     clipAnimations: []
     isReadable: 1
   meshes:
-    lODScreenPercentages: []
+    lODScreenPercentages:
+    - 0.25
+    - 0.125
+    - 0.01
     globalScale: 1
     meshCompression: 0
     addColliders: 0

@@ -23,7 +23,7 @@ public class World : MonoBehaviour {
         chunks = new Dictionary<Vector3, Chunk>();
         
         hexCalc = new HexCalc();
-        
+        seed = Random.Range(1, 1000000);
         simplex = new Simplex(seed);
     }
 

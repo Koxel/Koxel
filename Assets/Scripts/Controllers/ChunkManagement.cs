@@ -16,6 +16,9 @@ public class ChunkManagement : MonoBehaviour {
     private List<ChunkInfo> unloadChunks = new List<ChunkInfo>();
     private List<ChunkInfo> loadChunks = new List<ChunkInfo>();
 
+    public delegate void ChunksManaged(Chunk originChunk);
+    public static event ChunksManaged OnChunksManaged;
+
     [Header("Debug")]
     public int chunksStoreCount;
     public int unloadChunksCount;
@@ -30,7 +33,7 @@ public class ChunkManagement : MonoBehaviour {
         world = GetComponent<World>();
 
         //ChangeChunk(world.AddChunk(new Vector3(0,0,0)));
-        ManageChunks();
+        //ManageChunks();
 	}
 
     private void Update()
@@ -57,7 +60,7 @@ public class ChunkManagement : MonoBehaviour {
         ManageChunks();
     }
 
-    void ManageChunks()
+    public void ManageChunks()
     {
         if (currentChunk == null)
         {
@@ -234,12 +237,18 @@ public class ChunkManagement : MonoBehaviour {
             }
         }
 
-        int runs = 1; // load up to 5 chunks
+        int runs = 5; // load up to 1 chunks
         while (true)
         {
             lock (loadChunks)
             {
-                if (loadChunks.Count <= 0) { break; }
+                if (loadChunks.Count <= 0)
+                {
+                    if(chunksStore.Count > 1)
+                        if (OnChunksManaged != null)
+                            OnChunksManaged(currentChunk);
+                    break;
+                }
             }
 
             // grab a chunk to load

@@ -53,3 +53,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   tilePrefab: {fileID: 1577152857153834, guid: ec0a1feb56898bf419fe4b0635e18278, type: 2}
   coords: {x: 0, y: 0, z: 0}
+  tileCoordsDEBUG: []
+  tileDEBUG: []
