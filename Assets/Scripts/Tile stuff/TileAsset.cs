@@ -2,12 +2,16 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-[System.Serializable]
-public class TileAsset {
+public class TileAsset : MonoBehaviour {
 
+    public string name;
     public GameObject prefab;
-    [Header("Higher nr = lower chance..")]
-    public int chance = 6;
-    public Vector2 sizeRanges;
+    
+
+    public TileAsset(string name, GameObject prefab)
+    {
+        this.name = name;
+        this.prefab = prefab;
+    }
 
 }

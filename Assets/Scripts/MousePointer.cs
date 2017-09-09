@@ -4,11 +4,13 @@ using UnityEngine;
 
 public class MousePointer : MonoBehaviour {
 
+    public static MousePointer instance;
+
     public GameObject pointer;
     public Vector3 pointerOffset = new Vector3(0f, .1f, 0f);
     public float mouseDistance = 2f;
     private Animation menuAnim;
-    private bool menuOpen;
+    public bool menuOpen;
     private Transform selectedObject;
     private Vector3 defaultScale;
     private GameObject cursorObject;
@@ -16,6 +18,11 @@ public class MousePointer : MonoBehaviour {
     public GameObject MiddleHex;
     public GameObject OuterHex;
     public Vector3 outerHexRotation;
+
+    private void Awake()
+    {
+        instance = this;
+    }
 
     void Start() {
         cursorObject = pointer.transform.GetChild(0).gameObject;
@@ -78,6 +85,10 @@ public class MousePointer : MonoBehaviour {
     private void FixedUpdate()
     {
         OuterHex.transform.Rotate(outerHexRotation * Time.deltaTime);
+        /*Quaternion hexRot = MiddleHex.transform.localRotation;
+        hexRot.y = Camera.main.transform.parent.localRotation.y;
+        MiddleHex.transform.localRotation = hexRot;*/
+        MiddleHex.transform.eulerAngles = new Vector3(MiddleHex.transform.eulerAngles.x, Camera.main.transform.parent.eulerAngles.y, MiddleHex.transform.eulerAngles.z);
     }
 
     private void OnTriggerEnter(Collider other)
@@ -122,13 +133,16 @@ public class MousePointer : MonoBehaviour {
         selectedObject = target;
         MiddleHex.SetActive(false);
         RadialMenu.SetActive(false);
+        pointer.transform.SetParent(target);
         pointer.transform.position = selectedObject.position + pointerOffset;
-        pointer.transform.localScale = defaultScale + (selectedObject.localScale - new Vector3(1, 1, 1));
+        //pointer.transform.localScale = defaultScale + (selectedObject.localScale - new Vector3(1, 1, 1));
     }
 
     void UnSelectObject()
     {
         selectedObject = null;
+        pointer.transform.SetParent(null);
+        pointer.transform.localScale = defaultScale;
         if (!cursorObject.activeSelf)
             cursorObject.SetActive(true);
         MiddleHex.SetActive(true);

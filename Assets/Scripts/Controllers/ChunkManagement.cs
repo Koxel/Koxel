@@ -237,7 +237,7 @@ public class ChunkManagement : MonoBehaviour {
             }
         }
 
-        int runs = 5; // load up to 1 chunks
+        int runs = 1; // load up to x chunks
         while (true)
         {
             lock (loadChunks)
