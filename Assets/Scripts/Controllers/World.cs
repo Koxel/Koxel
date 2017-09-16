@@ -11,7 +11,7 @@ public class World : MonoBehaviour {
     public Dictionary<Vector3, Chunk> chunks;
     Simplex simplex;
     HexCalc hexCalc;
-    public TileAsset[] tileAssets;
+    public List<TileAsset> tileAssets;
     public int generalTileAssetChance = 6;
     public int maxAssetsPerTile = 3;
 

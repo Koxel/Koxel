@@ -14,10 +14,10 @@ OcclusionCullingSettings:
 RenderSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 8
-  m_Fog: 0
+  m_Fog: 1
   m_FogColor: {r: 0.5, g: 0.5, b: 0.5, a: 1}
   m_FogMode: 3
-  m_FogDensity: 0.01
+  m_FogDensity: 0.009
   m_LinearFogStart: 0
   m_LinearFogEnd: 300
   m_AmbientSkyColor: {r: 0.212, g: 0.227, b: 0.259, a: 1}
@@ -206,9 +206,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 85544966}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a3de508e5d01ba1418b899380f01d404, type: 3}
+  m_Script: {fileID: 11500000, guid: ca821c3533ebd7e42ad23c0d7ad0d875, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  Mods:
+  - Koxel
+  defaultModel: {fileID: 1836517571203332, guid: f64d5009e314ec046a290a9ea4830d32,
+    type: 2}
 --- !u!1 &1305096897
 GameObject:
   m_ObjectHideFlags: 0
@@ -237,22 +241,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e10616e320abd934e854a7803eba79ea, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  tileAssets:
-  - prefab: {fileID: 1002898873700030, guid: e9e9eac9a8fd5c14ba2a5ee243b20d65, type: 2}
-    chance: 3
-    sizeRanges: {x: 0.9, y: 1.5}
-  - prefab: {fileID: 1412053741819230, guid: 41f144c7b7e017a46bd53b422232bfd7, type: 2}
-    chance: 2
-    sizeRanges: {x: 1, y: 2}
-  - prefab: {fileID: 1413636148508980, guid: 9650d4611014a3f42883147a1b396685, type: 2}
-    chance: 6
-    sizeRanges: {x: 0.9, y: 3}
-  - prefab: {fileID: 1982368211846560, guid: 294acac7427fe3e42b7fad743c89f3fc, type: 2}
-    chance: 6
-    sizeRanges: {x: 0.9, y: 1.5}
-  - prefab: {fileID: 1666737803788728, guid: d77941c93812c45439b9448269ef0930, type: 2}
-    chance: 2
-    sizeRanges: {x: 1, y: 2}
+  tileAssets: []
   generalTileAssetChance: 0
   maxAssetsPerTile: 4
   water: {r: 0.39705884, g: 0.39705884, b: 1, a: 0}
@@ -505,20 +494,6 @@ Light:
   m_Lightmapping: 4
   m_AreaSize: {x: 1, y: 1}
   m_BounceIntensity: 1
-  m_FalloffTable:
-    m_Table[0]: 0
-    m_Table[1]: 0
-    m_Table[2]: 0
-    m_Table[3]: 0
-    m_Table[4]: 0
-    m_Table[5]: 0
-    m_Table[6]: 0
-    m_Table[7]: 0
-    m_Table[8]: 0
-    m_Table[9]: 0
-    m_Table[10]: 0
-    m_Table[11]: 0
-    m_Table[12]: 0
   m_ColorTemperature: 6570
   m_UseColorTemperature: 0
   m_ShadowRadius: 0

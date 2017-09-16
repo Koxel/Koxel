@@ -27,15 +27,9 @@ public class ChunkManagement : MonoBehaviour {
     private void Awake()
     {
         instance = this;
-    }
-
-    void Start () {
         world = GetComponent<World>();
-
-        //ChangeChunk(world.AddChunk(new Vector3(0,0,0)));
-        //ManageChunks();
-	}
-
+    }
+    
     private void Update()
     {
         if (loader != null)

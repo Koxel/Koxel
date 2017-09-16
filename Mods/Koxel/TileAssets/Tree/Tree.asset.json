@@ -1,0 +1,11 @@
+{
+    "Name": "Tree",
+    "Model": "TileAssets/Tree.obj",
+    "Materials": {
+        "TreeBrown": "Decidious_Brown",
+        "TreeGreen": "Decidious_Green"
+    },
+    "SpawnChance": 3,
+    "SizeRange": [0.9, 1.5],
+    "Effects": ["harvestable"]
+}

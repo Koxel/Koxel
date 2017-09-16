@@ -1,67 +1,45 @@
 fileFormatVersion: 2
-guid: 8d0d743c46ee9914e9c2aca743a9fe5c
-timeCreated: 1501752631
+guid: 6658eb971a0001d458f377e0377a7071
+timeCreated: 1505549722
 licenseType: Free
 ModelImporter:
   serializedVersion: 21
   fileIDToRecycleName:
-    100000: Base
-    100002: Bone_001
-    100004: Bone_003
-    100006: Bone_005
-    100008: Bone_007
-    100010: Bone_009
-    100012: Bone_011
-    100014: Eye_L
-    100016: Eye_R
-    100018: //RootNode
-    100020: kees_arm
-    100022: Kees_hair
-    100024: Kees_mesh
-    100026: LowerMouth
-    100028: Mouth_L
-    100030: Mouth_R
-    100032: Spine_1
-    100034: Spine_2
-    100036: Spine_3
-    100038: Spine_4
-    100040: UpperMouth
-    100042: Hold_Head
-    100044: Hold_L
-    100046: Hold_R
-    400000: Base
-    400002: Bone_001
-    400004: Bone_003
-    400006: Bone_005
-    400008: Bone_007
-    400010: Bone_009
-    400012: Bone_011
-    400014: Eye_L
-    400016: Eye_R
-    400018: //RootNode
-    400020: kees_arm
-    400022: Kees_hair
-    400024: Kees_mesh
-    400026: LowerMouth
-    400028: Mouth_L
-    400030: Mouth_R
-    400032: Spine_1
-    400034: Spine_2
-    400036: Spine_3
-    400038: Spine_4
-    400040: UpperMouth
-    400042: Hold_Head
-    400044: Hold_L
-    400046: Hold_R
-    4300000: Kees_hair
-    4300002: Kees_mesh
+    100000: Branch_01_LOD0
+    100002: Cube
+    100004: Improvised_Axe_LOD0
+    100006: Improvised_Axe_LOD1
+    100008: Improvised_Axe_LOD2
+    100010: //RootNode
+    100012: Pebble_01_LOD0
+    400000: Branch_01_LOD0
+    400002: Cube
+    400004: Improvised_Axe_LOD0
+    400006: Improvised_Axe_LOD1
+    400008: Improvised_Axe_LOD2
+    400010: //RootNode
+    400012: Pebble_01_LOD0
+    2300000: Branch_01_LOD0
+    2300002: Cube
+    2300004: Improvised_Axe_LOD0
+    2300006: Improvised_Axe_LOD1
+    2300008: Improvised_Axe_LOD2
+    2300010: Pebble_01_LOD0
+    3300000: Branch_01_LOD0
+    3300002: Cube
+    3300004: Improvised_Axe_LOD0
+    3300006: Improvised_Axe_LOD1
+    3300008: Improvised_Axe_LOD2
+    3300010: Pebble_01_LOD0
+    4300000: Improvised_Axe_LOD2
+    4300002: Improvised_Axe_LOD1
+    4300004: Improvised_Axe_LOD0
+    4300006: Cube
+    4300008: Branch_01_LOD0
+    4300010: Pebble_01_LOD0
     7400000: Default Take
-    7400002: Kees_LowJump
-    7400004: Kees_TallJump
     9500000: //RootNode
-    11100000: //RootNode
-    13700000: Kees_hair
-    13700002: Kees_mesh
+    20500000: //RootNode
   materials:
     importMaterials: 1
     materialName: 0
@@ -78,7 +56,7 @@ ModelImporter:
     animationImportWarnings: 
     animationRetargetingWarnings: 
     animationDoRetargetingWarnings: 0
-    animationCompression: 3
+    animationCompression: 1
     animationRotationError: 0.5
     animationPositionError: 0.5
     animationScaleError: 0.5
@@ -88,7 +66,10 @@ ModelImporter:
     clipAnimations: []
     isReadable: 1
   meshes:
-    lODScreenPercentages: []
+    lODScreenPercentages:
+    - 0.25
+    - 0.125
+    - 0.01
     globalScale: 1
     meshCompression: 0
     addColliders: 0
@@ -128,7 +109,7 @@ ModelImporter:
     rootMotionBoneName: 
     rootMotionBoneRotation: {x: 0, y: 0, z: 0, w: 1}
     hasTranslationDoF: 0
-    hasExtraRoot: 1
+    hasExtraRoot: 0
     skeletonHasParents: 1
   lastHumanDescriptionAvatarSource: {instanceID: 0}
   animationType: 2

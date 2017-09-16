@@ -23,13 +23,17 @@ public class Game : MonoBehaviour {
         world = GameObject.Find("World").GetComponent<World>();
 
         ChunkManagement.OnChunksManaged += SpawnPlayer;
-        //Cursor.lockState = CursorLockMode.Confined;
     }
 
     private void Start()
     {
+        ModLoader.instance.LoadMods();
+        Debug.Log("Mods Loaded");
+        World.instance.tileAssets.AddRange(ModLoader.TileAssets.Values);
+
         ChunkManagement.instance.loader = PlayerCamera.instance.transform;
         ChunkManagement.instance.ManageChunks();
+        Debug.Log("World Loaded");
     }
 
     private void SpawnPlayer(Chunk originChunk)

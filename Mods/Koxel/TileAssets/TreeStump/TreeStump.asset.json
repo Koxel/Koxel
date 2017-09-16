@@ -1,0 +1,10 @@
+{
+    "Name": "TreeStump",
+    "Model": "TileAssets/TreeStump.obj",
+    "Materials": {
+        "TreeBrown": "Decidious_Brown"
+    },
+    "SpawnChance": 6,
+    "SizeRange": [0.9, 1.5],
+    "Effects": []
+}

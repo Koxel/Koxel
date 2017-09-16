@@ -71,16 +71,16 @@ public class Chunk : MonoBehaviour {
                 {
                     tile.SetColor(World.instance.grass);
                     if(Random.Range(0, World.instance.generalTileAssetChance) == 0) {
-                        TileAsset[] tileAssets = World.instance.tileAssets;
+                        List<TileAsset> tileAssets = World.instance.tileAssets;
                         List<int> usedRots = new List<int>();
                         usedRots.Add(-1);
-                        for (int i = 0; i < Random.Range(0, tileAssets.Length) || i < World.instance.maxAssetsPerTile; i++)
+                        for (int i = 0; i < Random.Range(0, tileAssets.Count) || i < World.instance.maxAssetsPerTile; i++)
                         {
-                            TileAsset asset = tileAssets[Random.Range(0, tileAssets.Length)];
+                            TileAsset asset = tileAssets[Random.Range(0, tileAssets.Count)];
                             if (Random.Range(0, asset.chance) == 0)
                             {
                                 GameObject assetGO = Instantiate(asset.prefab, tile.transform);
-                                float scale = Random.Range(asset.sizeRanges.x, asset.sizeRanges.y);
+                                float scale = Random.Range(asset.sizeRange.x, asset.sizeRange.y);
                                 assetGO.transform.localScale = new Vector3(scale, scale, scale);
                                 int rotation = -1;
                                 while (usedRots.Contains(rotation))

@@ -1,9 +1,0 @@
-{
-	"name": "Forest",
-	"Hname": "forest_basic",
-	"defaultColor": [0.010096, 0.538228, 0.000000, 1.000000],
-	"hoverColor": [0.007798, 0.367237, 0.000000, 1.000000],
-
-	"stepType": ["walk", "horse", "fly"],
-	"stepCost": 1.00
-}

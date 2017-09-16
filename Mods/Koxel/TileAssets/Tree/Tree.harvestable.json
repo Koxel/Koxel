@@ -1,0 +1,4 @@
+{
+    "effectType": "harvestable",
+    "drops": ["woodLog", "woodStick", "sapling"]
+}

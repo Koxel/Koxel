@@ -37,7 +37,10 @@ public class ModLoader : MonoBehaviour {
         TileAssetsHolderGO.transform.SetParent(this.transform);
         TileAssetsHolder = TileAssetsHolderGO.transform;
         TileAssetsHolderGO.SetActive(false);
+    }
 
+    public void LoadMods()
+    {
         foreach (string Mod in Mods)
         {
             ImportMaterials(ModsFolder + Mod);
@@ -77,6 +80,7 @@ public class ModLoader : MonoBehaviour {
             TileAsset.transform.SetParent(TileAssetsHolder);
             GameObject assetModel = Instantiate(model, TileAsset.transform);
             assetModel.name = "Model";
+            assetModel.transform.position = new Vector3(0f, 0f, .3f);
             ///Set the corresponding materials on renderers
             if (modelName != "UNDEFINED")
             {
@@ -101,7 +105,16 @@ public class ModLoader : MonoBehaviour {
                     renderer.materials = newMaterials;
                 }
             }
-            TileAsset tileAsset = new TileAsset(name, TileAsset);
+            //Chance
+            int chance = 0;
+            if(jObject["SpawnChance"] != null) chance = jObject["SpawnChance"].ToObject<int>();
+            //SizeRange
+            float[] ranges = new float[] { 1, 1 };
+            if (jObject["SizeRange"] != null) ranges = jObject["SizeRange"].ToObject<float[]>();
+            Vector2 sizeRange = new Vector2(ranges[0], ranges[1]);
+
+            //Create TileAsset
+            TileAsset tileAsset = new TileAsset(name, TileAsset, chance, sizeRange);
             TileAssets.Add(name, tileAsset);
         }
     }
@@ -117,6 +130,10 @@ public class ModLoader : MonoBehaviour {
         {
             GameObject model = OBJLoader.LoadOBJFile(file.FullName);
             model.transform.SetParent(ModelsHolder);
+            foreach (Transform child in model.transform) {
+                MeshCollider coll = child.gameObject.AddComponent<MeshCollider>();
+                coll.convex = true;
+            }
             string modelname = file.FullName.Replace(@"\", "/").Remove(0, (ModPath + "/Models/").Count());
             Models.Add(modelname, model);
         }

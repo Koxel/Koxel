@@ -1,9 +1,0 @@
-{
-	"name": "Mountain",
-	"Hname": "mountain_basic",
-	"defaultColor": [0.184469, 0.184469, 0.184469, 1.000000],
-	"hoverColor": [0.080012, 0.080012, 0.080012, 1.000000],
-
-	"stepType": ["walk", "fly"],
-	"stepCost": 2.00
-}

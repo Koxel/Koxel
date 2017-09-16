@@ -1,0 +1,10 @@
+{
+    "Name": "Pebble",
+    "Model": "TileAssets/Pebble.obj",
+    "Materials": {
+        "Rock": "Stone"
+    },
+    "SpawnChance": 2,
+    "SizeRange": [1, 2],
+    "Effects": []
+}
