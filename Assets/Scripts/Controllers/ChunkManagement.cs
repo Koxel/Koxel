@@ -58,10 +58,7 @@ public class ChunkManagement : MonoBehaviour {
     {
         if (currentChunk == null)
         {
-            currentChunk = new Chunk()
-            {
-                coords = new Vector3()
-            };
+            currentChunk = world.AddChunk(new Vector3());
         }
 
         int N = Game.instance.gameConfig.renderDistance;
