@@ -156,9 +156,18 @@ public class ModLoader : MonoBehaviour {
             if (jObject["Shader"] != null) shader = jObject["Shader"].ToObject<string>();
             Material material = new Material(Shader.Find(shader));
             //Color
-            float[] clr = new float[4];
-            if (jObject["Color"] != null) clr = jObject["Color"].ToObject<float[]>();
-            material.color = new Color(clr[0], clr[1], clr[2], clr[3]);
+            float[] gammaColor = new float[4];
+            if (jObject["Color"] != null) gammaColor = jObject["Color"].ToObject<float[]>();
+
+            double gamma = 1 / 2.2;
+            float[] linearColor = new float[4];
+            //You might want to not use "Math.Pow" as it is slow compared to multiply operator
+            linearColor[0] = (float)Math.Pow(gammaColor[0], gamma);
+            linearColor[1] = (float)Math.Pow(gammaColor[1], gamma);
+            linearColor[2] = (float)Math.Pow(gammaColor[2], gamma);
+
+            material.color = new Color(linearColor[0], linearColor[1], linearColor[2], linearColor[3]);
+
             //Name
             string name = "New Material";
             if (jObject["Name"] != null) name = jObject["Name"].ToObject<string>();
