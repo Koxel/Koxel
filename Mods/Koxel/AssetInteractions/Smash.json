@@ -1,0 +1,8 @@
+{
+    "Name": "Smash",
+    "Model": "Tools/Hammer.obj",
+    "Materials": {
+        "Wood": "Decidious_Brown",
+        "Stone":"Stone"
+    }
+}

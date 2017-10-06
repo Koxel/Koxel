@@ -6,5 +6,6 @@
     },
     "SpawnChance": 6,
     "SizeRange": [0.9, 3],
-    "Effects": ["harvestable"]
+    "Effects": ["harvestable"],
+    "Interactions": ["Smash"]
 }
