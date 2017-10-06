@@ -143,7 +143,6 @@ MonoBehaviour:
     type: 2}
   worldCursorPrefab: {fileID: 1563398220823412, guid: b77969757797a7e47a526c2118e53056,
     type: 2}
-  tilePrefab: {fileID: 0}
 --- !u!4 &85544968
 Transform:
   m_ObjectHideFlags: 0

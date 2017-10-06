@@ -1,0 +1,7 @@
+{
+    "Name": "Pick Up",
+    "Model": "Tools/Hand.obj",
+    "Materials": {
+        "Hand": "Hand"
+    }
+}

@@ -22,7 +22,8 @@ public class PlayerController : MonoBehaviour {
 
     void Update()
     {
-        if (!MousePointer.instance.menuOpen) {
+        if (!MousePointer.instance.menuOpen)
+        {
             Vector3 forward = Vector3.Scale(cam.forward, new Vector3(1, 0, 1).normalized);
             Vector3 move = Input.GetAxis("Vertical") * forward + Input.GetAxis("Horizontal") * cam.right;
             Vector3 mover = move;

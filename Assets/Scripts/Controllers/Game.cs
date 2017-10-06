@@ -11,8 +11,8 @@ public class Game : MonoBehaviour {
     public GameConfig gameConfig;
     public GameObject playerPrefab;
     public GameObject worldCursorPrefab;
-    public GameObject tilePrefab;
     public static HexData hexData;
+
     World world;
 
 	void Awake () {

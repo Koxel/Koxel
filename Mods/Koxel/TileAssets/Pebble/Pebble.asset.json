@@ -6,5 +6,6 @@
     },
     "SpawnChance": 2,
     "SizeRange": [1, 2],
-    "Effects": []
+    "Effects": [],
+    "Interactions": ["Pick Up"]
 }

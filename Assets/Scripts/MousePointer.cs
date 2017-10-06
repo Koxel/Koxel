@@ -9,7 +9,7 @@ public class MousePointer : MonoBehaviour {
     public GameObject pointer;
     public Vector3 pointerOffset = new Vector3(0f, .1f, 0f);
     public float mouseDistance = 2f;
-    private Animation menuAnim;
+    public Animation menuAnim;
     public bool menuOpen;
     private Transform selectedObject;
     private Vector3 defaultScale;
@@ -18,6 +18,7 @@ public class MousePointer : MonoBehaviour {
     public GameObject MiddleHex;
     public GameObject OuterHex;
     public Vector3 outerHexRotation;
+    public List<string> selectableTags = new List<string>();
 
     private void Awake()
     {
@@ -26,7 +27,7 @@ public class MousePointer : MonoBehaviour {
 
     void Start() {
         cursorObject = pointer.transform.GetChild(0).gameObject;
-        menuAnim = cursorObject.GetComponentInChildren<Animation>();
+        /*menuAnim = cursorObject.GetComponentInChildren<Animation>();*/
         defaultScale = pointer.transform.localScale;
     }
 
@@ -34,7 +35,8 @@ public class MousePointer : MonoBehaviour {
         RaycastInfo raycast = MouseRaycast();
         if (raycast.hit)
         {
-            if (menuOpen == false) {
+            if (menuOpen == false)
+            {
                 if (selectedObject == null)
                 {
                     if (!cursorObject.activeSelf)
@@ -72,11 +74,27 @@ public class MousePointer : MonoBehaviour {
                 //Toggle menu
                 if (menuOpen)
                 {
-                    StartCoroutine(RadialMenuAnimation(-1));
+                    //Close
+                    StartCoroutine(RadialMenuAnimation(-1, new Dictionary<int, Asset_Interaction>()));
                 }
                 else
                 {
-                    StartCoroutine(RadialMenuAnimation(1));
+                    //Open
+                    Dictionary<int, Asset_Interaction> cells = new Dictionary<int, Asset_Interaction>();
+                    if (selectedObject.CompareTag("TileAssetModel"))
+                    {
+                        if (selectedObject.parent.parent.GetComponent<TileAsset>().assetInteractions != null)
+                        {
+                            List<Asset_Interaction> myList = selectedObject.parent.parent.GetComponent<TileAsset>().assetInteractions;
+                            foreach (Asset_Interaction AI in myList)
+                            {
+                                int index = myList.IndexOf(AI);
+                                cells.Add(index, AI);
+                                Debug.Log(AI.name);
+                            }
+                        }
+                    }
+                    StartCoroutine(RadialMenuAnimation(1, cells));
                 }
             }
         }
@@ -107,7 +125,7 @@ public class MousePointer : MonoBehaviour {
             RaycastInfo raycast = MouseRaycast();
             if (raycast.hit)
             {
-                if (!raycast.rayHit.collider.CompareTag("Ground"))
+                if (raycast.rayHit.collider.GetComponent<SelectionTarget>() != null)
                 {
                     if (MouseRaycast().rayHit.collider.transform == other.transform)
                     {
@@ -135,7 +153,6 @@ public class MousePointer : MonoBehaviour {
         RadialMenu.SetActive(false);
         pointer.transform.SetParent(target);
         pointer.transform.position = selectedObject.position + pointerOffset;
-        //pointer.transform.localScale = defaultScale + (selectedObject.localScale - new Vector3(1, 1, 1));
     }
 
     void UnSelectObject()
@@ -148,12 +165,20 @@ public class MousePointer : MonoBehaviour {
         MiddleHex.SetActive(true);
     }
 
-    IEnumerator RadialMenuAnimation(float speed)
+    IEnumerator RadialMenuAnimation(float speed, Dictionary<int, Asset_Interaction> cells)
     {
         if (speed > 0)
         {
             menuOpen = true;
             RadialMenu.SetActive(true);
+            foreach(int i in cells.Keys)
+            {
+                GameObject option = RadialMenu.transform.GetChild(i).gameObject;
+                option.SetActive(true);
+                AssetInteraction AI = option.GetComponent<AssetInteraction>();
+                AI.Setup(cells[i]);
+            }
+
             menuAnim["OpenMenu"].speed = speed;
             menuAnim.Play("OpenMenu");
         }
@@ -165,8 +190,10 @@ public class MousePointer : MonoBehaviour {
 
             yield return new WaitForSeconds(menuAnim["OpenMenu"].length);
 
-            menuOpen = false;
+            foreach (Transform child in RadialMenu.transform)
+                child.gameObject.SetActive(false);
             RadialMenu.SetActive(false);
+            menuOpen = false;
         }
     }
 

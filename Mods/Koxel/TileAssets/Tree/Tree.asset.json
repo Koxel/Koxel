@@ -7,5 +7,6 @@
     },
     "SpawnChance": 3,
     "SizeRange": [0.9, 1.5],
-    "Effects": ["harvestable"]
+    "Effects": ["harvestable"],
+    "Interactions": ["Cut Down"]
 }

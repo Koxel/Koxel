@@ -79,7 +79,8 @@ public class Chunk : MonoBehaviour {
                             TileAsset asset = tileAssets[Random.Range(0, tileAssets.Count)];
                             if (Random.Range(0, asset.chance) == 0)
                             {
-                                GameObject assetGO = Instantiate(asset.prefab, tile.transform);
+                                GameObject assetGO = Instantiate(asset.gameObject, tile.transform);
+                                assetGO.name.Replace("(Clone)", "");
                                 float scale = Random.Range(asset.sizeRange.x, asset.sizeRange.y);
                                 assetGO.transform.localScale = new Vector3(scale, scale, scale);
                                 int rotation = -1;
