@@ -11,6 +11,8 @@ public class ChunkManagement : MonoBehaviour {
     Chunk currentChunk;
     public Transform loader;
 
+    public GameObject chunkPrefab;
+
     //Procedural Terrain
     private Dictionary<Vector2, ChunkInfo> chunksStore = new Dictionary<Vector2, ChunkInfo>();
     private List<ChunkInfo> unloadChunks = new List<ChunkInfo>();
@@ -58,10 +60,13 @@ public class ChunkManagement : MonoBehaviour {
     {
         if (currentChunk == null)
         {
-            currentChunk = new Chunk()
+            GameObject newChunk = Instantiate(chunkPrefab);
+            currentChunk = newChunk.GetComponent<Chunk>();
+
+            /*currentChunk = new Chunk()
             {
                 coords = new Vector3()
-            };
+            };*/
         }
 
         int N = Game.instance.gameConfig.renderDistance;
