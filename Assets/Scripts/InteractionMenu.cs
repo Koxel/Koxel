@@ -23,14 +23,14 @@ public class InteractionMenu : MonoBehaviour {
         if (options.Length == 0)
             return;
 
-        if (Input.GetKeyDown(KeyCode.E) && !anim.isPlaying)
+        if (Input.GetKey(KeyCode.E) && !anim.isPlaying)
         {
             anim["Rotate"].speed = 1;
             anim["Rotate"].time = 0;
             anim.Play("Rotate");
             Rotate();
         }
-        else if(Input.GetKeyDown(KeyCode.Q) && !anim.isPlaying)
+        else if(Input.GetKey(KeyCode.Q) && !anim.isPlaying)
         {
             anim["Rotate"].speed = -1;
             anim["Rotate"].time = anim["Rotate"].length;
