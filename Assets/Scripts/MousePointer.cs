@@ -75,18 +75,18 @@ public class MousePointer : MonoBehaviour {
                 if (menuOpen)
                 {
                     //Close
-                    StartCoroutine(RadialMenuAnimation(-1, new Dictionary<int, Asset_Interaction>()));
+                    StartCoroutine(RadialMenuAnimation(-1, new Dictionary<int, AssetInteraction>()));
                 }
                 else
                 {
                     //Open
-                    Dictionary<int, Asset_Interaction> cells = new Dictionary<int, Asset_Interaction>();
+                    Dictionary<int, AssetInteraction> cells = new Dictionary<int, AssetInteraction>();
                     if (selectedObject.CompareTag("TileAssetModel"))
                     {
                         if (selectedObject.parent.parent.GetComponent<TileAsset>().assetInteractions != null)
                         {
-                            List<Asset_Interaction> myList = selectedObject.parent.parent.GetComponent<TileAsset>().assetInteractions;
-                            foreach (Asset_Interaction AI in myList)
+                            List<AssetInteraction> myList = selectedObject.parent.parent.GetComponent<TileAsset>().assetInteractions;
+                            foreach (AssetInteraction AI in myList)
                             {
                                 int index = myList.IndexOf(AI);
                                 cells.Add(index, AI);
@@ -165,7 +165,7 @@ public class MousePointer : MonoBehaviour {
         MiddleHex.SetActive(true);
     }
 
-    IEnumerator RadialMenuAnimation(float speed, Dictionary<int, Asset_Interaction> cells)
+    IEnumerator RadialMenuAnimation(float speed, Dictionary<int, AssetInteraction> cells)
     {
         if (speed > 0)
         {
@@ -176,7 +176,7 @@ public class MousePointer : MonoBehaviour {
                 GameObject option = RadialMenu.transform.GetChild(i).gameObject;
                 option.SetActive(true);
                 AssetInteraction AI = option.GetComponent<AssetInteraction>();
-                AI.Setup(cells[i]);
+                //AI.Setup(cells[i]);
             }
 
             menuAnim["OpenMenu"].speed = speed;

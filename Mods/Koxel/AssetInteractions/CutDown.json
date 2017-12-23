@@ -1,11 +1,6 @@
 {
     "Name": "Cut Down",
-    "Model": "Tools/Improvised_axe.obj",
-    "Materials": {
-        "Rock": "Stone",
-        "TreeGreen": "Decidious_Green",
-        "TreeBrown": "Decidious_Brown"
-    },
+    "Sprite": "Icons/Tools/Axe.png",
     "Requirements": {
         "hasItems": ["axe"]
     }

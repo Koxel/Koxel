@@ -44,8 +44,8 @@ public class Game : MonoBehaviour {
         PlayerCamera.instance.transform.position = player.transform.position;
         player.name = player.name.Replace("(Clone)", "");
 
-        GameObject cursor = Instantiate(worldCursorPrefab);
-        cursor.name = cursor.name.Replace("(Clone)", "");
+        /*GameObject cursor = Instantiate(worldCursorPrefab);
+        cursor.name = cursor.name.Replace("(Clone)", "");*/
 
         ChunkManagement.OnChunksManaged -= SpawnPlayer;
     }

@@ -23,6 +23,7 @@ public class WOW_Camera : MonoBehaviour {
 
     public float rotationDampening = 3.0f;
     public float zoomDampening = 5.0f;
+    public float followSpeed = 2f;
 
     private float x = 0.0f;
     private float y = 0.0f;
@@ -112,7 +113,7 @@ public class WOW_Camera : MonoBehaviour {
         position = target.position - (rotation * Vector3.forward * currentDistance + new Vector3(0, -targetHeight, 0));
 
         transform.rotation = rotation;
-        transform.position = position;
+        transform.position = /*Vector3.Lerp(transform.position,*/ position/*, Time.deltaTime * followSpeed)*/;
     }
 
     private static float ClampAngle(float angle, float min, float max)

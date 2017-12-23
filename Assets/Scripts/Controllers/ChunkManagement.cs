@@ -238,9 +238,12 @@ public class ChunkManagement : MonoBehaviour {
             {
                 if (loadChunks.Count <= 0)
                 {
-                    if(chunksStore.Count > 1)
+                    if (chunksStore.Count > 1)
                         if (OnChunksManaged != null)
+                        {
+                            Debug.Log(currentChunk);
                             OnChunksManaged(currentChunk);
+                        }
                     break;
                 }
             }

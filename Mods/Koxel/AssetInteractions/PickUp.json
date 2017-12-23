@@ -1,7 +1,4 @@
 {
     "Name": "Pick Up",
-    "Model": "Tools/Hand.obj",
-    "Materials": {
-        "Hand": "Hand"
-    }
+    "Sprite": "Icons/Tools/Hand.png"
 }

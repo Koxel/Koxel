@@ -14,13 +14,15 @@ public class ModLoader : MonoBehaviour {
     public string[] Mods;
     private string ModsFolder;
     private string GameFolder;
-    private Transform ModelsHolder;
+    private Transform ImportHolder;
     private Transform PrefabHolder;
 
     public GameObject defaultModel;
+    public GameObject defaultSprite;
     public static Dictionary<string, Material> Materials;
     public static Dictionary<string, GameObject> Models;
-    public static Dictionary<string, Asset_Interaction> AssetInteractions;
+    public static Dictionary<string, GameObject> Sprites;
+    public static Dictionary<string, AssetInteraction> AssetInteractions;
     public static Dictionary<string, TileAsset> TileAssets;
 
     void Awake()
@@ -30,10 +32,10 @@ public class ModLoader : MonoBehaviour {
         ModsFolder = Directory.GetParent(Application.dataPath) + "/Mods/";
         GameFolder = Directory.GetParent(Application.dataPath) + "/Game/";
 
-        GameObject ModelsHolderGO = new GameObject("ModelsHolder");
-        ModelsHolderGO.transform.SetParent(this.transform);
-        ModelsHolder = ModelsHolderGO.transform;
-        ModelsHolderGO.SetActive(false);
+        GameObject ImportHolderGO = new GameObject("ImportHolder");
+        ImportHolderGO.transform.SetParent(this.transform);
+        ImportHolder = ImportHolderGO.transform;
+        ImportHolderGO.SetActive(false);
         GameObject PrefabHolderGO = new GameObject("PrefabHolder");
         PrefabHolderGO.transform.SetParent(this.transform);
         PrefabHolder = PrefabHolderGO.transform;
@@ -45,6 +47,7 @@ public class ModLoader : MonoBehaviour {
         foreach (string Mod in Mods)
         {
             ImportMaterials(ModsFolder + Mod);
+            ImportSprites(ModsFolder + Mod);
             ImportModels(ModsFolder + Mod);
             ImportAssetInteractions(ModsFolder + Mod);
             ImportTileAssets(ModsFolder + Mod);
@@ -119,10 +122,10 @@ public class ModLoader : MonoBehaviour {
             //AssetInteractions
             List<string> interactions = new List<string>();
             if (jObject["Interactions"] != null) interactions = jObject["Interactions"].ToObject<List<string>>();
-            List<Asset_Interaction> assetInteractions = new List<Asset_Interaction>();
+            List<AssetInteraction> assetInteractions = new List<AssetInteraction>();
             foreach (string interaction in interactions)
             {
-                Asset_Interaction _Interaction;
+                AssetInteraction _Interaction;
                 if (AssetInteractions.TryGetValue(interaction, out _Interaction))
                     assetInteractions.Add(_Interaction);
             }
@@ -136,7 +139,7 @@ public class ModLoader : MonoBehaviour {
 
     private void ImportAssetInteractions(string ModPath)
     {
-        AssetInteractions = new Dictionary<string, Asset_Interaction>();
+        AssetInteractions = new Dictionary<string, AssetInteraction>();
 
         DirectoryInfo dir = new DirectoryInfo(ModPath + "/AssetInteractions");
         FileInfo[] files = dir.GetFiles("*.json", SearchOption.AllDirectories);
@@ -149,50 +152,52 @@ public class ModLoader : MonoBehaviour {
             //Name
             string name = "New AssetInteration";
             if (jObject["Name"] != null) name = jObject["Name"].ToObject<string>();
-            //Model
-            GameObject model = null;
-            string modelName = "UNDEFINED";
-            if (jObject["Model"] != null) modelName = jObject["Model"].ToObject<string>();
-            if (modelName != "UNDEFINED") Models.TryGetValue(modelName, out model);
-            if (model == null) model = defaultModel;
-            //Materials
-            Dictionary<string, string> materials = new Dictionary<string, string>();
-            if (jObject["Materials"] != null) materials = jObject["Materials"].ToObject<Dictionary<string, string>>();
+            //Sprite
+            GameObject sprite = null;
+            string spriteName = "UNDEFINED";
+            if (jObject["Sprite"] != null) spriteName = jObject["Sprite"].ToObject<string>();
+            if (spriteName != "UNDEFINED") Sprites.TryGetValue(spriteName, out sprite);
+            if (sprite == null) sprite = defaultSprite;
             //Create 'prefab'
-            ///Create AssetInteraction with model copy as child
+            ///Create AssetInteraction with sprite copy as child
             GameObject prefab = new GameObject(name);
             prefab.transform.SetParent(PrefabHolder);
-            GameObject assetModel = Instantiate(model, prefab.transform);
-            assetModel.name = "Model";
-            assetModel.transform.position = new Vector3(0f, 0f, 0f);
-            ///Set the corresponding materials on renderers
-            if (modelName != "UNDEFINED")
-            {
-                MeshRenderer[] renderers = assetModel.GetComponentsInChildren<MeshRenderer>();
-                foreach (MeshRenderer renderer in renderers)
-                {
-                    Material[] materialList = renderer.materials;
-                    Material[] newMaterials = new Material[materialList.Length];
-                    foreach (Material material in materialList)
-                    {
-                        string materialName = material.name.Replace(" (Instance)", "");
-                        string newMaterialName = "";
-                        if (!materials.TryGetValue(materialName, out newMaterialName))
-                            break;
-                        Material newMaterial;
-                        if (!Materials.TryGetValue(newMaterialName, out newMaterial))
-                            break;
-                        List<Material> mats = materialList.ToList();
-                        int i = mats.IndexOf(material);
-                        newMaterials[i] = newMaterial;
-                    }
-                    renderer.materials = newMaterials;
-                }
-            }
-
+            GameObject assetSprite = Instantiate(sprite, prefab.transform);
+            assetSprite.name = "Sprite";
+            assetSprite.transform.position = new Vector3(0f, 0f, 0f);
+            SpriteRenderer renderer = assetSprite.GetComponentInChildren<SpriteRenderer>();
+            renderer.sortingLayerName = "Popups";
+            renderer.sortingOrder = 1;
+            renderer.gameObject.layer = 5;
             //Create AssetInteraction
-            Asset_Interaction AI = new Asset_Interaction(name, prefab);
+            AssetInteraction AI = new AssetInteraction(name, prefab);
             AssetInteractions.Add(name, AI);
+        }
+    }
+
+    private void ImportSprites(string ModPath)
+    {
+        Sprites = new Dictionary<string, GameObject>();
+
+        DirectoryInfo dir = new DirectoryInfo(ModPath + "/Sprites");
+        FileInfo[] files = dir.GetFiles("*.png", SearchOption.AllDirectories);
+
+        foreach (FileInfo file in files)
+        {
+            byte[] fileData = File.ReadAllBytes(file.FullName);
+            Texture2D tex = new Texture2D(2, 2);
+            tex.LoadImage(fileData);
+
+            string spriteName = file.FullName.Replace(@"\", "/").Remove(0, (ModPath + "/Sprites/").Count());
+            Sprite spr = Sprite.Create(tex, new Rect(0.0f, 0.0f, tex.width, tex.height), new Vector2(0.5f, 0.5f), 100.0f);
+            spr.name = spriteName;
+
+            GameObject sprite = new GameObject("Sprite");
+            sprite.transform.SetParent(ImportHolder);
+            SpriteRenderer sr = sprite.AddComponent<SpriteRenderer>();
+            sr.sprite = spr;
+            
+            Sprites.Add(spriteName, sprite);
         }
     }
 
@@ -206,7 +211,7 @@ public class ModLoader : MonoBehaviour {
         foreach (FileInfo file in files)
         {
             GameObject model = OBJLoader.LoadOBJFile(file.FullName);
-            model.transform.SetParent(ModelsHolder);
+            model.transform.SetParent(ImportHolder);
             foreach (Transform child in model.transform) {
                 MeshCollider coll = child.gameObject.AddComponent<MeshCollider>();
                 coll.convex = true;

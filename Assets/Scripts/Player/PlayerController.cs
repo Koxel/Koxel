@@ -8,38 +8,111 @@ public class PlayerController : MonoBehaviour {
     Transform cam;
     CharacterController controller;
     float verticalSpeed = 0f;
+    public GameObject InteractSprite;
 
+    Interactable interactable;
+    GameObject InteractObject;
     public float moveSpeed = 2f;
     public float turnSpeed = 90f;
     public float gravity = 9.81f;
     public float jumpSpeed = 5f;
 
-	void Awake ()
+    Vector3 move;
+    Vector3 mover;
+
+    void Awake ()
     {
         controller = GetComponent<CharacterController>();
         cam = Camera.main.transform;
 	}
 
-    void Update()
+    private void OnDrawGizmos()
     {
-        if (!MousePointer.instance.menuOpen)
-        {
+        Gizmos.DrawSphere(transform.position + new Vector3(0f, .2f) + transform.forward * 1f, .5f);
+    }
+
+    private void Update()
+    {
+        //if (!MousePointer.instance.menuOpen)
+        //{
+            int layerMask = 1 << 8;
+            layerMask = ~layerMask;
+            /*Collider[] found = Physics.OverlapCapsule(
+                transform.position + transform.forward * 1.2f, 
+                transform.position + new Vector3(0f, 1f) + transform.forward * 1.2f, 
+                .5f, layerMask);*/
+            Collider[] found = Physics.OverlapSphere(transform.position + new Vector3(0f, .2f) + transform.forward * 1f, .5f, layerMask);
+            if (found.Length != 0)
+            {
+                /*foreach (Collider obj in found)
+                {
+                    Debug.Log(obj.gameObject);
+                }*/
+                GameObject thing = found[0].gameObject;
+                if (thing.GetComponent<Interactable>() != null)
+                {
+                    if (thing.GetComponent<Interactable>() != interactable)
+                    {
+                        interactable = null;
+                        if (InteractObject != null)
+                            Destroy(InteractObject);
+
+                        interactable = thing.GetComponent<Interactable>();
+                    if (interactable.assetInteractions.Count > 0)
+                    {
+                        InteractObject = Instantiate(InteractSprite, interactable.transform.GetChild(0).position, Quaternion.identity);
+                        InteractObject.GetComponent<InteractionMenu>().Setup(interactable.assetInteractions);
+                    }
+                    }
+                }
+                else if (thing.GetComponentInParent<Interactable>() != null)
+                {
+                    if (thing.GetComponentInParent<Interactable>() != interactable)
+                    {
+                        interactable = null;
+                        if (InteractObject != null)
+                            Destroy(InteractObject);
+
+                        interactable = thing.GetComponentInParent<Interactable>();
+                    if (interactable.assetInteractions.Count > 0)
+                    {
+                        InteractObject = Instantiate(InteractSprite, interactable.transform.GetChild(0).position, Quaternion.identity);
+                        InteractObject.GetComponentInChildren<InteractionMenu>().Setup(interactable.assetInteractions);
+                    }
+                    }
+                    
+                }
+
+                /*if (InteractObject == null)
+                {
+                    GameObject thing = found[0].gameObject;
+                    if (thing.GetComponent<Interactable>() != null)
+                    {
+                        interactable = thing.GetComponent<Interactable>();
+                        InteractObject = Instantiate(InteractSprite, interactable.transform.GetChild(0).position, Quaternion.identity);
+                    }
+                    else if (thing.GetComponentInParent<Interactable>() != null)
+                    {
+                        interactable = thing.GetComponentInParent<Interactable>();
+                        InteractObject = Instantiate(InteractSprite, interactable.transform.GetChild(0).position, Quaternion.identity);
+                    }
+                }*/
+            }
+            else
+            {
+                interactable = null;
+                if (InteractObject != null)
+                    Destroy(InteractObject);
+            }
+
             Vector3 forward = Vector3.Scale(cam.forward, new Vector3(1, 0, 1).normalized);
-            Vector3 move = Input.GetAxis("Vertical") * forward + Input.GetAxis("Horizontal") * cam.right;
-            Vector3 mover = move;
+            move = Input.GetAxis("Vertical") * forward + Input.GetAxis("Horizontal") * cam.right;
+            mover = move;
 
             if (move.magnitude > 1f) move.Normalize();
             move = transform.InverseTransformDirection(move);
             move = Vector3.ProjectOnPlane(move, Vector3.up);
-
-            float turnAmount = Mathf.Atan2(move.x, move.z);
-            float turnSpeed = Mathf.Lerp(180, 360, move.z);
-            transform.Rotate(0, turnAmount * turnSpeed * Time.deltaTime, 0);
-
-            //transform.Rotate(0, Input.GetAxis("Horizontal") * turnSpeed * Time.deltaTime, 0);
-            //Vector3 move = transform.forward * Input.GetAxis("Vertical") * moveSpeed;
-            //Vector3 move = new Vector3(Input.GetAxis("Horizontal") * moveSpeed * Time.deltaTime, 0f, Input.GetAxis("Vertical") * moveSpeed * Time.deltaTime);
-
+            
             if (controller.isGrounded)
             {
                 verticalSpeed = 0;
@@ -52,8 +125,15 @@ public class PlayerController : MonoBehaviour {
             mover *= moveSpeed;
             verticalSpeed -= gravity * Time.deltaTime;
             mover.y = verticalSpeed;
+        //}
+    }
 
-            controller.Move(mover * Time.deltaTime);
-        }
+    private void FixedUpdate()
+    {
+        float turnAmount = Mathf.Atan2(move.x, move.z);
+        float turnSpeed = Mathf.Lerp(180, 360, move.z);
+        transform.Rotate(0, turnAmount * turnSpeed * Time.deltaTime, 0);
+
+        controller.Move(mover * Time.deltaTime);
     }
 }
