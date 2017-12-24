@@ -1,9 +1,6 @@
 {
     "Name": "Pebble",
-    "Model": "TileAssets/Pebble.obj",
-    "Materials": {
-        "Rock": "Stone"
-    },
+    "Model": "Pebble",
     "SpawnChance": 2,
     "SizeRange": [1, 2],
     "Effects": [],

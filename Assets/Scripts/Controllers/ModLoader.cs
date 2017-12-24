@@ -44,11 +44,23 @@ public class ModLoader : MonoBehaviour {
 
     public void LoadMods()
     {
+        AssetInteractions = new Dictionary<string, AssetInteraction>();
+        Sprites = new Dictionary<string, GameObject>();
+        Models = new Dictionary<string, GameObject>();
+        TileAssets = new Dictionary<string, TileAsset>();
+        Materials = new Dictionary<string, Material>();
+
         foreach (string Mod in Mods)
         {
-            ImportMaterials(ModsFolder + Mod);
+            string assetsPath = Path.Combine(Path.Combine(ModsFolder, Mod), Mod.ToLower() + "_models");
+            if (File.Exists(assetsPath))
+            {
+                AssetBundle assets = AssetBundle.LoadFromFile(assetsPath);
+                GameObject[] prefabs = assets.LoadAllAssets<GameObject>();
+                ImportModels(prefabs);
+            }
+                //ImportMaterials(ModsFolder + Mod);
             ImportSprites(ModsFolder + Mod);
-            ImportModels(ModsFolder + Mod);
             ImportAssetInteractions(ModsFolder + Mod);
             ImportTileAssets(ModsFolder + Mod);
         }
@@ -56,8 +68,6 @@ public class ModLoader : MonoBehaviour {
 
     private void ImportTileAssets(string ModPath)
     {
-        TileAssets = new Dictionary<string, TileAsset>();
-
         //Find files in the dir
         DirectoryInfo dir = new DirectoryInfo(ModPath + "/TileAssets");
         FileInfo[] files = dir.GetFiles("*.asset.json", SearchOption.AllDirectories);
@@ -76,9 +86,6 @@ public class ModLoader : MonoBehaviour {
             if (jObject["Model"] != null) modelName = jObject["Model"].ToObject<string>();
             if (modelName != "UNDEFINED") Models.TryGetValue(modelName, out model);
             if (model == null) model = defaultModel;
-            //Materials
-            Dictionary<string, string> materials = new Dictionary<string, string>();
-            if (jObject["Materials"] != null) materials = jObject["Materials"].ToObject<Dictionary<string, string>>();
             //Create 'prefab'
             ///Create TileAsset with model copy as child
             GameObject TileAsset = new GameObject(name);
@@ -86,32 +93,6 @@ public class ModLoader : MonoBehaviour {
             GameObject assetModel = Instantiate(model, TileAsset.transform);
             assetModel.name = "Model";
             assetModel.transform.position = new Vector3(0f, 0f, .3f);
-            ///Set the corresponding materials on renderers
-            if (modelName != "UNDEFINED")
-            {
-                MeshRenderer[] renderers = assetModel.GetComponentsInChildren<MeshRenderer>();
-                foreach (MeshRenderer renderer in renderers)
-                {
-                    Material[] materialList = renderer.materials;
-                    Material[] newMaterials = new Material[materialList.Length];
-                    foreach (Material material in materialList)
-                    {
-                        string materialName = material.name.Replace(" (Instance)", "");
-                        string newMaterialName = "";
-                        if (!materials.TryGetValue(materialName, out newMaterialName))
-                            break;
-                        Material newMaterial;
-                        if (!Materials.TryGetValue(newMaterialName, out newMaterial))
-                            break;
-                        List<Material> mats = materialList.ToList();
-                        int i = mats.IndexOf(material);
-                        newMaterials[i] = newMaterial;
-                    }
-                    renderer.materials = newMaterials;
-                    //Set Tag
-                    renderer.gameObject.tag = "TileAssetModel";
-                }
-            }
             //Chance
             int chance = 0;
             if(jObject["SpawnChance"] != null) chance = jObject["SpawnChance"].ToObject<int>();
@@ -139,8 +120,6 @@ public class ModLoader : MonoBehaviour {
 
     private void ImportAssetInteractions(string ModPath)
     {
-        AssetInteractions = new Dictionary<string, AssetInteraction>();
-
         DirectoryInfo dir = new DirectoryInfo(ModPath + "/AssetInteractions");
         FileInfo[] files = dir.GetFiles("*.json", SearchOption.AllDirectories);
 
@@ -177,35 +156,42 @@ public class ModLoader : MonoBehaviour {
 
     private void ImportSprites(string ModPath)
     {
-        Sprites = new Dictionary<string, GameObject>();
-
         DirectoryInfo dir = new DirectoryInfo(ModPath + "/Sprites");
         FileInfo[] files = dir.GetFiles("*.png", SearchOption.AllDirectories);
 
         foreach (FileInfo file in files)
         {
-            byte[] fileData = File.ReadAllBytes(file.FullName);
-            Texture2D tex = new Texture2D(2, 2);
-            tex.LoadImage(fileData);
-
             string spriteName = file.FullName.Replace(@"\", "/").Remove(0, (ModPath + "/Sprites/").Count());
-            Sprite spr = Sprite.Create(tex, new Rect(0.0f, 0.0f, tex.width, tex.height), new Vector2(0.5f, 0.5f), 100.0f);
-            spr.name = spriteName;
+            if (!Sprites.ContainsKey(spriteName))
+            {
+                byte[] fileData = File.ReadAllBytes(file.FullName);
+                Texture2D tex = new Texture2D(2, 2);
+                tex.LoadImage(fileData);
 
-            GameObject sprite = new GameObject("Sprite");
-            sprite.transform.SetParent(ImportHolder);
-            SpriteRenderer sr = sprite.AddComponent<SpriteRenderer>();
-            sr.sprite = spr;
-            
-            Sprites.Add(spriteName, sprite);
+                Sprite spr = Sprite.Create(tex, new Rect(0.0f, 0.0f, tex.width, tex.height), new Vector2(0.5f, 0.5f), 100.0f);
+                spr.name = spriteName;
+
+                GameObject sprite = new GameObject("Sprite");
+                sprite.transform.SetParent(ImportHolder);
+                SpriteRenderer sr = sprite.AddComponent<SpriteRenderer>();
+                sr.sprite = spr;
+
+                Sprites.Add(spriteName, sprite);
+            }
         }
     }
 
-    private void ImportModels(string ModPath)
+    private void ImportModels(GameObject[] prefabs)
     {
-        Models = new Dictionary<string, GameObject>();
+        foreach(GameObject model in prefabs)
+        {
+            if (!Models.ContainsKey(model.name))
+            {
+                Models.Add(model.name, model);
+            }
+        }
 
-        DirectoryInfo dir = new DirectoryInfo(ModPath + "/Models");
+        /*DirectoryInfo dir = new DirectoryInfo(ModPath + "/Models");
         FileInfo[] files = dir.GetFiles("*.obj", SearchOption.AllDirectories);
 
         foreach (FileInfo file in files)
@@ -218,12 +204,11 @@ public class ModLoader : MonoBehaviour {
             }
             string modelname = file.FullName.Replace(@"\", "/").Remove(0, (ModPath + "/Models/").Count());
             Models.Add(modelname, model);
-        }
+        }*/
     }
 
-    private void ImportMaterials(string ModPath)
+    /*private void ImportMaterials(string ModPath)
     {
-        Materials = new Dictionary<string, Material>();
 
         DirectoryInfo dir = new DirectoryInfo(ModPath + "/Materials");
         FileInfo[] files = dir.GetFiles("*.json", SearchOption.AllDirectories);
@@ -259,5 +244,5 @@ public class ModLoader : MonoBehaviour {
             //End
             Materials.Add(name, material);
         }
-    }
+    }*/
 }
