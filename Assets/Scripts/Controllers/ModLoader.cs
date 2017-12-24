@@ -187,6 +187,19 @@ public class ModLoader : MonoBehaviour {
         {
             if (!Models.ContainsKey(model.name))
             {
+                //For some reason you have to update the shader to work correctly.
+                List<Renderer> renderers = model.GetComponentsInChildren<Renderer>().ToList();
+                renderers.AddRange(model.GetComponents<Renderer>().ToList());
+                foreach(Renderer renderer in renderers)
+                {
+                    Material[] mats = renderer.sharedMaterials;
+                    foreach(Material mat in mats)
+                    {
+                        string shader = mat.shader.name;
+                        mat.shader = Shader.Find("Standard (Specular Setup)"); //doesnt matter which one
+                        mat.shader = Shader.Find(shader);
+                    }
+                }
                 Models.Add(model.name, model);
             }
         }
