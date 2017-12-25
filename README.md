@@ -16,7 +16,7 @@ PixelDragon13<br />
 
 
 ## Programs/Tools<br />
-Unity 2017.2.0f3<br />
+Unity 2017.3.0f3<br />
 Blender
 
 ## Join our Discord Server!
