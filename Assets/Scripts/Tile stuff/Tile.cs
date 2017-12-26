@@ -22,11 +22,6 @@ public class Tile : MonoBehaviour {
         tileType = "cutie";
     }
 
-    private void Update()
-    {
-
-    }
-
     public void SetColor(Color color)
     {
         float random = 0f;//Random.Range(-0.05f, 0.05f);
