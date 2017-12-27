@@ -94,6 +94,7 @@ public class PlayerController : MonoBehaviour {
                         Destroy(InteractObject);
 
                     interactable = thing.GetComponentInParent<Interactable>();
+                    Debug.Log(interactable.assetInteractions);
                     if (interactable.assetInteractions.Count > 0)
                     {
                         InteractObject = Instantiate(InteractSprite, interactable.transform.GetChild(0).position, Quaternion.identity);

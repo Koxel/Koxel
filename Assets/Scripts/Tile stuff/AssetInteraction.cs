@@ -3,11 +3,11 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-[System.Serializable]
 public class AssetInteraction
 {
     public string name;
     public GameObject sprite;
+
     public List<IAssetAction> actionSequence;
 
     public AssetInteraction(string name, GameObject sprite, List<IAssetAction> actionSequence)

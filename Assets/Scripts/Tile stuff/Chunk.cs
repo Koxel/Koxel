@@ -88,6 +88,7 @@ public class Chunk : MonoBehaviour {
                                     rotation = Random.Range(0, 5);
                                 usedRots.Add(rotation);
                                 assetGO.transform.Rotate(new Vector3(0f, rotation * 60f, 0f));
+                                assetGO.GetComponent<TileAsset>().Setup(asset.name, asset.prefab, asset.chance, asset.sizeRange, asset.assetInteractions, asset.actionData);
                             }
                         }
                     }
