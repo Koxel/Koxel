@@ -39,7 +39,7 @@ public class Chunk : MonoBehaviour {
         tileDEBUG.AddRange(tiles.Values);
         tileCoordsDEBUG.AddRange(tiles.Keys);
 
-        HexData hexData = new HexData(Game.instance.gameConfig.hexSize);
+        //HexData hexData = new HexData(Game.instance.gameConfig.hexSize);
         
         for (int r = -Game.instance.gameConfig.chunkSize / 2; r <= Game.instance.gameConfig.chunkSize / 2; r++)
         {

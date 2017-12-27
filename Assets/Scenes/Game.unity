@@ -260,7 +260,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   PoolBuffer: {fileID: 1678092248}
   itemsToPool:
-  - amountToPool: 30
+  - amountToPool: 100
     objectToPool: {fileID: 1128833420898834, guid: 743f101694a82d64992dd81b4f246fe7,
       type: 2}
     shouldExpand: 1

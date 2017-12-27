@@ -2,6 +2,7 @@
     "Name": "Cut Down",
     "Sprite": "Icons/Tools/Axe.png",
     "Requirements": {
-        "hasItems": ["axe"]
-    }
+        "hasItems": ["anyAxe"]
+    },
+    "Sequence": ["DropItems", "DestroySelf"]
 }
