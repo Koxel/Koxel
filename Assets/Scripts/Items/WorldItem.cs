@@ -23,7 +23,7 @@ public class WorldItem : MonoBehaviour {
         {
             sideDir *= -1;
         }*/
-        rb.AddForce(transform.up * 250f + Random.onUnitSphere * 100f);
+        rb.AddRelativeForce(transform.up * 250f + Random.onUnitSphere * 100f);
 	}
 
     private void FixedUpdate()
