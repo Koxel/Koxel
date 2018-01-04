@@ -139,7 +139,7 @@ public class ModLoader : MonoBehaviour {
             if (modelName != "UNDEFINED") Models.TryGetValue(modelName, out model);
             if (model == null) model = defaultModelNoColl;
             //Create Item
-            Item item = new Item(spriteName, description, sprite, model);
+            Item item = new Item(itemname, description, sprite, model);
             //Create 'prefab'
             GameObject GO = Instantiate(WorldItemPrefab, PrefabHolder);
             GameObject modelGO = Instantiate(model, GO.transform.GetChild(0));
