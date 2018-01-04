@@ -21,7 +21,7 @@ public class World : MonoBehaviour {
 
         hexData = new HexData(Game.instance.gameConfig.hexSize);
         chunks = new Dictionary<Vector3, Chunk>();
-        
+
         hexCalc = new HexCalc();
         seed = Random.Range(1, 1000000);
         simplex = new Simplex(seed);
@@ -95,8 +95,8 @@ public class World : MonoBehaviour {
         noise += simplex.Evaluate(x / 100f, y / 100f);
         //noise += simplex.Evaluate(x / 750f, y / 750f)*1;
 
-        noise = noise / 2;
-        noise = noise - 0.5;
+        noise = noise / 4;
+        noise = noise - 0.8;
 
         if (noise >= -0.5)
             noise = (noise * 1.75) + 0.38; //increases height above -0.5, set it to * 10 to see where it is
