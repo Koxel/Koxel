@@ -4,8 +4,7 @@ namespace AssetActions
 {
     public interface IAssetAction
     {
-        void CallAction(Interactable target);
-
         string GetName();
+        void CallAction(Interactable target, Player source);
     }
 }

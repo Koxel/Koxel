@@ -13,7 +13,8 @@ public class Game : MonoBehaviour {
     public GameObject worldCursorPrefab;
     public static HexData hexData;
 
-    World world;
+    public World world;
+    public GameObject canvas;
 
 	void Awake () {
         instance = this;

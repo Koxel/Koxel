@@ -34,5 +34,6 @@ public class WorldItem : MonoBehaviour {
     public void PickUp(Player player)
     {
         player.inventory.Add(item);
+        Destroy(gameObject);
     }
 }

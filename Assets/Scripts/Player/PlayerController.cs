@@ -7,6 +7,7 @@ public class PlayerController : MonoBehaviour {
 
     Transform cam;
     CharacterController controller;
+    Player player;
     float verticalSpeed = 0f;
     public GameObject InteractSprite;
 
@@ -25,6 +26,7 @@ public class PlayerController : MonoBehaviour {
     {
         controller = GetComponent<CharacterController>();
         cam = Camera.main.transform;
+        player = GetComponent<Player>();
 	}
 
     private void OnDrawGizmos()
@@ -39,7 +41,7 @@ public class PlayerController : MonoBehaviour {
         if (Input.GetKeyDown(KeyCode.Tab) && InteractObject != null)
         {
             AssetInteraction ai = InteractObject.GetComponentInChildren<InteractionMenu>().options[0];
-            ai.Activate(interactable);
+            ai.Activate(interactable, player);
         }
 
         CalculateMovement();

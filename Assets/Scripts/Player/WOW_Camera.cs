@@ -99,7 +99,8 @@ public class WOW_Camera : MonoBehaviour {
 
         // if there was a collision, correct the camera position and calculate the corrected distance
         bool isCorrected = false;
-        if (Physics.Linecast(trueTargetPosition, position, out collisionHit))
+        int layerMask = ~((1 << 9) | (1 << 10));
+        if (Physics.Linecast(trueTargetPosition, position, out collisionHit, layerMask))
         {
             position = collisionHit.point;
             correctedDistance = Vector3.Distance(trueTargetPosition, position);

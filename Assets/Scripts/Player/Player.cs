@@ -5,10 +5,18 @@ using UnityEngine;
 public class Player : MonoBehaviour {
 
     public PlayerController controller;
-    public PlayerInventory inventory;
+    public Inventory inventory;
 
     private void Awake()
     {
         //Hook up to events
+    }
+
+    private void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.I))
+        {
+            inventory.ToggleUI();
+        }
     }
 }

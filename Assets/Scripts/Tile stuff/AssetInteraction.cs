@@ -17,11 +17,11 @@ public class AssetInteraction
         this.actionSequence = new List<IAssetAction>(actionSequence);
     }
 
-    public void Activate(Interactable interactable)
+    public void Activate(Interactable interactable, Player source)
     {
         foreach(IAssetAction action in actionSequence)
         {
-            action.CallAction(interactable);
+            action.CallAction(interactable, source);
         }
     }
 }

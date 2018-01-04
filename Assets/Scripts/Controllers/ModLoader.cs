@@ -28,6 +28,7 @@ public class ModLoader : MonoBehaviour {
     public static Dictionary<string, TileAsset> TileAssets;
     public static Dictionary<string, AssetInteraction> AssetInteractions;
     public static Dictionary<string, IAssetAction> AssetActions;
+    public static Dictionary<string, Item> Items;
     public static Dictionary<string, GameObject> WorldItems;
 
     void Awake()
@@ -55,10 +56,11 @@ public class ModLoader : MonoBehaviour {
         TileAssets = new Dictionary<string, TileAsset>();
         AssetInteractions = new Dictionary<string, AssetInteraction>();
         AssetActions = new Dictionary<string, IAssetAction>();
+        Items = new Dictionary<string, Item>();
         WorldItems = new Dictionary<string, GameObject>();
 
         //Get mods
-        if(File.Exists(GameFolder + "mods.json"))
+        if (File.Exists(GameFolder + "mods.json"))
         {
             string json = File.ReadAllText(GameFolder + "mods.json");
             JToken jObject = JToken.Parse(json);
@@ -115,10 +117,10 @@ public class ModLoader : MonoBehaviour {
             string json = File.ReadAllText(file.FullName);
             JToken jObject = JToken.Parse(json);
             //Name
-            string name = "New Item"; ///DEFAULT VALUE
-            if (jObject["Name"] != null) name = jObject["Name"].ToObject<string>(); ///IF JSON CONTAINS CHANGE VALUE
+            string itemname = "New Item"; ///DEFAULT VALUE
+            if (jObject["Name"] != null) itemname = jObject["Name"].ToObject<string>(); ///IF JSON CONTAINS CHANGE VALUE
 
-            if (WorldItems.ContainsKey(name))
+            if (Items.ContainsKey(itemname))
                 return;
 
             //Description
@@ -140,11 +142,18 @@ public class ModLoader : MonoBehaviour {
             Item item = new Item(spriteName, description, sprite, model);
             //Create 'prefab'
             GameObject GO = Instantiate(WorldItemPrefab, PrefabHolder);
-            Instantiate(model, GO.transform.GetChild(0));
+            GameObject modelGO = Instantiate(model, GO.transform.GetChild(0));
+            //I dont want any colliders on this
+            modelGO.layer = 9; //Justin Kees
+            if (modelGO.GetComponent<MeshCollider>() != null)
+                Destroy(modelGO.GetComponent<MeshCollider>());
+
+            Items.Add(itemname, item);
+
             WorldItem worldItem = GO.GetComponent<WorldItem>();
             worldItem.item = item;
 
-            WorldItems.Add(name, GO);
+            WorldItems.Add(itemname, GO);
         }
     }
 

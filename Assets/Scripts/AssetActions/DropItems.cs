@@ -7,7 +7,7 @@ namespace AssetActions
 {
     public class DropItems : IAssetAction
     {
-        void IAssetAction.CallAction(Interactable target)
+        void IAssetAction.CallAction(Interactable target, Player source)
         {
             if (target.actionData == null)
                 return;
@@ -15,15 +15,15 @@ namespace AssetActions
             JToken jToken = target.actionData;
             if(jToken["DropItems"] != null)
             {
-                DropItemConfig[] x = jToken["DropItems"].ToObject<DropItemConfig[]>();
+                ChanceItemConfig[] x = jToken["DropItems"].ToObject<ChanceItemConfig[]>();
                 Game.instance.StartCoroutinePasser(Drop(x, target.transform));
             }
         }
 
-        IEnumerator Drop(DropItemConfig[] items, Transform target)
+        IEnumerator Drop(ChanceItemConfig[] items, Transform target)
         {
             Vector3 pos = target.GetChild(0).position;
-            foreach (DropItemConfig item in items)
+            foreach (ChanceItemConfig item in items)
             {
                 if (CheckChance(item.chance))
                 {
@@ -56,11 +56,5 @@ namespace AssetActions
                 return false;
             }
         }
-    }
-
-    class DropItemConfig
-    {
-        public string item;
-        public int chance;
     }
 }

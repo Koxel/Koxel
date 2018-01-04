@@ -55,7 +55,7 @@ GameObject:
   - component: {fileID: 143948533970646012}
   - component: {fileID: 114140482499002776}
   - component: {fileID: 114552308035277930}
-  - component: {fileID: 114894219565810450}
+  - component: {fileID: 114792430813659696}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -771,7 +771,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   controller: {fileID: 114552308035277930}
-  inventory: {fileID: 114894219565810450}
+  inventory: {fileID: 114792430813659696}
 --- !u!114 &114552308035277930
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -790,7 +790,7 @@ MonoBehaviour:
   gravity: 9.81
   jumpSpeed: 5
   sprintSpeed: 3.5
---- !u!114 &114894219565810450
+--- !u!114 &114792430813659696
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
@@ -798,9 +798,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 1134303728299792}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b077880521b97384a8e67034744aa2ca, type: 3}
+  m_Script: {fileID: 11500000, guid: 98d66ba02f1445d408d2a59c4c2a1d1b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  uiPrefab: {fileID: 1924295963159178, guid: cb5ff583e05e2c046af28e423d7f9f3b, type: 2}
+  inventoryUI: {fileID: 0}
+  inventorySize: 20
+  items: []
 --- !u!136 &136182179915482434
 CapsuleCollider:
   m_ObjectHideFlags: 1

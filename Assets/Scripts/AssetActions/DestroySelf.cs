@@ -7,7 +7,7 @@ namespace AssetActions
 {
     public class DestroySelf : IAssetAction
     {
-        void IAssetAction.CallAction(Interactable target)
+        void IAssetAction.CallAction(Interactable target, Player source)
         {
             GameObject.Destroy(target.gameObject);
         }
