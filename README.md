@@ -9,6 +9,8 @@ or destroy whichever you prefer.
 WASD/Arrow keys: Move around<br />
 Right Click and drag: Orbit around the player<br />
 ScrollWheel: Zoom in/out on the player<br />
+Q and E: Cycle through the interactions of an tile asset<br />
+TAB: Select interaction of an tile asset<br />
 
 ## Credits<br />
 Kokonus<br />
