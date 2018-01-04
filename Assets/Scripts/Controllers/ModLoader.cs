@@ -117,6 +117,10 @@ public class ModLoader : MonoBehaviour {
             //Name
             string name = "New Item"; ///DEFAULT VALUE
             if (jObject["Name"] != null) name = jObject["Name"].ToObject<string>(); ///IF JSON CONTAINS CHANGE VALUE
+
+            if (WorldItems.ContainsKey(name))
+                return;
+
             //Description
             string description = "";
             if (jObject["Description"] != null) description = jObject["Description"].ToObject<string>();
@@ -161,6 +165,10 @@ public class ModLoader : MonoBehaviour {
             //Name
             string name = "New TileAsset"; ///DEFAULT VALUE
             if (jObject["Name"] != null) name = jObject["Name"].ToObject<string>(); ///IF JSON CONTAINS CHANGE VALUE
+
+            if (TileAssets.ContainsKey(name))
+                return;
+
             //Model
             GameObject model = null;
             string modelName = "UNDEFINED";
@@ -222,6 +230,10 @@ public class ModLoader : MonoBehaviour {
             //Name
             string name = "New AssetInteration";
             if (jObject["Name"] != null) name = jObject["Name"].ToObject<string>();
+
+            if (AssetInteractions.ContainsKey(name))
+                return;
+
             //Sprite
             GameObject sprite = null;
             string spriteName = "UNDEFINED";
