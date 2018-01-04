@@ -5,6 +5,7 @@ using UnityEngine.UI;
 
 public class InventoryUISlot : MonoBehaviour {
 
+    public InventoryUI controller;
     public Image icon;
     Item item;
 
@@ -25,5 +26,11 @@ public class InventoryUISlot : MonoBehaviour {
             icon.sprite = null;
             icon.enabled = false;
         }
+    }
+
+    public void DestroyItem()
+    {
+        controller.inventory.Remove(item);
+        controller.UpdateUI();
     }
 }

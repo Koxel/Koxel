@@ -32,7 +32,8 @@ public class Inventory : MonoBehaviour {
 
     public void Remove(Item item)
     {
-        items.Remove(item);
+        int index = items.IndexOf(item);
+        items[index] = null;
         UpdateUI();
     }
 
