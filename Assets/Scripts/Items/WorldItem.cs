@@ -10,19 +10,6 @@ public class WorldItem : MonoBehaviour {
 	void Start ()
     {
         rb = GetComponent<Rigidbody>();
-        /*Vector3 sideDir = new Vector3();
-        if(Random.Range(0, 2) == 1)
-        {
-            sideDir = transform.right;
-        }
-        else
-        {
-            sideDir = transform.forward;
-        }
-        if(Random.Range(0, 2) == 1)
-        {
-            sideDir *= -1;
-        }*/
         rb.AddRelativeForce(transform.up * 250f + Random.onUnitSphere * 100f);
 	}
 

@@ -789,7 +789,7 @@ MonoBehaviour:
   turnSpeed: 1000
   gravity: 9.81
   jumpSpeed: 5
-  sprintSpeed: 3.5
+  sprintSpeed: 10
 --- !u!114 &114792430813659696
 MonoBehaviour:
   m_ObjectHideFlags: 1
