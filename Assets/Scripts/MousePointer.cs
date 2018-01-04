@@ -175,7 +175,7 @@ public class MousePointer : MonoBehaviour {
             {
                 GameObject option = RadialMenu.transform.GetChild(i).gameObject;
                 option.SetActive(true);
-                AssetInteraction AI = option.GetComponent<AssetInteraction>();
+                //AssetInteraction AI = option.GetComponent<AssetInteraction>();
                 //AI.Setup(cells[i]);
             }
 

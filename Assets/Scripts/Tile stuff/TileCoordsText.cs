@@ -6,15 +6,11 @@ using Koxel;
 public class TileCoordsText : MonoBehaviour {
 
     TextMesh textMesh;
-    HexCalc hexCalc;
-    HexData hexData;
     Tile tile; 
 
 	void Start () {
         if (!Game.instance.gameConfig.DEBUG)
             Destroy(gameObject);
-        hexCalc = new HexCalc();
-        hexData = new HexData(Game.instance.gameConfig.hexSize);
         textMesh = GetComponent<TextMesh>();
         tile = GetComponentInParent<Tile>();
 	}

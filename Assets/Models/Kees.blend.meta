@@ -1,9 +1,9 @@
 fileFormatVersion: 2
-guid: 8d0d743c46ee9914e9c2aca743a9fe5c
-timeCreated: 1501752631
+guid: 51645be99e80bec4eae85e30b8394ef4
+timeCreated: 1514216441
 licenseType: Free
 ModelImporter:
-  serializedVersion: 21
+  serializedVersion: 22
   fileIDToRecycleName:
     100000: Base
     100002: Bone_001
@@ -14,21 +14,22 @@ ModelImporter:
     100012: Bone_011
     100014: Eye_L
     100016: Eye_R
-    100018: //RootNode
-    100020: kees_arm
-    100022: Kees_hair
-    100024: Kees_mesh
-    100026: LowerMouth
-    100028: Mouth_L
-    100030: Mouth_R
-    100032: Spine_1
-    100034: Spine_2
-    100036: Spine_3
-    100038: Spine_4
-    100040: UpperMouth
-    100042: Hold_Head
-    100044: Hold_L
-    100046: Hold_R
+    100018: Hold_Head
+    100020: Hold_L
+    100022: Hold_R
+    100024: //RootNode
+    100026: kees_arm
+    100028: Kees_hair
+    100030: Kees_mesh
+    100032: LowerMouth
+    100034: Mouth_L
+    100036: Mouth_R
+    100038: SantaHat
+    100040: Spine_1
+    100042: Spine_2
+    100044: Spine_3
+    100046: Spine_4
+    100048: UpperMouth
     400000: Base
     400002: Bone_001
     400004: Bone_003
@@ -38,34 +39,62 @@ ModelImporter:
     400012: Bone_011
     400014: Eye_L
     400016: Eye_R
-    400018: //RootNode
-    400020: kees_arm
-    400022: Kees_hair
-    400024: Kees_mesh
-    400026: LowerMouth
-    400028: Mouth_L
-    400030: Mouth_R
-    400032: Spine_1
-    400034: Spine_2
-    400036: Spine_3
-    400038: Spine_4
-    400040: UpperMouth
-    400042: Hold_Head
-    400044: Hold_L
-    400046: Hold_R
-    4300000: Kees_hair
-    4300002: Kees_mesh
+    400018: Hold_Head
+    400020: Hold_L
+    400022: Hold_R
+    400024: //RootNode
+    400026: kees_arm
+    400028: Kees_hair
+    400030: Kees_mesh
+    400032: LowerMouth
+    400034: Mouth_L
+    400036: Mouth_R
+    400038: SantaHat
+    400040: Spine_1
+    400042: Spine_2
+    400044: Spine_3
+    400046: Spine_4
+    400048: UpperMouth
+    2100000: Material
+    2100002: KeesMain
+    2100004: KeesThird
+    2100006: keesSec
+    4300000: SantaHat
+    4300002: Kees_hair
+    4300004: Kees_mesh
     7400000: Default Take
     7400002: Kees_LowJump
     7400004: Kees_TallJump
     9500000: //RootNode
-    11100000: //RootNode
     13700000: Kees_hair
     13700002: Kees_mesh
+    13700004: SantaHat
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: KeesMain
+    second: {fileID: 2100000, guid: 9aa8d44b8488b124788cd7d03bdaee54, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: KeesThird
+    second: {fileID: 2100000, guid: 145e0903ff8523d4d99b940778ace460, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Material
+    second: {fileID: 10303, guid: 0000000000000000f000000000000000, type: 0}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: keesSec
+    second: {fileID: 2100000, guid: 20320631eb06079448769738fd43f91f, type: 2}
   materials:
     importMaterials: 1
     materialName: 0
     materialSearch: 1
+    materialLocation: 1
   animations:
     legacyGenerateAnimations: 4
     bakeSimulation: 0
@@ -78,7 +107,8 @@ ModelImporter:
     animationImportWarnings: 
     animationRetargetingWarnings: 
     animationDoRetargetingWarnings: 0
-    animationCompression: 3
+    importAnimatedCustomProperties: 0
+    animationCompression: 1
     animationRotationError: 0.5
     animationPositionError: 0.5
     animationScaleError: 0.5
@@ -102,6 +132,8 @@ ModelImporter:
     optimizeMeshForGPU: 1
     keepQuads: 0
     weldVertices: 1
+    preserveHierarchy: 0
+    indexFormat: 0
     secondaryUVAngleDistortion: 8
     secondaryUVAreaDistortion: 15.000001
     secondaryUVHardAngle: 88
@@ -128,7 +160,7 @@ ModelImporter:
     rootMotionBoneName: 
     rootMotionBoneRotation: {x: 0, y: 0, z: 0, w: 1}
     hasTranslationDoF: 0
-    hasExtraRoot: 1
+    hasExtraRoot: 0
     skeletonHasParents: 1
   lastHumanDescriptionAvatarSource: {instanceID: 0}
   animationType: 2

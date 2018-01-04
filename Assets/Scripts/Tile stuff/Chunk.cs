@@ -39,7 +39,7 @@ public class Chunk : MonoBehaviour {
         tileDEBUG.AddRange(tiles.Values);
         tileCoordsDEBUG.AddRange(tiles.Keys);
 
-        HexData hexData = new HexData(Game.instance.gameConfig.hexSize);
+        //HexData hexData = new HexData(Game.instance.gameConfig.hexSize);
         
         for (int r = -Game.instance.gameConfig.chunkSize / 2; r <= Game.instance.gameConfig.chunkSize / 2; r++)
         {
@@ -88,6 +88,7 @@ public class Chunk : MonoBehaviour {
                                     rotation = Random.Range(0, 5);
                                 usedRots.Add(rotation);
                                 assetGO.transform.Rotate(new Vector3(0f, rotation * 60f, 0f));
+                                assetGO.GetComponent<TileAsset>().Setup(asset.name, asset.prefab, asset.chance, asset.sizeRange, asset.assetInteractions, asset.actionData);
                             }
                         }
                     }

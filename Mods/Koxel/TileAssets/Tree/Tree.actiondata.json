@@ -1,0 +1,24 @@
+{
+    "DropItems": [
+        {
+            "Item": "Wood Log",
+            "Chance": 100
+        },
+        {
+            "Item": "Wood Log",
+            "Chance": 100
+        },
+        {
+            "Item": "Wood Log",
+            "Chance": 10
+        },
+        {
+            "Item": "Wood Log",
+            "Chance": 10
+        },
+        {
+            "Item": "Wood Log",
+            "Chance": 10
+        }
+    ]
+}

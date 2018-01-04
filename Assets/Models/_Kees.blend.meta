@@ -1,0 +1,139 @@
+fileFormatVersion: 2
+guid: 8d0d743c46ee9914e9c2aca743a9fe5c
+timeCreated: 1501752631
+licenseType: Free
+ModelImporter:
+  serializedVersion: 21
+  fileIDToRecycleName:
+    100000: Base
+    100002: Bone_001
+    100004: Bone_003
+    100006: Bone_005
+    100008: Bone_007
+    100010: Bone_009
+    100012: Bone_011
+    100014: Eye_L
+    100016: Eye_R
+    100018: //RootNode
+    100020: kees_arm
+    100022: Kees_hair
+    100024: Kees_mesh
+    100026: LowerMouth
+    100028: Mouth_L
+    100030: Mouth_R
+    100032: Spine_1
+    100034: Spine_2
+    100036: Spine_3
+    100038: Spine_4
+    100040: UpperMouth
+    100042: Hold_Head
+    100044: Hold_L
+    100046: Hold_R
+    400000: Base
+    400002: Bone_001
+    400004: Bone_003
+    400006: Bone_005
+    400008: Bone_007
+    400010: Bone_009
+    400012: Bone_011
+    400014: Eye_L
+    400016: Eye_R
+    400018: //RootNode
+    400020: kees_arm
+    400022: Kees_hair
+    400024: Kees_mesh
+    400026: LowerMouth
+    400028: Mouth_L
+    400030: Mouth_R
+    400032: Spine_1
+    400034: Spine_2
+    400036: Spine_3
+    400038: Spine_4
+    400040: UpperMouth
+    400042: Hold_Head
+    400044: Hold_L
+    400046: Hold_R
+    4300000: Kees_hair
+    4300002: Kees_mesh
+    7400000: Default Take
+    7400002: Kees_LowJump
+    7400004: Kees_TallJump
+    9500000: //RootNode
+    11100000: //RootNode
+    13700000: Kees_hair
+    13700002: Kees_mesh
+  materials:
+    importMaterials: 1
+    materialName: 0
+    materialSearch: 1
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    resampleCurves: 1
+    optimizeGameObjects: 0
+    motionNodeName: 
+    rigImportErrors: 
+    rigImportWarnings: 
+    animationImportErrors: 
+    animationImportWarnings: 
+    animationRetargetingWarnings: 
+    animationDoRetargetingWarnings: 0
+    animationCompression: 3
+    animationRotationError: 0.5
+    animationPositionError: 0.5
+    animationScaleError: 0.5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    extraUserProperties: []
+    clipAnimations: []
+    isReadable: 1
+  meshes:
+    lODScreenPercentages: []
+    globalScale: 1
+    meshCompression: 0
+    addColliders: 0
+    importVisibility: 1
+    importBlendShapes: 1
+    importCameras: 1
+    importLights: 1
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    optimizeMeshForGPU: 1
+    keepQuads: 0
+    weldVertices: 1
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVPackMargin: 4
+    useFileScale: 1
+  tangentSpace:
+    normalSmoothAngle: 60
+    normalImportMode: 0
+    tangentImportMode: 3
+    normalCalculationMode: 4
+  importAnimation: 1
+  copyAvatar: 0
+  humanDescription:
+    serializedVersion: 2
+    human: []
+    skeleton: []
+    armTwist: 0.5
+    foreArmTwist: 0.5
+    upperLegTwist: 0.5
+    legTwist: 0.5
+    armStretch: 0.05
+    legStretch: 0.05
+    feetSpacing: 0
+    rootMotionBoneName: 
+    rootMotionBoneRotation: {x: 0, y: 0, z: 0, w: 1}
+    hasTranslationDoF: 0
+    hasExtraRoot: 1
+    skeletonHasParents: 1
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  animationType: 2
+  humanoidOversampling: 1
+  additionalBone: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

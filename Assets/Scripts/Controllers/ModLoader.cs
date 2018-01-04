@@ -6,6 +6,7 @@ using UnityEngine;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using System.IO;
+using AssetActions;
 
 public class ModLoader : MonoBehaviour {
 
@@ -18,12 +19,16 @@ public class ModLoader : MonoBehaviour {
     private Transform PrefabHolder;
 
     public GameObject defaultModel;
+    public GameObject defaultModelNoColl;
     public GameObject defaultSprite;
+    public GameObject WorldItemPrefab;
+    public static Dictionary<string, GameObject> Sprites;
     public static Dictionary<string, Material> Materials;
     public static Dictionary<string, GameObject> Models;
-    public static Dictionary<string, GameObject> Sprites;
-    public static Dictionary<string, AssetInteraction> AssetInteractions;
     public static Dictionary<string, TileAsset> TileAssets;
+    public static Dictionary<string, AssetInteraction> AssetInteractions;
+    public static Dictionary<string, IAssetAction> AssetActions;
+    public static Dictionary<string, GameObject> WorldItems;
 
     void Awake()
     {
@@ -43,26 +48,80 @@ public class ModLoader : MonoBehaviour {
     }
 
     public void LoadMods()
-    {
-        AssetInteractions = new Dictionary<string, AssetInteraction>();
+    {        
         Sprites = new Dictionary<string, GameObject>();
+        Materials = new Dictionary<string, Material>();
         Models = new Dictionary<string, GameObject>();
         TileAssets = new Dictionary<string, TileAsset>();
-        Materials = new Dictionary<string, Material>();
+        AssetInteractions = new Dictionary<string, AssetInteraction>();
+        AssetActions = new Dictionary<string, IAssetAction>();
+        WorldItems = new Dictionary<string, GameObject>();
 
         foreach (string Mod in Mods)
         {
-            string assetsPath = Path.Combine(Path.Combine(ModsFolder, Mod), Mod.ToLower() + "_models");
-            if (File.Exists(assetsPath))
+            string modelsPath = Path.Combine(Path.Combine(ModsFolder, Mod), Mod.ToLower() + "_models");
+            if (File.Exists(modelsPath))
             {
-                AssetBundle assets = AssetBundle.LoadFromFile(assetsPath);
+                AssetBundle assets = AssetBundle.LoadFromFile(modelsPath);
                 GameObject[] prefabs = assets.LoadAllAssets<GameObject>();
                 ImportModels(prefabs);
             }
-                //ImportMaterials(ModsFolder + Mod);
+            //ImportMaterials(ModsFolder + Mod);
             ImportSprites(ModsFolder + Mod);
             ImportAssetInteractions(ModsFolder + Mod);
             ImportTileAssets(ModsFolder + Mod);
+            ImportItems(ModsFolder + Mod);
+        }
+    }
+
+    private void ImportAssetActions(string ModPath)
+    {
+        //Find files in the dir
+        DirectoryInfo dir = new DirectoryInfo(ModPath + "/TileAssets");
+        FileInfo[] files = dir.GetFiles("*.actiondata.json", SearchOption.AllDirectories);
+        foreach (FileInfo file in files)
+        {
+        }
+    }
+
+    private void ImportItems(string ModPath)
+    {
+        //Find files in the dir
+        DirectoryInfo dir = new DirectoryInfo(ModPath + "/Items");
+        FileInfo[] files = dir.GetFiles("*.json", SearchOption.AllDirectories);
+        //for every file in that dir parse json :D
+        foreach (FileInfo file in files)
+        {
+            //JSON
+            string json = File.ReadAllText(file.FullName);
+            JToken jObject = JToken.Parse(json);
+            //Name
+            string name = "New Item"; ///DEFAULT VALUE
+            if (jObject["Name"] != null) name = jObject["Name"].ToObject<string>(); ///IF JSON CONTAINS CHANGE VALUE
+            //Description
+            string description = "";
+            if (jObject["Description"] != null) description = jObject["Description"].ToObject<string>();
+            //Sprite
+            GameObject sprite = null;
+            string spriteName = "UNDEFINED";
+            if (jObject["Sprite"] != null) spriteName = jObject["Sprite"].ToObject<string>();
+            if (spriteName != "UNDEFINED") Sprites.TryGetValue(spriteName, out sprite);
+            if (sprite == null) sprite = defaultSprite;
+            //Model
+            GameObject model = null;
+            string modelName = "UNDEFINED";
+            if (jObject["Model"] != null) modelName = jObject["Model"].ToObject<string>();
+            if (modelName != "UNDEFINED") Models.TryGetValue(modelName, out model);
+            if (model == null) model = defaultModelNoColl;
+            //Create Item
+            Item item = new Item(spriteName, description, sprite, model);
+            //Create 'prefab'
+            GameObject GO = Instantiate(WorldItemPrefab, PrefabHolder);
+            Instantiate(model, GO.transform.GetChild(0));
+            WorldItem worldItem = GO.GetComponent<WorldItem>();
+            worldItem.item = item;
+
+            WorldItems.Add(name, GO);
         }
     }
 
@@ -110,10 +169,17 @@ public class ModLoader : MonoBehaviour {
                 if (AssetInteractions.TryGetValue(interaction, out _Interaction))
                     assetInteractions.Add(_Interaction);
             }
-
+            //ActionData
+            JToken actionjObject = null;
+            string actiondatapath = file.FullName.Replace(".asset.json", ".actiondata.json").Replace(@"\", "/");
+            if (File.Exists(actiondatapath))
+            {
+                string action_json = File.ReadAllText(actiondatapath);
+                actionjObject = JToken.Parse(action_json);
+            }
             //Create TileAsset
             TileAsset ta = TileAsset.AddComponent<TileAsset>();
-            ta.Setup(name, TileAsset, chance, sizeRange, assetInteractions);
+            ta.Setup(name, TileAsset, chance, sizeRange, assetInteractions, actionjObject);
             TileAssets.Add(name, ta);
         }
     }
@@ -148,8 +214,17 @@ public class ModLoader : MonoBehaviour {
             renderer.sortingLayerName = "Popups";
             renderer.sortingOrder = 1;
             renderer.gameObject.layer = 5;
+            //Action Sequence
+            int actionCount = jObject["Sequence"].Count();
+            List<IAssetAction> sequence = new List<IAssetAction>();
+            for (int i = 0; i < actionCount; i++)
+            {
+                IAssetAction ac = GetAssetAction(jObject["Sequence"][i].ToString());
+                if(ac != null)
+                    sequence.Add(ac);
+            }
             //Create AssetInteraction
-            AssetInteraction AI = new AssetInteraction(name, prefab);
+            AssetInteraction AI = new AssetInteraction(name, prefab, sequence);
             AssetInteractions.Add(name, AI);
         }
     }
@@ -258,4 +333,20 @@ public class ModLoader : MonoBehaviour {
             Materials.Add(name, material);
         }
     }*/
+
+    private IAssetAction GetAssetAction(string name)
+    {
+        switch (name)
+        {
+            case "DropItems":
+                return new DropItems();
+            case "DestroySelf":
+                return new DestroySelf();
+            case "AddToInv":
+                return new AddToInv();
+            default:
+                Debug.LogError("ModLoader: No AssetAction with name: " + name);
+                return null;
+        }
+    }
 }
