@@ -1,0 +1,6 @@
+{
+    "Name": "Wood Log",
+    "Description": "A useful building material.",
+    "Sprite": "Icons/Items/WoodLog.png",
+    "Model": "WoodLog"
+}

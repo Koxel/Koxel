@@ -49,6 +49,11 @@ public class Game : MonoBehaviour {
 
         ChunkManagement.OnChunksManaged -= SpawnPlayer;
     }
+
+    public void StartCoroutinePasser(IEnumerator func)
+    {
+        StartCoroutine(func);
+    }
 }
 
 public class GameConfig

@@ -5,17 +5,16 @@ using UnityEngine;
 
 namespace AssetActions
 {
-    [System.Serializable]
-    public class AddToInv : IAssetAction
+    public class DestroySelf : IAssetAction
     {
         void IAssetAction.CallAction(Interactable target)
         {
-            Debug.Log("BEEP ADDTOINV");
+            GameObject.Destroy(target.gameObject);
         }
 
         string IAssetAction.GetName()
         {
-            return "AddToInv";
+            return "DestroySelf";
         }
     }
 }

@@ -19,13 +19,16 @@ public class ModLoader : MonoBehaviour {
     private Transform PrefabHolder;
 
     public GameObject defaultModel;
+    public GameObject defaultModelNoColl;
     public GameObject defaultSprite;
+    public GameObject WorldItemPrefab;
     public static Dictionary<string, GameObject> Sprites;
     public static Dictionary<string, Material> Materials;
     public static Dictionary<string, GameObject> Models;
     public static Dictionary<string, TileAsset> TileAssets;
     public static Dictionary<string, AssetInteraction> AssetInteractions;
     public static Dictionary<string, IAssetAction> AssetActions;
+    public static Dictionary<string, GameObject> WorldItems;
 
     void Awake()
     {
@@ -52,6 +55,7 @@ public class ModLoader : MonoBehaviour {
         TileAssets = new Dictionary<string, TileAsset>();
         AssetInteractions = new Dictionary<string, AssetInteraction>();
         AssetActions = new Dictionary<string, IAssetAction>();
+        WorldItems = new Dictionary<string, GameObject>();
 
         foreach (string Mod in Mods)
         {
@@ -66,6 +70,7 @@ public class ModLoader : MonoBehaviour {
             ImportSprites(ModsFolder + Mod);
             ImportAssetInteractions(ModsFolder + Mod);
             ImportTileAssets(ModsFolder + Mod);
+            ImportItems(ModsFolder + Mod);
         }
     }
 
@@ -76,6 +81,47 @@ public class ModLoader : MonoBehaviour {
         FileInfo[] files = dir.GetFiles("*.actiondata.json", SearchOption.AllDirectories);
         foreach (FileInfo file in files)
         {
+        }
+    }
+
+    private void ImportItems(string ModPath)
+    {
+        //Find files in the dir
+        DirectoryInfo dir = new DirectoryInfo(ModPath + "/Items");
+        FileInfo[] files = dir.GetFiles("*.json", SearchOption.AllDirectories);
+        //for every file in that dir parse json :D
+        foreach (FileInfo file in files)
+        {
+            //JSON
+            string json = File.ReadAllText(file.FullName);
+            JToken jObject = JToken.Parse(json);
+            //Name
+            string name = "New Item"; ///DEFAULT VALUE
+            if (jObject["Name"] != null) name = jObject["Name"].ToObject<string>(); ///IF JSON CONTAINS CHANGE VALUE
+            //Description
+            string description = "";
+            if (jObject["Description"] != null) description = jObject["Description"].ToObject<string>();
+            //Sprite
+            GameObject sprite = null;
+            string spriteName = "UNDEFINED";
+            if (jObject["Sprite"] != null) spriteName = jObject["Sprite"].ToObject<string>();
+            if (spriteName != "UNDEFINED") Sprites.TryGetValue(spriteName, out sprite);
+            if (sprite == null) sprite = defaultSprite;
+            //Model
+            GameObject model = null;
+            string modelName = "UNDEFINED";
+            if (jObject["Model"] != null) modelName = jObject["Model"].ToObject<string>();
+            if (modelName != "UNDEFINED") Models.TryGetValue(modelName, out model);
+            if (model == null) model = defaultModelNoColl;
+            //Create Item
+            Item item = new Item(spriteName, description, sprite, model);
+            //Create 'prefab'
+            GameObject GO = Instantiate(WorldItemPrefab, PrefabHolder);
+            Instantiate(model, GO.transform.GetChild(0));
+            WorldItem worldItem = GO.GetComponent<WorldItem>();
+            worldItem.item = item;
+
+            WorldItems.Add(name, GO);
         }
     }
 

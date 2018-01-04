@@ -16,6 +16,7 @@ public class PlayerController : MonoBehaviour {
     public float turnSpeed = 90f;
     public float gravity = 9.81f;
     public float jumpSpeed = 5f;
+    public float sprintSpeed = 3.5f;
 
     Vector3 move;
     Vector3 mover;
@@ -94,7 +95,6 @@ public class PlayerController : MonoBehaviour {
                         Destroy(InteractObject);
 
                     interactable = thing.GetComponentInParent<Interactable>();
-                    Debug.Log(interactable.assetInteractions);
                     if (interactable.assetInteractions.Count > 0)
                     {
                         InteractObject = Instantiate(InteractSprite, interactable.transform.GetChild(0).position, Quaternion.identity);
@@ -130,7 +130,10 @@ public class PlayerController : MonoBehaviour {
             }
         }
 
-        mover *= moveSpeed;
+        if (Input.GetButton("Sprint"))
+            mover *= sprintSpeed;
+        else
+            mover *= moveSpeed;
         verticalSpeed -= gravity * Time.deltaTime;
         mover.y = verticalSpeed;
     }

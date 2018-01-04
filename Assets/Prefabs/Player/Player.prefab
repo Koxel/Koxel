@@ -50,10 +50,12 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4217482040650486}
+  - component: {fileID: 136182179915482434}
   - component: {fileID: 54076505130002270}
   - component: {fileID: 143948533970646012}
+  - component: {fileID: 114140482499002776}
   - component: {fileID: 114552308035277930}
-  - component: {fileID: 136182179915482434}
+  - component: {fileID: 114894219565810450}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -757,6 +759,19 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 112
   m_CollisionDetection: 0
+--- !u!114 &114140482499002776
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1134303728299792}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 634cd7444f763594d8298b79c3ccc5a4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  controller: {fileID: 114552308035277930}
+  inventory: {fileID: 114894219565810450}
 --- !u!114 &114552308035277930
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -774,6 +789,18 @@ MonoBehaviour:
   turnSpeed: 1000
   gravity: 9.81
   jumpSpeed: 5
+  sprintSpeed: 3.5
+--- !u!114 &114894219565810450
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1134303728299792}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b077880521b97384a8e67034744aa2ca, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!136 &136182179915482434
 CapsuleCollider:
   m_ObjectHideFlags: 1

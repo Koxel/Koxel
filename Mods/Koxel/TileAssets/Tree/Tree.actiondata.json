@@ -1,23 +1,23 @@
 {
     "DropItems": [
         {
-            "Item": "Log",
+            "Item": "Wood Log",
             "Chance": 100
         },
         {
-            "Item": "Log",
+            "Item": "Wood Log",
             "Chance": 100
         },
         {
-            "Item": "Log",
+            "Item": "Wood Log",
             "Chance": 10
         },
         {
-            "Item": "Log",
+            "Item": "Wood Log",
             "Chance": 10
         },
         {
-            "Item": "Log",
+            "Item": "Wood Log",
             "Chance": 10
         }
     ]

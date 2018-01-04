@@ -2,22 +2,19 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Item : MonoBehaviour {
-
-    public new string name;
-
-	// Use this for initialization
-	void Start () {
-		
-	}
-	
-	// Update is called once per frame
-	void Update () {
-		
-	}
-}
-
-public class ItemData
+[System.Serializable]
+public class Item
 {
+    public string name;
+    public string description;
+    public GameObject icon;
+    public GameObject model;
 
+    public Item(string name, string description, GameObject icon, GameObject model)
+    {
+        this.name = name;
+        this.description = description;
+        this.icon = icon;
+        this.model = model;
+    }
 }

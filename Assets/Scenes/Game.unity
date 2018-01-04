@@ -291,8 +291,53 @@ MonoBehaviour:
   - Koxel
   defaultModel: {fileID: 1836517571203332, guid: f64d5009e314ec046a290a9ea4830d32,
     type: 2}
+  defaultModelNoColl: {fileID: 1188299195215488, guid: d0730c5fb329eb54199895d6a10547cb,
+    type: 2}
   defaultSprite: {fileID: 1211452069506332, guid: 36abe0fa9eb0abf46932aa390a584bfd,
     type: 2}
+  WorldItemPrefab: {fileID: 1159119373631420, guid: 84e6eed362026e942b25e67ecf5970fe,
+    type: 2}
+--- !u!1 &176244637
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 176244639}
+  - component: {fileID: 176244638}
+  m_Layer: 0
+  m_Name: Debug Functionality
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &176244638
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 176244637}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: af82f7b06e997f24799d13e82939bb22, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  prefab: {fileID: 1159119373631420, guid: 84e6eed362026e942b25e67ecf5970fe, type: 2}
+--- !u!4 &176244639
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 176244637}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 4
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1305096897
 GameObject:
   m_ObjectHideFlags: 0

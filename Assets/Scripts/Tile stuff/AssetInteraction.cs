@@ -15,24 +15,13 @@ public class AssetInteraction
         this.name = name;
         this.sprite = sprite;
         this.actionSequence = new List<IAssetAction>(actionSequence);
-        //this.actionSequence.AddRange(actionSequence);
-        if(name == "Smash")
-        {
-            foreach(IAssetAction ac in actionSequence)
-            {
-                Debug.Log(ac);
-            }
-        }
     }
 
     public void Activate(Interactable interactable)
     {
-        Debug.Log(name);
-        Debug.Log(this.actionSequence);
-        foreach(IAssetAction action in this.actionSequence)
+        foreach(IAssetAction action in actionSequence)
         {
             action.CallAction(interactable);
-            Debug.Log(action.GetName());
         }
     }
 }
