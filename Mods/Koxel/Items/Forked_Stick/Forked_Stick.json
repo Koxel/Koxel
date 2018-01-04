@@ -1,0 +1,6 @@
+{
+    "Name": "Forked_Stick",
+    "Description": "A stick with a fork on one end, very usefull.",
+    "Sprite": "Icons/Items/Forked_Stick.png",
+    "Model": "Forked_Stick"
+}

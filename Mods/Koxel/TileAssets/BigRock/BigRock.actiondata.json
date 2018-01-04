@@ -1,23 +1,27 @@
 {
     "DropItems": [
         {
-            "Item": "Rock",
+            "Item": "Pebbles",
             "Chance": 100
         },
         {
-            "Item": "Pebble",
+            "Item": "Pebbles",
             "Chance": 100
         },
         {
-            "Item": "Rock",
+            "Item": "Flint",
             "Chance": 30
         },
         {
-            "Item": "Pebble",
+            "Item": "Pebbles",
             "Chance": 10
         },
         {
-            "Item": "Pebble",
+            "Item": "Pebbles",
+            "Chance": 10
+        },
+        {
+            "Item": "Flint",
             "Chance": 10
         }
     ]

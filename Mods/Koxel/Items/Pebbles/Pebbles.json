@@ -1,0 +1,6 @@
+{
+    "Name": "Pebbles",
+    "Description": "A few pebbles, maybe you can find a use for them.",
+    "Sprite": "Icons/Items/Pebbles.png",
+    "Model": "Pebbles"
+}

@@ -1,8 +1,12 @@
 {
     "AddToInv": [
         {
-            "Item": "Pebble",
-            "Chance": 100
+            "Item": "Pebbles",
+            "Chance": 80
+        },
+        {
+            "Item": "Flint",
+            "Chance": 20
         }
     ]
 }
