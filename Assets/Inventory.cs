@@ -24,7 +24,13 @@ public class Inventory : MonoBehaviour {
             }
             else
             {
-                items.Add(item);
+                int foundSpot = FindSpot();
+                if (foundSpot == -1)
+                    items.Add(item);
+                else
+                {
+                    items[foundSpot] = item;
+                }
             }
             UpdateUI();
         }
@@ -56,5 +62,17 @@ public class Inventory : MonoBehaviour {
         {
             Destroy(inventoryUI.gameObject);
         }
+    }
+
+    int FindSpot()
+    {
+        foreach (Item item in items)
+        {
+            if(item == null)
+            {
+                return items.IndexOf(item);
+            }
+        }
+        return -1;
     }
 }
