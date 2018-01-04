@@ -57,6 +57,19 @@ public class ModLoader : MonoBehaviour {
         AssetActions = new Dictionary<string, IAssetAction>();
         WorldItems = new Dictionary<string, GameObject>();
 
+        //Get mods
+        if(File.Exists(GameFolder + "mods.json"))
+        {
+            string json = File.ReadAllText(GameFolder + "mods.json");
+            JToken jObject = JToken.Parse(json);
+            Mods = jObject["Mods"].ToObject<string[]>();
+        }
+        else
+        {
+            Debug.LogError("Modloader: No mods.json found!");
+            return;
+        }
+
         foreach (string Mod in Mods)
         {
             string modelsPath = Path.Combine(Path.Combine(ModsFolder, Mod), Mod.ToLower() + "_models");
@@ -76,6 +89,9 @@ public class ModLoader : MonoBehaviour {
 
     private void ImportAssetActions(string ModPath)
     {
+        if (!Directory.Exists(ModPath + "/TileAssets"))
+            return;
+
         //Find files in the dir
         DirectoryInfo dir = new DirectoryInfo(ModPath + "/TileAssets");
         FileInfo[] files = dir.GetFiles("*.actiondata.json", SearchOption.AllDirectories);
@@ -86,6 +102,9 @@ public class ModLoader : MonoBehaviour {
 
     private void ImportItems(string ModPath)
     {
+        if (!Directory.Exists(ModPath + "/Items"))
+            return;
+
         //Find files in the dir
         DirectoryInfo dir = new DirectoryInfo(ModPath + "/Items");
         FileInfo[] files = dir.GetFiles("*.json", SearchOption.AllDirectories);
@@ -127,6 +146,9 @@ public class ModLoader : MonoBehaviour {
 
     private void ImportTileAssets(string ModPath)
     {
+        if (!Directory.Exists(ModPath + "/TileAssets"))
+            return;
+
         //Find files in the dir
         DirectoryInfo dir = new DirectoryInfo(ModPath + "/TileAssets");
         FileInfo[] files = dir.GetFiles("*.asset.json", SearchOption.AllDirectories);
@@ -186,6 +208,9 @@ public class ModLoader : MonoBehaviour {
 
     private void ImportAssetInteractions(string ModPath)
     {
+        if (!Directory.Exists(ModPath + "/AssetInteractions"))
+            return;
+
         DirectoryInfo dir = new DirectoryInfo(ModPath + "/AssetInteractions");
         FileInfo[] files = dir.GetFiles("*.json", SearchOption.AllDirectories);
 
@@ -231,6 +256,9 @@ public class ModLoader : MonoBehaviour {
 
     private void ImportSprites(string ModPath)
     {
+        if (!Directory.Exists(ModPath + "/Sprites"))
+            return;
+
         DirectoryInfo dir = new DirectoryInfo(ModPath + "/Sprites");
         FileInfo[] files = dir.GetFiles("*.png", SearchOption.AllDirectories);
 
