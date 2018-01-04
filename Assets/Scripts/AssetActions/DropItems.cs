@@ -9,6 +9,9 @@ namespace AssetActions
     {
         void IAssetAction.CallAction(Interactable target)
         {
+            if (target.actionData == null)
+                return;
+
             JToken jToken = target.actionData;
             if(jToken["DropItems"] != null)
             {
