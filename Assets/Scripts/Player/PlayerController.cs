@@ -5,6 +5,8 @@ using UnityEngine;
 [RequireComponent(typeof(CharacterController))]
 public class PlayerController : MonoBehaviour {
 
+    private bool movementEnabled;
+
     Transform cam;
     CharacterController controller;
     Player player;
@@ -29,6 +31,18 @@ public class PlayerController : MonoBehaviour {
         player = GetComponent<Player>();
 	}
 
+    void OnEnable()
+    {
+        Game.OnUIOpen += DisableMovement;
+        Game.OnUIClose += EnableMovement;
+    }
+    void OnDisable()
+    {
+        Game.OnUIOpen -= DisableMovement;
+        Game.OnUIClose -= EnableMovement;
+    }
+
+    //Interaction box draw
     private void OnDrawGizmos()
     {
         Gizmos.DrawSphere(transform.position + new Vector3(0f, .2f) + transform.forward * 1f, .5f);
@@ -38,7 +52,7 @@ public class PlayerController : MonoBehaviour {
     {
         CheckInteractions();
 
-        if (Input.GetKeyDown(KeyCode.Tab) && InteractObject != null)
+        if (Input.GetKeyDown(KeyCode.Tab) && InteractObject != null && movementEnabled)
         {
             AssetInteraction ai = InteractObject.GetComponentInChildren<InteractionMenu>().options[0];
             ai.Activate(interactable, player);
@@ -51,8 +65,8 @@ public class PlayerController : MonoBehaviour {
     {
         float turnAmount = Mathf.Atan2(move.x, move.z);
         float turnSpeed = Mathf.Lerp(180, 360, move.z);
-        transform.Rotate(0, turnAmount * turnSpeed * Time.deltaTime, 0);
 
+        transform.Rotate(0, turnAmount * turnSpeed * Time.deltaTime, 0);
         controller.Move(mover * Time.deltaTime);
     }
 
@@ -116,7 +130,17 @@ public class PlayerController : MonoBehaviour {
     void CalculateMovement()
     {
         Vector3 forward = Vector3.Scale(cam.forward, new Vector3(1, 0, 1).normalized);
-        move = Input.GetAxis("Vertical") * forward + Input.GetAxis("Horizontal") * cam.right;
+
+        float horIn = Input.GetAxis("Horizontal");
+        float verIn = Input.GetAxis("Vertical");
+
+        if (!movementEnabled)
+        {
+            horIn = 0f;
+            verIn = 0f;
+        }
+
+        move = verIn * forward + horIn * cam.right;
         mover = move;
 
         if (move.magnitude > 1f) move.Normalize();
@@ -138,5 +162,14 @@ public class PlayerController : MonoBehaviour {
             mover *= moveSpeed;
         verticalSpeed -= gravity * Time.deltaTime;
         mover.y = verticalSpeed;
+    }    
+
+    public void EnableMovement()
+    {
+        movementEnabled = true;
+    }
+    public void DisableMovement()
+    {
+        movementEnabled = false;
     }
 }

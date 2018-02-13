@@ -26,7 +26,9 @@ public class Inventory : MonoBehaviour {
             {
                 int foundSpot = FindSpot();
                 if (foundSpot == -1)
+                {
                     items.Add(item);
+                }
                 else
                 {
                     items[foundSpot] = item;
@@ -53,13 +55,18 @@ public class Inventory : MonoBehaviour {
     {
         if(inventoryUI == null)
         {
-            Debug.Log("Spawn");
+            //Open
+            Game.instance.OpenUI();
+
             inventoryUI = Instantiate(uiPrefab, Game.instance.canvas.transform).GetComponent<InventoryUI>();
             inventoryUI.inventory = this;
             inventoryUI.UpdateUI();
         }
         else
         {
+            //Close
+            Game.instance.CloseUI();
+
             Destroy(inventoryUI.gameObject);
         }
     }

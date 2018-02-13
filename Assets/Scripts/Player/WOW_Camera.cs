@@ -45,6 +45,30 @@ public class WOW_Camera : MonoBehaviour {
         // Make the rigid body not change rotation
         if (rigidbody)
             rigidbody.freezeRotation = true;
+
+        movementEnabled = true;
+    }
+
+    void OnEnable()
+    {
+        Game.OnUIOpen += DisableMovement;
+        Game.OnUIClose += EnableMovement;
+    }
+    void OnDisable()
+    {
+        Game.OnUIOpen -= DisableMovement;
+        Game.OnUIClose -= EnableMovement;
+    }
+
+    private bool movementEnabled;
+    public void DisableMovement()
+    {
+        movementEnabled = false;
+
+    }
+    public void EnableMovement()
+    {
+        movementEnabled = true;
     }
 
     /**
@@ -57,6 +81,11 @@ public class WOW_Camera : MonoBehaviour {
         {
             if(GameObject.FindGameObjectWithTag("Player"))
                 target = GameObject.FindGameObjectWithTag("Player").transform;
+            return;
+        }
+
+        if (!movementEnabled)
+        {
             return;
         }
 
@@ -74,8 +103,8 @@ public class WOW_Camera : MonoBehaviour {
         // otherwise, ease behind the target if any of the directional keys are pressed
         else if (Input.GetAxis("Vertical") != 0 || Input.GetAxis("Horizontal") != 0)
         {
-            float targetRotationAngle = target.eulerAngles.y;
-            float currentRotationAngle = transform.eulerAngles.y;
+            //float targetRotationAngle = target.eulerAngles.y;
+            //float currentRotationAngle = transform.eulerAngles.y;
             //x = Mathf.LerpAngle(currentRotationAngle, targetRotationAngle, rotationDampening * Time.deltaTime);
         }
 

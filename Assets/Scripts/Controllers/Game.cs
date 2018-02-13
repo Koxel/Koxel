@@ -16,7 +16,13 @@ public class Game : MonoBehaviour {
     public World world;
     public GameObject canvas;
 
-	void Awake () {
+    //Events
+    public delegate void UIOpen();
+    public static event UIOpen OnUIOpen;
+    public delegate void UIClose();
+    public static event UIClose OnUIClose;
+
+    void Awake () {
         instance = this;
 
         gameConfig = JsonConvert.DeserializeObject<GameConfig>(File.ReadAllText(Directory.GetParent(Application.dataPath).FullName + "/Game/GameConfig.json").Replace(@"\", "/"));
@@ -44,11 +50,20 @@ public class Game : MonoBehaviour {
         PlayerCamera.instance.target = player.transform;
         PlayerCamera.instance.transform.position = player.transform.position;
         player.name = player.name.Replace("(Clone)", "");
-
-        /*GameObject cursor = Instantiate(worldCursorPrefab);
-        cursor.name = cursor.name.Replace("(Clone)", "");*/
+        player.GetComponent<PlayerController>().EnableMovement();
 
         ChunkManagement.OnChunksManaged -= SpawnPlayer;
+    }
+
+    public void OpenUI()
+    {
+        if (OnUIOpen != null)
+            OnUIOpen();
+    }
+    public void CloseUI()
+    {
+        if (OnUIClose != null)
+            OnUIClose();
     }
 
     public void StartCoroutinePasser(IEnumerator func)

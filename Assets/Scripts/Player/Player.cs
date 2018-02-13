@@ -9,7 +9,7 @@ public class Player : MonoBehaviour {
 
     private void Awake()
     {
-        //Hook up to events
+        
     }
 
     private void Update()
