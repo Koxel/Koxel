@@ -10,6 +10,7 @@ public class Game : MonoBehaviour {
 
     public GameConfig gameConfig;
     public GameObject playerPrefab;
+    public GameObject playerUIPrefab;
     public GameObject worldCursorPrefab;
     public static HexData hexData;
 
@@ -38,20 +39,29 @@ public class Game : MonoBehaviour {
         Debug.Log("Mods Loaded");
         World.instance.tileAssets.AddRange(ModLoader.TileAssets.Values);
 
-        ChunkManagement.instance.loader = PlayerCamera.instance.transform;
+        OnUIOpen += Pause;
+        OnUIClose += Resume;
+
+        ChunkManagement.instance.loader = Camera.main.transform.parent;
         ChunkManagement.instance.ManageChunks();
         Debug.Log("World Loaded");
     }
 
     private void SpawnPlayer(Chunk originChunk)
     { 
+        //Create Player
         GameObject player = Instantiate(playerPrefab, originChunk.tiles[new Vector3(0,0,0)].transform.position, Quaternion.identity);
-        ChunkManagement.instance.loader = player.transform;
-        PlayerCamera.instance.target = player.transform;
-        PlayerCamera.instance.transform.position = player.transform.position;
         player.name = player.name.Replace("(Clone)", "");
+
+        //Create UI
+        GameObject playerUI = Instantiate(playerUIPrefab, canvas.transform);
+        PlayerUIController controller = playerUI.GetComponent<PlayerUIController>();
+        controller.player = player.GetComponent<Player>();
+
+        player.GetComponent<Player>().UIcontroller = controller;
         player.GetComponent<PlayerController>().EnableMovement();
 
+        ChunkManagement.instance.loader = player.transform;
         ChunkManagement.OnChunksManaged -= SpawnPlayer;
     }
 
@@ -64,6 +74,15 @@ public class Game : MonoBehaviour {
     {
         if (OnUIClose != null)
             OnUIClose();
+    }
+
+    public static void Pause()
+    {
+        Time.timeScale = 0f;
+    }
+    public static void Resume()
+    {
+        Time.timeScale = 1f;
     }
 
     public void StartCoroutinePasser(IEnumerator func)

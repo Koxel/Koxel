@@ -1,0 +1,5 @@
+{
+    "Name": "Harvest",
+    "Sprite": "Icons/Tools/Hand.png",
+    "Sequence": ["AddToInv"]
+}

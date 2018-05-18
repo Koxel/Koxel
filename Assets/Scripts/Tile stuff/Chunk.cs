@@ -10,7 +10,7 @@ public class Chunk : MonoBehaviour {
     bool hasGenerated;
     public GameObject tilePrefab;
     public Vector3 coords;
-    public Dictionary<Vector3, Tile> tiles;// = new Dictionary<Vector3, Tile>();
+    public Dictionary<Vector3, Tile> tiles;
 
     [Header("Debug")]
     public List<Vector3> tileCoordsDEBUG;
@@ -18,8 +18,6 @@ public class Chunk : MonoBehaviour {
 
     void Awake()
     {
-        //Generate();
-        
         if (!hasGenerated)
         {
             tileCoordsDEBUG = new List<Vector3>();
@@ -35,11 +33,8 @@ public class Chunk : MonoBehaviour {
 
     public void Generate()
     {
-        //Debug.Log("Generate");
         tileDEBUG.AddRange(tiles.Values);
         tileCoordsDEBUG.AddRange(tiles.Keys);
-
-        //HexData hexData = new HexData(Game.instance.gameConfig.hexSize);
         
         for (int r = -Game.instance.gameConfig.chunkSize / 2; r <= Game.instance.gameConfig.chunkSize / 2; r++)
         {

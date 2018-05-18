@@ -1,0 +1,12 @@
+{
+    "DropItems": [
+        {
+            "Item": "Wood Log",
+            "Chance": 10
+        },
+        {
+            "Item": "Forked_Stick",
+            "Chance": 10
+        }
+    ]
+}

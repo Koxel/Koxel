@@ -31,17 +31,6 @@ public class PlayerController : MonoBehaviour {
         player = GetComponent<Player>();
 	}
 
-    void OnEnable()
-    {
-        Game.OnUIOpen += DisableMovement;
-        Game.OnUIClose += EnableMovement;
-    }
-    void OnDisable()
-    {
-        Game.OnUIOpen -= DisableMovement;
-        Game.OnUIClose -= EnableMovement;
-    }
-
     //Interaction box draw
     private void OnDrawGizmos()
     {
@@ -156,6 +145,7 @@ public class PlayerController : MonoBehaviour {
             }
         }
 
+        //mover.Normalize();
         if (Input.GetButton("Sprint"))
             mover *= sprintSpeed;
         else

@@ -1,0 +1,7 @@
+{
+    "Name": "Tree",
+    "Model": "Tree",
+    "SpawnChance": 3,
+    "SizeRange": [0.9, 1.5],
+    "Interactions": ["Cut Down"]
+}

@@ -1,0 +1,14 @@
+{
+    "Name": "Basic Workbench",
+    "Model": "BasicWorkbench",
+    "ActiveConditions": [
+        {
+            "Type": "Fuel",
+            "AcceptedInput": ["Coal", "WoodLog"]
+        },
+        {
+            "Type": "HasItem",
+            "Items": ["Stone Axe"]
+        }
+    ]
+}

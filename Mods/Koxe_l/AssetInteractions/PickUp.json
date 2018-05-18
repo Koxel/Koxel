@@ -1,0 +1,5 @@
+{
+    "Name": "Pick Up",
+    "Sprite": "Icons/Tools/Hand.png",
+    "Sequence": ["AddToInv", "DestroySelf"]
+}

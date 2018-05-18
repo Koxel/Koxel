@@ -1,0 +1,14 @@
+{
+    "Recipes": [
+        {
+            "Result": "Stone Axe",
+            "Ingredients": ["Forked Stick", "Flint"],
+            "Crafting Station": "Basic Workbench"
+        },
+        {
+            "Result": "Stone Pickaxe",
+            "Ingredients": ["Forked Stick", "Flint"],
+            "Crafting Station": "Basic Workbench"
+        }
+    ]
+}

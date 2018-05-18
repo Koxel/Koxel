@@ -1,0 +1,26 @@
+{
+    "AddToInv": [
+        {
+            "Item": "RedBerry",
+            "Chance": 20
+        }
+    ],
+    "DropItems": [
+            {
+                "Item": "RedBerry",
+                "Chance": 100
+            },
+            {
+                "Item": "RedBerry",
+                "Chance": 100
+            },
+            {
+                "Item": "RedBerry",
+                "Chance": 50
+            },
+            {
+                "Item": "RedBerry",
+                "Chance": 25
+            }
+    ]
+}

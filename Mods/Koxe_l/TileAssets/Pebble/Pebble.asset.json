@@ -1,0 +1,7 @@
+{
+    "Name": "Pebble",
+    "Model": "Pebble",
+    "SpawnChance": 2,
+    "SizeRange": [1, 2],
+    "Interactions": ["Pick Up"]
+}

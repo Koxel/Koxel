@@ -1,0 +1,6 @@
+{
+    "Name": "RedBerry",
+    "Description": "A tasty treat that is sure to still some hunger.",
+    "Sprite": "Icons/Items/RedBerry.png",
+    "Model": "RedBerry"
+}

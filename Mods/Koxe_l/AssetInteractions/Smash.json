@@ -1,0 +1,5 @@
+{
+    "Name": "Smash",
+    "Sprite": "Icons/Tools/Hammer.png",
+    "Sequence": ["DropItems", "DestroySelf"]
+}

@@ -1,0 +1,6 @@
+{
+    "Name": "Flint",
+    "Description": "A sharp piece of flint.",
+    "Sprite": "Icons/Items/Flint.png",
+    "Model": "Flint"
+}

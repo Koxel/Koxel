@@ -1,0 +1,7 @@
+{
+    "Name": "BerryBush",
+    "Model": "Bush",
+    "SpawnChance": 10,
+    "SizeRange": [0.5, 2],
+    "Interactions": []
+}

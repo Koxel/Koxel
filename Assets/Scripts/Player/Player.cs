@@ -4,8 +4,13 @@ using UnityEngine;
 
 public class Player : MonoBehaviour {
 
+    public PlayerUIController UIcontroller;
+
     public PlayerController controller;
     public Inventory inventory;
+    public PlayerCrafting crafting;
+
+    private bool uiOpen;
 
     private void Awake()
     {
@@ -16,7 +21,22 @@ public class Player : MonoBehaviour {
     {
         if (Input.GetKeyDown(KeyCode.I))
         {
-            inventory.ToggleUI();
+            Debug.Log("Press I");
+            if (uiOpen)
+            {
+                uiOpen = false;
+                UIcontroller.CloseUI();
+            }
+            else
+            {
+                uiOpen = true;
+                UIcontroller.OpenUI(PlayerUIController.UI.Inventory);
+            }
+        }
+        if(Input.GetKeyDown(KeyCode.Escape) && uiOpen)
+        {
+            uiOpen = false;
+            UIcontroller.CloseUI();
         }
     }
 }

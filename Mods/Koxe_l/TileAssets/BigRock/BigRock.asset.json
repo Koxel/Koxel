@@ -1,0 +1,7 @@
+{
+    "Name": "BigRock",
+    "Model": "BigRock",
+    "SpawnChance": 6,
+    "SizeRange": [0.9, 3],
+    "Interactions": ["Smash"]
+}

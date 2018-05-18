@@ -1,7 +1,7 @@
 {
     "Name": "BerryBush",
-    "Model": "Bush",
+    "Model": "BerryBush",
     "SpawnChance": 10,
-    "SizeRange": [0.5, 2],
-    "Interactions": []
+    "SizeRange": [0.7, 2],
+    "Interactions": ["Harvest","Cut Down"]
 }

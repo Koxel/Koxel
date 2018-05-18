@@ -1,0 +1,6 @@
+{
+    "Name": "Basic Workbench",
+    "Model": "BasicWorkbench",
+    "AcceptedFuel": ["Coal", "Wood Log"],
+    "Required": ["Stone Axe"]
+}
