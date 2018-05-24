@@ -63,6 +63,15 @@ public class Game : MonoBehaviour {
 
         ChunkManagement.instance.loader = player.transform;
         ChunkManagement.OnChunksManaged -= SpawnPlayer;
+
+        StartCoroutine(ShowStartPopups());
+    }
+
+    IEnumerator ShowStartPopups()
+    {
+        PopupManager.instance.ShowInfo("Use the WASD keys to move around and Space to jump.", 8000);
+        yield return new WaitForSeconds(10000/1000);
+        PopupManager.instance.ShowInfo("Walk up to an object and use your mouse to scroll through the menu, then click to select.", 9000);
     }
 
     public void OpenUI()
