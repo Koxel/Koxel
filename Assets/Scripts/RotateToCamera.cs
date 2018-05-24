@@ -4,7 +4,7 @@ using UnityEngine;
 
 [ExecuteInEditMode]
 public class RotateToCamera : MonoBehaviour {
-    void FixedUpdate()
+    void LateUpdate()
     {
         transform.rotation = Quaternion.Euler(Camera.main.transform.rotation.eulerAngles);
     }
