@@ -41,10 +41,11 @@ public class PlayerController : MonoBehaviour {
     {
         CheckInteractions();
 
-        if (Input.GetKeyDown(KeyCode.Tab) && InteractObject != null && movementEnabled)
+        if (Input.GetKeyDown(KeyCode.Mouse0) && InteractObject != null && movementEnabled)
         {
             AssetInteraction ai = InteractObject.GetComponentInChildren<InteractionMenu>().options[0];
             ai.Activate(interactable, player);
+            Destroy(InteractObject);
         }
 
         CalculateMovement();

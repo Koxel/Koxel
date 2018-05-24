@@ -90,7 +90,7 @@ public class WOW_Camera : MonoBehaviour {
         }
 
         // If either mouse buttons are down, let the mouse govern camera position
-        if (Input.GetMouseButton(0) || Input.GetMouseButton(1))
+        if (Input.GetMouseButton(1))
         {
             x += Input.GetAxis("Mouse X") * xSpeed * 0.02f;
             y -= Input.GetAxis("Mouse Y") * ySpeed * 0.02f;
@@ -113,8 +113,11 @@ public class WOW_Camera : MonoBehaviour {
         // set camera rotation
         Quaternion rotation = Quaternion.Euler(y, x, 0);
 
-        // calculate the desired distance
-        desiredDistance -= Input.GetAxis("Mouse ScrollWheel") * Time.deltaTime * zoomRate * Mathf.Abs(desiredDistance);
+        if (Input.GetMouseButton(1))
+        {
+            // calculate the desired distance
+            desiredDistance -= Input.GetAxis("Mouse ScrollWheel") * Time.deltaTime * zoomRate * Mathf.Abs(desiredDistance);
+        }
         //desiredDistance -= Input.GetAxis("Mouse ScrollWheel") * Time.deltaTime * zoomRate * Mathf.Abs(desiredDistance);
         desiredDistance = Mathf.Clamp(desiredDistance, minDistance, maxDistance);
         correctedDistance = desiredDistance;

@@ -20,20 +20,22 @@ public class InteractionMenu : MonoBehaviour {
     {
         if (options.Length == 0)
             return;
-
-        if (Input.GetKey(KeyCode.E) && !anim.isPlaying)
+        if (!Input.GetMouseButton(1))
         {
-            anim["Rotate"].speed = 1;
-            anim["Rotate"].time = 0;
-            anim.Play("Rotate");
-            Rotate();
-        }
-        else if(Input.GetKey(KeyCode.Q) && !anim.isPlaying)
-        {
-            anim["Rotate"].speed = -1;
-            anim["Rotate"].time = anim["Rotate"].length;
-            anim.Play("Rotate");
-            RotateLeft();
+            if (Input.GetAxis("Mouse ScrollWheel") > 0f && !anim.isPlaying)
+            {
+                anim["Rotate"].speed = 1.5f;
+                anim["Rotate"].time = 0;
+                anim.Play("Rotate");
+                Rotate();
+            }
+            else if (Input.GetAxis("Mouse ScrollWheel") < 0f && !anim.isPlaying)
+            {
+                anim["Rotate"].speed = -1.5f;
+                anim["Rotate"].time = anim["Rotate"].length;
+                anim.Play("Rotate");
+                RotateLeft();
+            }
         }
 	}
 
