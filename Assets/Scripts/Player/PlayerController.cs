@@ -14,7 +14,7 @@ public class PlayerController : MonoBehaviour {
     public GameObject InteractSprite;
 
     Interactable interactable;
-    GameObject InteractObject;
+    static GameObject InteractObject;
     public float moveSpeed = 2f;
     public float turnSpeed = 90f;
     public float gravity = 9.81f;
@@ -43,9 +43,35 @@ public class PlayerController : MonoBehaviour {
 
         if (Input.GetKeyDown(KeyCode.Mouse0) && InteractObject != null && movementEnabled)
         {
-            AssetInteraction ai = InteractObject.GetComponentInChildren<InteractionMenu>().options[0];
+            InteractionMenu menu = InteractObject.GetComponentInChildren<InteractionMenu>();
+            AssetInteraction ai = null;
+            if (Input.GetKey(KeyCode.LeftShift))
+            {
+                //InteractObject.GetComponentInChildren<InteractionMenu>().RotateLeft();
+                
+                ai = menu.options[menu.options.Length-1];
+            }
+            else if (Input.GetKey(KeyCode.LeftControl))
+            {
+                //InteractObject.GetComponentInChildren<InteractionMenu>().Rotate();
+                if(menu.options.Length > 0)
+                {
+                    ai = menu.options[1];
+                }
+                else
+                {
+                    ai = menu.options[0];
+                }
+            }
+            else
+            {
+                ai = InteractObject.GetComponentInChildren<InteractionMenu>().options[0];
+            }
+
             ai.Activate(interactable, player);
-            Destroy(InteractObject);
+
+            if (interactable == null)
+                Destroy(InteractObject);
         }
 
         CalculateMovement();
@@ -64,17 +90,9 @@ public class PlayerController : MonoBehaviour {
     {
         int layerMask = 1 << 8;
         layerMask = ~layerMask;
-        /*Collider[] found = Physics.OverlapCapsule(
-            transform.position + transform.forward * 1.2f, 
-            transform.position + new Vector3(0f, 1f) + transform.forward * 1.2f, 
-            .5f, layerMask);*/
         Collider[] found = Physics.OverlapSphere(transform.position + new Vector3(0f, .2f) + transform.forward * 1f, .5f, layerMask);
         if (found.Length != 0)
         {
-            /*foreach (Collider obj in found)
-            {
-                Debug.Log(obj.gameObject);
-            }*/
             GameObject thing = found[0].gameObject;
             if (thing.GetComponent<Interactable>() != null)
             {
@@ -162,5 +180,10 @@ public class PlayerController : MonoBehaviour {
     public void DisableMovement()
     {
         movementEnabled = false;
+    }
+
+    public static void DestroyMenu()
+    {
+        Destroy(InteractObject);
     }
 }

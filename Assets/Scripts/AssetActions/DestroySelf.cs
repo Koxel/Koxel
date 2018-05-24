@@ -9,6 +9,7 @@ namespace AssetActions
     {
         void IAssetAction.CallAction(Interactable target, Player source)
         {
+            PlayerController.DestroyMenu();
             GameObject.Destroy(target.gameObject);
         }
 

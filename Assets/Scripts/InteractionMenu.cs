@@ -18,22 +18,18 @@ public class InteractionMenu : MonoBehaviour {
 	
 	void Update ()
     {
+        /*if (options == null)
+            Destroy(transform.parent.gameObject);*/
         if (options.Length == 0)
             return;
         if (!Input.GetMouseButton(1))
         {
             if (Input.GetAxis("Mouse ScrollWheel") > 0f && !anim.isPlaying)
             {
-                anim["Rotate"].speed = 1.5f;
-                anim["Rotate"].time = 0;
-                anim.Play("Rotate");
                 Rotate();
             }
             else if (Input.GetAxis("Mouse ScrollWheel") < 0f && !anim.isPlaying)
             {
-                anim["Rotate"].speed = -1.5f;
-                anim["Rotate"].time = anim["Rotate"].length;
-                anim.Play("Rotate");
                 RotateLeft();
             }
         }
@@ -164,6 +160,11 @@ public class InteractionMenu : MonoBehaviour {
 
     public void Rotate()
     {
+        //Anim
+        anim["Rotate"].speed = 1.5f;
+        anim["Rotate"].time = 0;
+        anim.Play("Rotate");
+
         //Remove old icons
         for (int childnr = 0; childnr < transform.childCount; childnr++)
         {
@@ -226,6 +227,11 @@ public class InteractionMenu : MonoBehaviour {
     bool prev = true;
     public void RotateLeft()
     {
+        //Anim
+        anim["Rotate"].speed = -1.5f;
+        anim["Rotate"].time = anim["Rotate"].length;
+        anim.Play("Rotate");
+
         ShiftLeft(options);
         if (!prev)
             prev = true;
