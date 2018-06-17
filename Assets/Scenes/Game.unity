@@ -222,6 +222,9 @@ MonoBehaviour:
     type: 2}
   playerUIPrefab: {fileID: 1341803209208970, guid: ec93d504e2713584883c674068b20647,
     type: 2}
+  loadingTextPrefab: {fileID: 1478763868237124, guid: 5d90da363b3e6ae4b84752a0af6de50f,
+    type: 2}
+  loadingText: {fileID: 0}
   worldCursorPrefab: {fileID: 1563398220823412, guid: b77969757797a7e47a526c2118e53056,
     type: 2}
   world: {fileID: 1305096898}
@@ -666,6 +669,10 @@ Prefab:
         type: 2}
       propertyPath: m_isInputParsingRequired
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1341803209208970, guid: ec93d504e2713584883c674068b20647, type: 2}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: ec93d504e2713584883c674068b20647, type: 2}
