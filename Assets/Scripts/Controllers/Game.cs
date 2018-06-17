@@ -11,6 +11,8 @@ public class Game : MonoBehaviour {
     public GameConfig gameConfig;
     public GameObject playerPrefab;
     public GameObject playerUIPrefab;
+    public GameObject loadingTextPrefab;
+    public GameObject loadingText;
     public GameObject worldCursorPrefab;
     public static HexData hexData;
 
@@ -42,13 +44,19 @@ public class Game : MonoBehaviour {
         OnUIOpen += Pause;
         OnUIClose += Resume;
 
+        //Show loading text
+        loadingText = Instantiate(loadingTextPrefab, canvas.transform);
+
         ChunkManagement.instance.loader = Camera.main.transform.parent;
         ChunkManagement.instance.ManageChunks();
         Debug.Log("World Loaded");
     }
 
     private void SpawnPlayer(Chunk originChunk)
-    { 
+    {
+        //Remove the loading text
+        Destroy(loadingText);
+
         //Create Player
         GameObject player = Instantiate(playerPrefab, originChunk.tiles[new Vector3(0,0,0)].transform.position, Quaternion.identity);
         player.name = player.name.Replace("(Clone)", "");

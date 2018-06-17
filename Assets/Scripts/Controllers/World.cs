@@ -86,14 +86,12 @@ public class World : MonoBehaviour {
     {
         int x = (int)tile.coords.x;
         int y = (int)tile.coords.y;
-
         double noise = 0;
 
-        noise += simplex.Evaluate(x / 5f, y / 5f) / 20;
-        noise += simplex.Evaluate(x / 25f, y / 25f) / 6;
-        noise += simplex.Evaluate(x / 50f, y / 50f);
-        noise += simplex.Evaluate(x / 100f, y / 100f);
-        //noise += simplex.Evaluate(x / 750f, y / 750f)*1;
+        noise += simplex.Evaluate(x / 5f, y / 5f) / 10;
+        noise += simplex.Evaluate(x / 25f, y / 25f);
+        //noise += simplex.Evaluate(x / 100f, y / 100f);
+        noise += simplex.Evaluate(x / 300f, y / 300f) * 5;
 
         noise = noise / 4;
         noise = noise - 0.8;
@@ -110,6 +108,7 @@ public class World : MonoBehaviour {
         if (flatWorld) noise = 0f;
 
         return (float)noise * 50f;
+
     }
 
     //Johny's Perlin noise example

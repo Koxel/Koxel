@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class PopupManager : MonoBehaviour {
 
@@ -12,6 +13,11 @@ public class PopupManager : MonoBehaviour {
     private void Awake()
     {
         instance = this;
+    }
+
+    public void ShowNotification()
+    {
+
     }
 
     public void ShowInfo(string text, float showtime)
@@ -25,7 +31,7 @@ public class PopupManager : MonoBehaviour {
     IEnumerator InfoPopup(string text, float time)
     {
         infoText.SetText(text);
-        Animation anim = infoText.GetComponent<Animation>();
+        Animation anim = GetComponent<Animation>();
         anim["InfoTextFade"].speed = 1f;
         anim["InfoTextFade"].time = 0f;
         anim.Play("InfoTextFade");
@@ -33,6 +39,5 @@ public class PopupManager : MonoBehaviour {
         anim["InfoTextFade"].speed = -1f;
         anim["InfoTextFade"].time = anim["InfoTextFade"].length;
         anim.Play("InfoTextFade");
-
     }
 }
